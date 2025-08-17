@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NRS5030T3R3MMGJ
+D Fixed Inductors INDCTR LW PROFL WND 3.3uH +/- 20% TOL
+K
+F https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-DGA11/2227925.pdf
+$ENDCMP
+#
+#End Doc Library

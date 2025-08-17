@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP SMF05C
+D SEMTECH - SMF05C - DIODE, TVS, 5 CH, BIDIR, 5V, SC70
+F https://componentsearchengine.com/Datasheets/2/SMF05C.pdf
+$ENDCMP
+#
+#End Doc Library

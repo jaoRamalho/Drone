@@ -1,0 +1,321 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 0r
+D Resistor 0805 5% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 1.2r
+D Resistor 0603 1% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 1.3k_0.5%
+D Resistor 0603 0.5% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 100R
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 100k
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 100r
+D Resistor 0603 5% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 10M
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 10R
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 10k
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 11k
+D Resistor 0603 5% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 12.4K
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 150k
+D Resistor 0603 1% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 15k
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 178r
+D Resistor 0603 1% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 180r
+D Resistor 0603 5% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 18k
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 196k
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 1M_0805
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 1k
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 2.94R_1%
+D Thick Film Resistors - SMD 1/8watt 2.94ohms 1% 0805
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 200k
+D Resistor 2010 1% 0.75W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 200k_0805
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 21.5k
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 240R
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 2M
+D Resistor 0603 5% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 2k2
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 2k87
+D Resistor 0603 1% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 2r
+D Resistor 0603 5% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 33
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 330R_0805
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 330r
+D Resistor 0603 5% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 33r
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 390r
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 3k3
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 3k3_0.5%
+D Resistor 0603 0.5% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 40K
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 45.3k
+D Resistor 0603 1% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 470r
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 47k
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 47r
+D Resistor 0805 5% 0.5W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 49.9R
+D Resistor 0805 5% 0.5W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 4k3
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 5.6r
+D Resistor 0603 5% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 52.3K
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 56.2k
+D Resistor 0603 1% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 56r
+D Resistor 0603 5% 0.25W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 5k1
+D Resistor 0805 1% 0.4W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 60.4k
+D Resistor 0603 5% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 62k
+D Resistor 0805 1% 0.125W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 7.5r
+D Resistor 0805 1% 0.4W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 71.5K
+D RES 71.5K OHM 1% 1/8W 0805
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP 910r
+D Resistor 0603 1% 0.1W
+K r res resistor
+F ~
+$ENDCMP
+#
+$CMP NM
+D NM 0805
+K r res resistor
+F ~
+$ENDCMP
+#
+#End Doc Library

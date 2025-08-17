@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 330uF_10V
+D Aluminum Organic Polymer Capacitors 10V 330uF 20% ESR=18mOhms
+F https://connect.kemet.com:7667/gateway/IntelliData-ComponentDocumentation/1.0/download/specsheet/A759EK337M1AAAE018
+$ENDCMP
+#
+#End Doc Library

@@ -1,0 +1,30 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# AP62301WU-7
+#
+DEF AP62301WU-7 U 0 30 Y Y 1 F N
+F0 "U" 850 300 50 H V L CNN
+F1 "AP62301WU-7" 850 200 50 H V L CNN
+F2 "SOT95P280X100-6N" 850 100 50 H I L CNN
+F3 "" 850 0 50 H I L CNN
+F4 "Switching Voltage Regulators DCDC Conv HV Buck TSOT26 T&R 3K" 850 -100 50 H I L CNN "Description"
+F5 "1" 850 -200 50 H I L CNN "Height"
+F6 "Diodes Inc." 850 -300 50 H I L CNN "Manufacturer_Name"
+F7 "AP62301WU-7" 850 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "621-AP62301WU-7" 850 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Diodes-Incorporated/AP62301WU-7?qs=7MVldsJ5Uaw8ZNNQQbqpmA%3D%3D" 850 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "AP62301WU-7" 850 -700 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/ap62301wu-7/diodes-incorporated?region=nac" 850 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 5 0 1 6 200 100 800 100 800 -300 200 -300 200 100 f
+X GND 1 0 0 200 R 50 50 0 0 P
+X SW 2 0 -100 200 R 50 50 0 0 P
+X VIN 3 0 -200 200 R 50 50 0 0 P
+X FB 4 1000 -200 200 L 50 50 0 0 P
+X EN 5 1000 -100 200 L 50 50 0 0 P
+X BST 6 1000 0 200 L 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+#End Library

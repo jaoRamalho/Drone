@@ -1,0 +1,27 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# LD1117ADT33TR
+#
+DEF LD1117ADT33TR IC 0 30 Y Y 1 F N
+F0 "IC" 1050 300 50 H V L CNN
+F1 "LD1117ADT33TR" 1050 200 50 H V L CNN
+F2 "LD1117ADT33TR:TO228P972X240-3N" 1050 100 50 H I L CNN
+F3 "" 1050 0 50 H I L CNN
+F4 "LDO Regulator 3.3V 1.2A DPAK STMicroelectronics LD1117ADT33TR, LDO Voltage Regulator, 1.2A, 3.3 V +/-2%, 3-Pin DPAK" 1050 -100 50 H I L CNN "Description"
+F5 "2.4" 1050 -200 50 H I L CNN "Height"
+F6 "STMicroelectronics" 1050 -300 50 H I L CNN "Manufacturer_Name"
+F7 "LD1117ADT33TR" 1050 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "511-LD1117ADT33-TR" 1050 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/STMicroelectronics/LD1117ADT33TR?qs=sSwyxX0Tv9fVzC5UBogSJA%3D%3D" 1050 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "LD1117ADT33TR" 1050 -700 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/ld1117adt33tr/stmicroelectronics?region=nac" 1050 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+P 5 0 1 6 200 100 1000 100 1000 -200 200 -200 200 100 f
+X ADJ/GND 1 0 0 200 R 50 50 0 0 W
+X VIN 3 0 -100 200 R 50 50 0 0 I
+X TAB 4 1200 0 200 L 50 50 0 0 I
+ENDDRAW
+ENDDEF
+#
+#End Library

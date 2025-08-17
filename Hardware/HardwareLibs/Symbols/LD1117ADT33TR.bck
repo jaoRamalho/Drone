@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP LD1117ADT33TR
+D LDO Regulator 3.3V 1.2A DPAK STMicroelectronics LD1117ADT33TR, LDO Voltage Regulator, 1.2A, 3.3 V +/-2%, 3-Pin DPAK
+F http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00002116.pdf
+$ENDCMP
+#
+#End Doc Library

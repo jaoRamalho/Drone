@@ -1,0 +1,1297 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# 0r
+#
+DEF 0r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "0r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 5% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "CRCW08050000Z0ECC" 0 0 60 H I C CNN "MPN"
+F6 "Vishay Dale" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 1.2r
+#
+DEF 1.2r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "1.2r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 1% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0603FT1R20" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 1.3k_0.5%
+#
+DEF 1.3k_0.5% R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "1.3k_0.5%" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RT0603DRE071K3L" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 100R
+#
+DEF 100R R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "100R" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 0.5W" 0 0 50 H I C CNN "Descrição"
+F5 "CMP0805AFX-1000ELF" 0 0 60 H I C CNN "MPN"
+F6 "Bourns" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 100k
+#
+DEF 100k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "100k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0805FG100K" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 100r
+#
+DEF 100r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "100r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0603FR-07100RL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+F7 "RMCF0603FG100R" 0 0 50 H I C CNN "MPN"
+F8 "Stackpole Electronics Inc" 0 0 50 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 10M
+#
+DEF 10M R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "10M" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805FR-0710ML" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 10R
+#
+DEF 10R R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "10R" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805JR-0710RL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 10k
+#
+DEF 10k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "10k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "CRCW080510K0FKEAC" 0 0 60 H I C CNN "MPN"
+F6 "Vishay Dale" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 11k
+#
+DEF 11k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "11k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0603JR-0711KL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 12.4K
+#
+DEF 12.4K R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "12.4K" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "ERJ-6ENF1242V" 0 0 60 H I C CNN "MPN"
+F6 "Panasonic" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 150k
+#
+DEF 150k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "150k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 1% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0603FG150K" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+F7 "CR0603-FX-1503ELF" 0 0 60 H I C CNN "MPN2"
+F8 "Bourns Inc." 0 0 60 H I C CNN "Manufacturer2"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 15k
+#
+DEF 15k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "15k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805FR-0715KL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 178r
+#
+DEF 178r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "178r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 1% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "ERJ-3EKF1780V" 0 0 60 H I C CNN "MPN"
+F6 "Panasonic" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 180r
+#
+DEF 180r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "180r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0603JR-07180RL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+F7 "RMCF0603JT180R" 0 0 50 H I C CNN "MPN"
+F8 "Stackpole Electronics Inc" 0 0 50 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 18k
+#
+DEF 18k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "18k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805FR-0718KL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 196k
+#
+DEF 196k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "196k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805FR-07196KL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 1M_0805
+#
+DEF 1M_0805 R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "1M_0805" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "ERJ-6ENF1004V" 0 0 60 H I C CNN "MPN"
+F6 "Panasonic" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 1k
+#
+DEF 1k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "1k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "CRCW08051K00FKEAC" 0 0 60 H I C CNN "MPN"
+F6 "Vishay Dale" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 2.94R_1%
+#
+DEF 2.94R_1% R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "2.94R_1%" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Thick Film Resistors - SMD 1/8watt 2.94ohms 1%" 0 0 50 H I C CNN "Descrição"
+F5 "CRCW08052R94FKEA" 0 0 60 H I C CNN "MPN"
+F6 "Vishay" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 200k
+#
+DEF 200k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "200k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_2010_5025Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 2010 1% 0.75W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF2010FT200K" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 200k_0805
+#
+DEF 200k_0805 R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "200k_0805" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805FR-07200KL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 21.5k
+#
+DEF 21.5k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "21.5k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805FR-0721K5L" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 240R
+#
+DEF 240R R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "240R" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0805JT240R" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 2M
+#
+DEF 2M R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "2M" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "ERJ-3GEYJ205V" 0 0 60 H I C CNN "MPN"
+F6 "Panasonic Electronic Components" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 2k2
+#
+DEF 2k2 R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "2k2" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0805FT2K20" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 2k87
+#
+DEF 2k87 R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "2k87" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 1% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0603FT2K87" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+F7 "RK73H1JTTD2871F" 0 0 60 H I C CNN "MPN2"
+F8 "KOA Speer Electronics, Inc." 0 0 60 H I C CNN "Manufacturer2"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 2r
+#
+DEF 2r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "2r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0402JR-072RL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 33
+#
+DEF 33 R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "33" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805JR-0733RL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 330R_0805
+#
+DEF 330R_0805 R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "330R_0805" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 330 OHM 5% 1/8W 0805" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0805JT330R" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole " 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 330r
+#
+DEF 330r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "330r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0603JT330R" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+F7 "CR0603-JW-331ELF" 0 0 60 H I C CNN "MPN2"
+F8 "Bourns Inc." 0 0 60 H I C CNN "Manufacturer2"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 33r
+#
+DEF 33r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "33r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805JR-0733RL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 390r
+#
+DEF 390r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "390r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "CRG0805F390R" 0 0 60 H I C CNN "MPN"
+F6 "TE Connectivity Passive Product" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 3k3
+#
+DEF 3k3 R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "3k3" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805FR-073K3L" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 3k3_0.5%
+#
+DEF 3k3_0.5% R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "3k3_0.5%" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RT0603DRD073K3L" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 40K
+#
+DEF 40K R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "40K" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "CRCW080540K2FKTA" 0 0 60 H I C CNN "MPN"
+F6 "Vishay" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 45.3k
+#
+DEF 45.3k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "45.3k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 1% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "ERJ-3EKF45R3V" 0 0 60 H I C CNN "MPN"
+F6 "Panasonic Electronic Components" 0 0 60 H I C CNN "Manufacturer"
+F7 "RK73H1JTTD45R3F" 0 0 60 H I C CNN "MPN2"
+F8 "KOA Speer Electronics, Inc." 0 0 60 H I C CNN "Manufacturer2"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 470r
+#
+DEF 470r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "470r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0805FT470R" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 47k
+#
+DEF 47k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "47k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805FR-0747KL" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 47r
+#
+DEF 47r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "47r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 5% 0.5W" 0 0 50 H I C CNN "Descrição"
+F5 "ERJ-P06J470V" 0 0 60 H I C CNN "MPN"
+F6 "Panasonic Electronic Components" 0 0 60 H I C CNN "Manufacturer"
+F7 "RMCF1210JT47R0" 0 0 60 H I C CNN "MPN2"
+F8 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer2"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 49.9R
+#
+DEF 49.9R R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "49.9R" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 5% 0.5W" 0 0 50 H I C CNN "Descrição"
+F5 "ERJ-6ENF49R9V" 0 0 60 H I C CNN "MPN"
+F6 "Panasonic Electronic Components" 0 0 60 H I C CNN "Manufacturer"
+F7 "RR1220Q-49R9-D-M" 0 0 60 H I C CNN "MPN2"
+F8 "Susumu" 0 0 60 H I C CNN "Manufacturer2"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 4k3
+#
+DEF 4k3 R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "4k3" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805FR-074K3L" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 5.6r
+#
+DEF 5.6r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "5.6r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0603FT5R60" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+F7 "CR0603-J/-5R6ELF" 0 0 60 H I C CNN "MPN2"
+F8 "Bourns Inc." 0 0 60 H I C CNN "Manufacturer2"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 52.3K
+#
+DEF 52.3K R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "52.3K" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RC0805FR-0752K3L" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 56.2k
+#
+DEF 56.2k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "56.2k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 1% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "MCT06030C5622FP500" 0 0 60 H I C CNN "MPN"
+F6 "Vishay Beyschlag" 0 0 60 H I C CNN "Manufacturer"
+F7 "ERA-3AEB5622V" 0 0 60 H I C CNN "MPN2"
+F8 "Panasonic Electronic Components" 0 0 60 H I C CNN "Manufacturer2"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 56r
+#
+DEF 56r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "56r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.25W" 0 0 50 H I C CNN "Descrição"
+F5 "ERJ-PA3J560V" 0 0 60 H I C CNN "MPN"
+F6 "Panasonic Electronic Components" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 5k1
+#
+DEF 5k1 R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "5k1" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "CRCW08055K10FKEAC" 0 0 60 H I C CNN "MPN"
+F6 "Vishay Dale" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 60.4k
+#
+DEF 60.4k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "60.4k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 5% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RT0603DRE0760K4L" 0 0 60 H I C CNN "MPN"
+F6 "Yageo" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 62k
+#
+DEF 62k R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "62k" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0805FT62K0" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 7.5r
+#
+DEF 7.5r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "7.5r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.4W" 0 0 50 H I C CNN "Descrição"
+F5 "RCS08057R50FKEA" 0 0 60 H I C CNN "MPN"
+F6 "Vishay Dale" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 71.5K
+#
+DEF 71.5K R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "71.5K" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0805 1% 0.125W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0805FT71K5" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# 910r
+#
+DEF 910r R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "910r" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0603_1608Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "Resistor 0603 1% 0.1W" 0 0 50 H I C CNN "Descrição"
+F5 "RMCF0603FT910R" 0 0 60 H I C CNN "MPN"
+F6 "Stackpole Electronics Inc" 0 0 60 H I C CNN "Manufacturer"
+F7 "RK73H1JTTD9100F" 0 0 60 H I C CNN "MPN2"
+F8 "KOA Speer Electronics, Inc." 0 0 60 H I C CNN "Manufacturer2"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# NM
+#
+DEF NM R 0 0 N Y 1 F N
+F0 "R" 100 0 50 V V C CNN
+F1 "NM" -100 0 50 V V C CNN
+F2 "Local_Resistor_SMD:R_0805_2012Metric" 40 -10 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+F4 "NM" 0 0 60 H I C CNN "MPN"
+F5 "NM" 0 0 60 H I C CNN "Manufacturer"
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 0 -90 0 -100 N
+P 2 0 1 0 0 90 0 100 N
+P 5 0 1 0 0 -30 40 -45 0 -60 -40 -75 0 -90 N
+P 5 0 1 0 0 30 40 15 0 0 -40 -15 0 -30 N
+P 5 0 1 0 0 90 40 75 0 60 -40 45 0 30 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+#End Library

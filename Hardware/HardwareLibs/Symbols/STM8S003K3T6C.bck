@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP STM8S003K3T6C
+D STMicroelectronics STM8S003K3T6C, 8bit STM8 Microcontroller, 16MHz, 8 kB Flash, 32-Pin LQFP
+K
+F http://www.mouser.com/ds/2/389/stm8s003f3-956285.pdf
+$ENDCMP
+#
+#End Doc Library

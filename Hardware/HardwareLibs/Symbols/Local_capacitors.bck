@@ -1,0 +1,155 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 100n
+D Capacitor 0805 50V 20%
+$ENDCMP
+#
+$CMP 100p
+D CAP CER 100PF 50V C0G/NP0 0805
+$ENDCMP
+#
+$CMP 100u
+D Capacitor rad 50V 20%
+$ENDCMP
+#
+$CMP 100u_100V
+D Capacitor rad 50V 20%
+$ENDCMP
+#
+$CMP 100u_10v
+D Capacitor rad 35V 20%
+$ENDCMP
+#
+$CMP 10n
+D Capacitor 0805 50V 10%
+$ENDCMP
+#
+$CMP 10u
+D Capacitor 1210 50V 10%
+$ENDCMP
+#
+$CMP 10u_10v
+D Capacitor 0805 10v 20%
+$ENDCMP
+#
+$CMP 10u_25v
+D CAP CER 10UF 25V X5R 0805
+$ENDCMP
+#
+$CMP 120p
+D Capacitor 0603 50V 1%
+$ENDCMP
+#
+$CMP 14p
+D Capacitor 0603 50V 5%
+$ENDCMP
+#
+$CMP 18pF
+D Capacitor 0805 50V 5%
+$ENDCMP
+#
+$CMP 1n
+D CAP CER 1206 1NF 1000V X7R 10%
+$ENDCMP
+#
+$CMP 1u
+D Capacitor 0803 50V 10%
+$ENDCMP
+#
+$CMP 2.2u
+D Capacitor 0805 10V 10%
+$ENDCMP
+#
+$CMP 220n
+D Capacitor 0805 50V 10%
+$ENDCMP
+#
+$CMP 220u
+D Capacitor rad 35V 20%
+$ENDCMP
+#
+$CMP 220uF_6V3
+D CAP CER 220UF 6.3V X5R 1210
+$ENDCMP
+#
+$CMP 22n
+D Capacitor 0805 50V 5% C0G
+$ENDCMP
+#
+$CMP 22u
+D Capacitor 0805 6.3V 20%
+$ENDCMP
+#
+$CMP 330u
+D Capacitor 2917 6.3V 20%
+$ENDCMP
+#
+$CMP 33p_0805
+D CAP CER 33PF 50V C0G/NPO 0805
+$ENDCMP
+#
+$CMP 4.7nF
+D Capacitor 0603 50V 20%
+$ENDCMP
+#
+$CMP 4.7u
+D Capacitor 0805 10V 10%
+$ENDCMP
+#
+$CMP 470n
+D Capacitor 0603 25V 10%
+$ENDCMP
+#
+$CMP 470u
+D CAP ALUM 470UF 20% 6.3V SMD
+$ENDCMP
+#
+$CMP 470u_6v3_THT
+D CAP ALUM POLY 470UF 20% 6.3V T/H
+$ENDCMP
+#
+$CMP 47n
+D Capacitor 0603 50V 10%
+$ENDCMP
+#
+$CMP 47p
+D Capacitor 0603 50V 1%
+$ENDCMP
+#
+$CMP 47u
+D Capacitor 1210 16V 20%
+$ENDCMP
+#
+$CMP 47u_25V_Radial_6.3mm
+D CAP ALUM POLY 47UF 20% 25V SMD
+$ENDCMP
+#
+$CMP 47u_35v
+D CAP 47 UF 20% 35 V
+$ENDCMP
+#
+$CMP 4p
+D Capacitor 0805 50V 0.25p
+$ENDCMP
+#
+$CMP 51p
+D Capacitor 0805 100V 5%
+$ENDCMP
+#
+$CMP 680u_6,3v
+D Capacitor rad 6,3V 20%
+$ENDCMP
+#
+$CMP 7pF
+D CAP CER 7PF 50V C0G/NPO 0805
+$ENDCMP
+#
+$CMP 9pF
+D CAP CER 9PF 50V C0G/NPO 0805
+$ENDCMP
+#
+$CMP NM
+D Not Mounted
+$ENDCMP
+#
+#End Doc Library

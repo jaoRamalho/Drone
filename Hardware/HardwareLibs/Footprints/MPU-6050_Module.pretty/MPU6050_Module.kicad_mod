@@ -1,0 +1,157 @@
+(footprint "MPU6050_Module"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "LCD 4x10 character 3.3V VDD I2C or SPI http://www.lcd-module.com/fileadmin/eng/pdf/doma/dogs104e.pdf")
+	(tags "LCD 4x10 character 3.3V VDD I2C or SPI")
+	(property "Reference" "REF**"
+		(at 2.22 -7.73 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "7dc43ec8-a1ca-440f-9552-cf80a3307f9e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "MPU6050_Module"
+		(at 6.6 30.8 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "00f2ca95-84db-4f81-a911-390fdd23662c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d6d9da85-8b92-4792-9a11-06cf8b0f8fed")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d0e905b7-af1d-435e-9dce-3cbb8a1b368d")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_rect
+		(start 0 0)
+		(end 15.5 20)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "e6b381d3-0769-4a31-83cc-7dfda581e9e5")
+	)
+	(fp_text user "${REFERENCE}"
+		(at -0.5 -1.5 0)
+		(layer "F.Fab")
+		(uuid "c990f746-2340-4df3-8704-4068744ba678")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at 1.4 1)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "8a8416a4-ab37-409b-b2f2-12b5c09385e7")
+	)
+	(pad "2" thru_hole circle
+		(at 1.4 3.54)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "404e7b94-c647-4582-9bdd-142cca286ce4")
+	)
+	(pad "3" thru_hole circle
+		(at 1.4 6.08)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "7f947a61-c436-4475-b984-0be59f120e64")
+	)
+	(pad "4" thru_hole circle
+		(at 1.4 8.62)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "007512a0-a44a-473c-953c-6a88192070e4")
+	)
+	(pad "5" thru_hole circle
+		(at 1.4 11.16)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "fc3f3e2c-dba0-4fa0-bb49-c758330f9515")
+	)
+	(pad "6" thru_hole circle
+		(at 1.4 13.7)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "c730999d-8991-4b4a-91c0-ffa3489a6597")
+	)
+	(pad "7" thru_hole circle
+		(at 1.4 16.24)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "737dcb1d-c2d1-4d20-9c2a-58add28c904b")
+	)
+	(pad "8" thru_hole circle
+		(at 1.4 18.78)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "6c2a7cea-3397-4ea7-887d-ab87ae3117b3")
+	)
+	(embedded_fonts no)
+	(model "${KICAD9_3DMODEL_DIR}/Display.3dshapes/EA_DOGS104X-A.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

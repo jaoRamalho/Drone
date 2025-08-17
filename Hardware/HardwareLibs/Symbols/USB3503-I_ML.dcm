@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP USB3503-I_ML
+D High Speed HSIC High Speed Hub Controller USB 2.0 3.3V/5V Tray 32-Pin SQFN EP
+F http://ww1.microchip.com/downloads/en/DeviceDoc/00001584.pdf
+$ENDCMP
+#
+#End Doc Library

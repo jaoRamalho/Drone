@@ -1,0 +1,156 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP BarraPino_Fem_3x2_180G
+D Barra Pino 3 por 2 - 180g
+$ENDCMP
+#
+$CMP BarraPino_Fem_4x2_180G
+D Barra Pino 4 por 2 - 180g
+$ENDCMP
+#
+$CMP BarraPino_Fem_5x2_180G
+D Barra Pino 3 por 2 - 180g
+$ENDCMP
+#
+$CMP Battery_Holder_20mm
+D BORNE CONNECTOR 2V 45G
+$ENDCMP
+#
+$CMP Borne_2v_180g
+D BORNE CONNECTOR 2V 180G
+$ENDCMP
+#
+$CMP Borne_2v_45g
+D BORNE CONNECTOR 2V 45G
+$ENDCMP
+#
+$CMP Borne_3v_180g
+D BORNE CONNECTOR 3V 180G
+$ENDCMP
+#
+$CMP Borne_3v_45g
+D BORNE CONNECTOR 3V 45G
+$ENDCMP
+#
+$CMP Borne_4v_90g
+D BORNE CONNECTOR 4V 90G
+$ENDCMP
+#
+$CMP Borne_9.5mm_2v
+D BORNE CONNECTOR 9.5mm 2V 180G
+$ENDCMP
+#
+$CMP Minifit_02x02_Male_90g
+D MINIFIT 02x02 MALE 90g
+$ENDCMP
+#
+$CMP SIM-TA06CP
+D Conector Simcard
+$ENDCMP
+#
+$CMP TestPoint_SMD
+D test point
+K test point tp
+F ~
+$ENDCMP
+#
+$CMP TestPoint_THT
+D test point
+K test point tp
+F ~
+$ENDCMP
+#
+$CMP USB_A_FEM_90g
+D CONN RCPT USB2.0 TYPEA 4POS R/A
+K UE27AC54100-ND UE27
+$ENDCMP
+#
+$CMP USB_B_FEM_180g
+D CONN RCPT USB2.0 TYPEB 4POS R/A
+K UE27AC54100-ND UE27
+$ENDCMP
+#
+$CMP USB_B_FEM_90g
+D CONN RCPT USB2.0 TYPEB 4POS R/A
+K UE27AC54100-ND UE27
+$ENDCMP
+#
+$CMP conn_swdio_stm32
+D STM32 Debug Connector
+$ENDCMP
+#
+$CMP espTool_conn
+D ESP32 Flash Connector
+$ENDCMP
+#
+$CMP jack_dc
+D DC Barrel Jack
+K DC power barrel jack connector
+F ~
+$ENDCMP
+#
+$CMP kk_4v_male_90g
+D KK 4v MALE 90g
+$ENDCMP
+#
+$CMP kk_6v_male_90g
+D KK 4v MALE 90g
+$ENDCMP
+#
+$CMP pinH_2v
+D Pin Header Male 2v
+$ENDCMP
+#
+$CMP pinH_2x14v_fem
+D PIN HEADER 2x14V FEM
+$ENDCMP
+#
+$CMP pinH_2x14v_masc
+D PIN HEADER 2x14V FEM
+$ENDCMP
+#
+$CMP pinH_2x22_805-44P
+D PIN HEADER 2x14V FEM
+$ENDCMP
+#
+$CMP pinH_2x2v_fem
+D PIN HEADER 2x2V FEM
+$ENDCMP
+#
+$CMP pinH_2x2v_masc
+D PIN HEADER 2x2V FEM
+$ENDCMP
+#
+$CMP pinH_2x3v_fem
+D PIN HEADER 2x3V FEM
+$ENDCMP
+#
+$CMP pinH_2x4v_fem
+D PIN HEADER 2x4V FEM
+$ENDCMP
+#
+$CMP pinH_2x5v_fem
+D PIN HEADER 2x5V FEM
+$ENDCMP
+#
+$CMP pinH_2x8v_fem
+D PIN HEADER 2x5V FEM
+$ENDCMP
+#
+$CMP pinH_3x1v_male_180
+D Barra de pinos 2,54mm
+$ENDCMP
+#
+$CMP pinH_4v
+D Pin Header Male 4v
+$ENDCMP
+#
+$CMP pinH_5v
+D PIN HEADER 6V FEM
+$ENDCMP
+#
+$CMP pinH_6v_fem
+D PIN HEADER 6V FEM
+$ENDCMP
+#
+#End Doc Library
