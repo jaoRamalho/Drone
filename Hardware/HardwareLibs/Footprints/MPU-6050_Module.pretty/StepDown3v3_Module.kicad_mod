@@ -1,10 +1,10 @@
-(footprint "Untitled"
+(footprint "StepDown3v3_Module"
 	(version 20241229)
 	(generator "pcbnew")
 	(generator_version "9.0")
 	(layer "F.Cu")
 	(property "Reference" "REF**"
-		(at 0 -0.5 0)
+		(at -0.5 -3.93 0)
 		(unlocked yes)
 		(layer "F.SilkS")
 		(uuid "2f273b41-7547-4ce5-b6cf-d8dc6ced7386")
@@ -15,8 +15,8 @@
 			)
 		)
 	)
-	(property "Value" "Untitled"
-		(at 0 1 0)
+	(property "Value" "StepDown3v3_Module"
+		(at 0.03 -2.65 0)
 		(unlocked yes)
 		(layer "F.Fab")
 		(uuid "b1714a93-03b0-4716-869c-eedae07944f8")
@@ -54,8 +54,19 @@
 		)
 	)
 	(attr through_hole)
+	(fp_rect
+		(start -0.02 0.02)
+		(end 16.98 11.02)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "5f774d1b-f59f-4430-8a23-59ad3bd3913d")
+	)
 	(fp_text user "${REFERENCE}"
-		(at 0 2.5 0)
+		(at 1.61 -1.25 0)
 		(unlocked yes)
 		(layer "F.Fab")
 		(uuid "c398e3ce-1f47-4d54-958c-4fc01808f985")
@@ -65,6 +76,38 @@
 				(thickness 0.15)
 			)
 		)
+	)
+	(pad "1" thru_hole circle
+		(at 1.04 1.06)
+		(size 1.6 1.6)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "73dde1e3-9e35-40b3-ae11-84b198d64b31")
+	)
+	(pad "2" thru_hole circle
+		(at 1.03 10.06)
+		(size 1.6 1.6)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "8a5a25b0-de24-4a93-a01c-2fc68ef9a6f5")
+	)
+	(pad "3" thru_hole circle
+		(at 15.98 1.06)
+		(size 1.6 1.6)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "5de13c61-5b10-4a56-9755-724f17540360")
+	)
+	(pad "4" thru_hole circle
+		(at 16.11 10.11)
+		(size 1.6 1.6)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "6ebff202-833e-4137-81c1-c9ae254ca9e0")
 	)
 	(embedded_fonts no)
 )
