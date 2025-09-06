@@ -9,6 +9,7 @@ Gyroscope::Gyroscope() {
             Serial.println("MPU6050 initialization timed out!");
             return;
         }
+        vTaskDelay(100);
     }
     Serial.println("MPU6050 Found!");
 
