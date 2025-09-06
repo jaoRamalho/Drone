@@ -3,8 +3,6 @@
 	(generator "pcbnew")
 	(generator_version "9.0")
 	(layer "F.Cu")
-	(descr "LCD 4x10 character 3.3V VDD I2C or SPI http://www.lcd-module.com/fileadmin/eng/pdf/doma/dogs104e.pdf")
-	(tags "LCD 4x10 character 3.3V VDD I2C or SPI")
 	(property "Reference" "REF**"
 		(at 2.22 -7.73 0)
 		(layer "F.SilkS")
@@ -144,6 +142,7 @@
 	)
 	(embedded_fonts no)
 	(model "${KICAD9_3DMODEL_DIR}/Display.3dshapes/EA_DOGS104X-A.step"
+		(hide yes)
 		(offset
 			(xyz 0 0 0)
 		)
