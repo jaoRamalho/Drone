@@ -1,6 +1,70 @@
+# Hardware (KiCad) backups
 Drone-HW-backups/
 Drone-HW.kicad_sch-bak
 fp-info-cache
 fp-lib-table
 ~Drone-HW.kicad_pcb.lck
 sym-lib-table
+
+# VS Code settings
+.vscode/
+.vscode/*
+
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+.pio.old/
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*~
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# IDE files
+*.workspace
+*.project
+*.cproject
+*.settings/
