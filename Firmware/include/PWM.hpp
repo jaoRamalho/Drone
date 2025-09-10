@@ -6,7 +6,7 @@
 #define MAX_DUTY_CYCLE 1023
 #define MIN_DUTY_CYCLE 0
 
-#define FREQUENCY_ESC 20000 // Frequência típica ESC
+#define FREQUENCY_ESC 200 // Frequência típica ESC
 
 extern volatile float percentDutyM1;
 extern volatile float percentDutyM2;

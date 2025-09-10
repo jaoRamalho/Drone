@@ -20,7 +20,7 @@ void INIT_PWMs(){
     mcpwm_gpio_init(MCPWM_UNIT_1, MCPWM1B, PIN_M4);
 
     mcpwm_config_t pwm_config;
-    pwm_config.frequency = FREQUENCY_ESC;          // frequência típica ESC (ajuste conforme necessário)
+    pwm_config.frequency = 1;          // frequência típica ESC (ajuste conforme necessário)
     pwm_config.cmpr_a = 0;              // duty inicial %
     pwm_config.cmpr_b = 0;
     pwm_config.counter_mode = MCPWM_UP_COUNTER;
