@@ -13,8 +13,7 @@ extern volatile float percentDutyM2;
 extern volatile float percentDutyM3;
 extern volatile float percentDutyM4;
 
-
-void INIT_PWMs();
+void Init_PWMs();
 
 void SET_DUTY_CYCLE_M1(float percentDutyCycle);
 void SET_DUTY_CYCLE_M2(float percentDutyCycle);

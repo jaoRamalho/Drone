@@ -8,7 +8,7 @@ volatile float percentDutyM2 = 0;
 volatile float percentDutyM3 = 0;
 volatile float percentDutyM4 = 0;
 
-void INIT_PWMs(){
+void Init_PWMs(){
     // inicializa MCPWM: mapa de canais exemplo para 4 motores
     // M1 -> MCPWM_UNIT_0, operator A
     // M2 -> MCPWM_UNIT_0, operator B
