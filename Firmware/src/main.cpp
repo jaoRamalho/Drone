@@ -8,6 +8,7 @@ Gyroscope* gyro;
 
 void setup() {
   Serial.begin(115200);
+  
 
   gyro = Gyroscope::Init_Gyroscope();
   

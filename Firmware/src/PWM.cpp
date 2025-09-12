@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "PWM.hpp"
 #include "driver/timer.h"
 #include "driver/mcpwm.h"
@@ -9,6 +10,7 @@ volatile float percentDutyM3 = 0;
 volatile float percentDutyM4 = 0;
 
 void Init_PWMs(){
+    Serial.println("|PWM| -------- Iniciando PWMs --------");
     // inicializa MCPWM: mapa de canais exemplo para 4 motores
     // M1 -> MCPWM_UNIT_0, operator A
     // M2 -> MCPWM_UNIT_0, operator B
@@ -33,6 +35,8 @@ void Init_PWMs(){
     SET_DUTY_CYCLE_M2(50); // 50% duty cycle inicial
     SET_DUTY_CYCLE_M3(50); // 50% duty cycle inicial
     SET_DUTY_CYCLE_M4(50); // 50% duty cycle inicial
+
+    Serial.println("|PWM| -------- PWMs Iniciados --------");
 }
 
 void SET_DUTY_CYCLE_M1(float percentDutyCycle){
