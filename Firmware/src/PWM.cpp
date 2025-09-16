@@ -22,7 +22,7 @@ void Init_PWMs(){
     mcpwm_gpio_init(MCPWM_UNIT_1, MCPWM1B, PIN_M4);
 
     mcpwm_config_t pwm_config;
-    pwm_config.frequency = 1;          // frequência típica ESC (ajuste conforme necessário)
+    pwm_config.frequency = 50;          // frequência típica ESC (ajuste conforme necessário)
     pwm_config.cmpr_a = 0;              // duty inicial %
     pwm_config.cmpr_b = 0;
     pwm_config.counter_mode = MCPWM_UP_COUNTER;
@@ -31,10 +31,10 @@ void Init_PWMs(){
     mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_0, &pwm_config);
     mcpwm_init(MCPWM_UNIT_1, MCPWM_TIMER_0, &pwm_config);
 
-    SET_DUTY_CYCLE_M1(50); // 50% duty cycle inicial
-    SET_DUTY_CYCLE_M2(50); // 50% duty cycle inicial
-    SET_DUTY_CYCLE_M3(50); // 50% duty cycle inicial
-    SET_DUTY_CYCLE_M4(50); // 50% duty cycle inicial
+    // SET_DUTY_CYCLE_M1(50); // 50% duty cycle inicial
+    // SET_DUTY_CYCLE_M2(50); // 50% duty cycle inicial
+    // SET_DUTY_CYCLE_M3(50); // 50% duty cycle inicial
+    // SET_DUTY_CYCLE_M4(50); // 50% duty cycle inicial
 
     Serial.println("|PWM| -------- PWMs Iniciados --------");
 }

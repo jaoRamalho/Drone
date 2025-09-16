@@ -2,17 +2,17 @@
 #include "ISR.hpp"
 #include "Gyroscope.hpp"
 #include "PWM.hpp"
-
+#include "Control.hpp"
 
 Gyroscope* gyro;
+Control* control;
 
 void setup() {
   Serial.begin(115200);
-  
 
   gyro = Gyroscope::Init_Gyroscope();
   
-  Init_PWMs();
+  control = Control::Init_Control();
 
   Init_ISR();
 
@@ -20,7 +20,10 @@ void setup() {
 }
 
 void loop() {
+
   gyro->loop();
- 
+  
+  control->loop();
+  
   vTaskDelay(10);
 }

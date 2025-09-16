@@ -7,10 +7,10 @@ static const uint8_t PIN_LED_STATUS = 2; // GPIO do LED de status
 
 static const uint8_t PIN_BUTTON = 0;     // GPIO do botão
 
-static const uint8_t PIN_M1 = 1; 
-static const uint8_t PIN_M2 = 2; 
-static const uint8_t PIN_M3 = 3;
-static const uint8_t PIN_M4 = 4;
+static const uint8_t PIN_M1 = 11; 
+static const uint8_t PIN_M2 = 12; 
+static const uint8_t PIN_M3 = 13;
+static const uint8_t PIN_M4 = 14;
 
 // GYROSCOPE (MPU6050)
 static const uint8_t SDA_PIN = 5; // GPIO do barramento I2C - SDA

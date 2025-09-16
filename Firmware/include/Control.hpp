@@ -39,18 +39,31 @@ struct PID {
     float integral;
 };
 
+enum StateControl {
+    WAKEUP,
+    ARMED,
+    FLYING
+};
+
 // Classe que será responsável pelo controle do drone
 class Control {
 private:
+    StateControl state;
+
+    float generalDuty;
+    
     Gyroscope* gyro;
 
+
+    static Control* instance;
+    Control();
 public:
-    Control(Gyroscope* g);
     ~Control();
 
-    void update(float setpoint, float measured, float dt);
-    
-    float getControlSignal();
+    static Control* Init_Control();
+    static uint32_t timeState;
+
+    void loop();
 };
 
 
