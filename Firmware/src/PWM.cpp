@@ -5,10 +5,10 @@
 #include "driver/mcpwm.h"
 #include "GPIOS.h"
 
-volatile uint8_t percentDutyM1 = 0;
-volatile uint8_t percentDutyM2 = 0;
-volatile uint8_t percentDutyM3 = 0;
-volatile uint8_t percentDutyM4 = 0;
+volatile uint8_t percentDutyM1 = 20;
+volatile uint8_t percentDutyM2 = 45;
+volatile uint8_t percentDutyM3 = 70;
+volatile uint8_t percentDutyM4 = 90;
 
 volatile uint32_t countTimerPWM = 0;
 
@@ -22,37 +22,37 @@ void Init_PWMs(){
 
     pwmTimer = timerBegin(1, 80, true); // Timer 1, prescaler 80 (1 us per tick), count up
     timerAttachInterrupt(pwmTimer, &PWMTimer, true);
-    timerAlarmWrite(pwmTimer, 100, true); // Alarme a cada 100 us
+    timerAlarmWrite(pwmTimer, PERIOD_ISR_PWM, true); // Alarme a cada 100 us
     timerAlarmEnable(pwmTimer);
 }
 
 void IRAM_ATTR PWMTimer(){
     countTimerPWM++;
-    if(countTimerPWM >= (1000000 / FREQUENCY_ESC)) countTimerPWM = 0; // Reset a cada período do PWM
+    if(countTimerPWM >= REAL_PERIOD) countTimerPWM = 0; // Reset a cada período do PWM
 
     // Motor 1
-    if(countTimerPWM < (percentDutyM1 * (1000000 / FREQUENCY_ESC) / 100)){
+    if(countTimerPWM < (percentDutyM1 * REAL_PERIOD / 100)){
         digitalWrite(PIN_M1, HIGH);
     } else {
         digitalWrite(PIN_M1, LOW);
     }
 
     // Motor 2
-    if(countTimerPWM < (percentDutyM2 * (1000000 / FREQUENCY_ESC) / 100)){
+    if(countTimerPWM < (percentDutyM2 * REAL_PERIOD / 100)){
         digitalWrite(PIN_M2, HIGH);
     } else {
         digitalWrite(PIN_M2, LOW);
     }
 
     // Motor 3
-    if(countTimerPWM < (percentDutyM3 * (1000000 / FREQUENCY_ESC) / 100)){
+    if(countTimerPWM < (percentDutyM3 * REAL_PERIOD / 100)){
         digitalWrite(PIN_M3, HIGH);
     } else {
         digitalWrite(PIN_M3, LOW);
     }
 
     // Motor 4
-    if(countTimerPWM < (percentDutyM4 * (1000000 / FREQUENCY_ESC) / 100)){
+    if(countTimerPWM < (percentDutyM4 * REAL_PERIOD / 100)){
         digitalWrite(PIN_M4, HIGH);
     } else {
         digitalWrite(PIN_M4, LOW);
