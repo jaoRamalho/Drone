@@ -4,7 +4,7 @@ Control* Control::instance = nullptr;
 uint32_t Control::timeState = 0;
 Control::Control() : generalDuty(0.0) {
     // Preparar pwm para emitir sinais para o controlador de velocidade dos motores (ESC)
-    gyro = Gyroscope::Init_Gyroscope();
+    //gyro = Gyroscope::Init_Gyroscope();
     
     Init_PWMs();
 

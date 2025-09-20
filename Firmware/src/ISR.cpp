@@ -14,7 +14,7 @@ void Init_ISR(){
     
     pinMode(INT_GYRO_PIN, INPUT_PULLUP);
     attachInterrupt(digitalPinToInterrupt(INT_GYRO_PIN), onMpuInterrupt, RISING);
-
+    
     Serial.println("|ISR| ---------- Configuração de interrupções finalizada ----------");
 }
 
