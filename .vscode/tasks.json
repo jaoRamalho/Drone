@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "PlatformIO: Build",
+            "command": "platformio",
+            "args": ["run"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/Firmware"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "type": "shell",
+            "label": "PlatformIO: Upload",
+            "command": "platformio",
+            "args": ["run", "--target", "upload"],
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Firmware"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "type": "shell",
+            "label": "PlatformIO: Clean",
+            "command": "platformio",
+            "args": ["run", "--target", "clean"],
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/Firmware"
+            },
+            "problemMatcher": "$gcc"
+        }
+    ]
+}

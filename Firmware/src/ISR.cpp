@@ -2,6 +2,7 @@
 #include "ISR.hpp"
 #include "Control.hpp"
 
+
 hw_timer_t* mainTimer = NULL;
 
 void Init_ISR(){ 
@@ -26,3 +27,5 @@ void IRAM_ATTR MainTimer() {
     // Código a ser executado a cada 1 ms
     if(Control::timeState) { Control::timeState--; }
 }
+
+

@@ -117,7 +117,7 @@ Gyroscope::~Gyroscope() {
 Gyroscope* Gyroscope::Init_Gyroscope() {
     if (instance == nullptr) {
         Serial.println("|Gyroscope| - Iniciando I2C para MPU6050...");
-        Wire.begin(SDA_PIN, SCL_PIN);
+        Wire.begin(PIN_SDA, PIN_SCL);
         vTaskDelay(5);
         Serial.println("|Gyroscope| - I2C iniciado com sucesso!");
 
