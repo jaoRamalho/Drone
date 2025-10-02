@@ -4622,6 +4622,10 @@
 		(uuid "9270c004-74ef-4443-9a08-a320848b1424")
 	)
 	(no_connect
+		(at 144.78 80.01)
+		(uuid "99266c44-3090-4345-8dd8-6c780fca3085")
+	)
+	(no_connect
 		(at 260.35 82.55)
 		(uuid "a5891676-65ea-4e96-96e0-782a753be2ca")
 	)
@@ -6117,16 +6121,6 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 80.01) (xy 143.51 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "eb5a0ba0-b43b-4d5c-9824-f1aa291e0d56")
-	)
-	(wire
-		(pts
 			(xy 321.31 92.71) (xy 314.96 92.71)
 		)
 		(stroke
@@ -6134,16 +6128,6 @@
 			(type default)
 		)
 		(uuid "ed6d6a71-c636-426e-9710-6b685d2206b0")
-	)
-	(wire
-		(pts
-			(xy 144.78 80.01) (xy 143.51 80.01)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "edc6106e-e91a-4a57-8722-3df87ad4b191")
 	)
 	(wire
 		(pts
@@ -8937,71 +8921,6 @@
 			(project "Drone-HW"
 				(path "/01131552-7157-4f63-8aad-f62f04ef3457"
 					(reference "#PWR020")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Local_power:+3V3")
-		(at 143.51 72.39 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "6b45e51b-7ad9-46c9-a43c-d8a2d8381c98")
-		(property "Reference" "#PWR011"
-			(at 143.51 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 143.891 67.9958 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 143.51 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 143.51 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 143.51 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0684abb2-2a65-47eb-bdc3-a250a8b7db4e")
-		)
-		(instances
-			(project "Drone-HW"
-				(path "/01131552-7157-4f63-8aad-f62f04ef3457"
-					(reference "#PWR011")
 					(unit 1)
 				)
 			)
