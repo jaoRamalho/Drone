@@ -14,7 +14,7 @@ void setup() {
 
   control = Control::Init_Control();
 
-  //Init_ISR();
+  Init_ISR();
 
   vTaskDelay(10);
 }
@@ -23,7 +23,7 @@ void loop() {
 
   //gyro->loop();
   
-  //control->loop();
+  control->loop();
   
   vTaskDelay(1);
 }

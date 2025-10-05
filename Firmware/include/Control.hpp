@@ -3,7 +3,7 @@
 
 #include "Gyroscope.hpp"
 #include "PWM.hpp"
-
+#include <ESP32Servo.h>
    
 /*
 O controle do PID dos motores funciona da seguinte forma:
@@ -30,7 +30,6 @@ O controle do PID dos motores funciona da seguinte forma:
 
 */
 
-
 struct PID {
     float kp;
     float ki;
@@ -49,8 +48,8 @@ enum StateControl {
 class Control {
 private:
     StateControl state;
-
-    float generalDuty;
+    Servo m1;
+    uint8_t commonValueServants;
     
     Gyroscope* gyro;
 
