@@ -10,8 +10,10 @@ Control* control;
 void setup() {
   Serial.begin(115200);
 
-  //gyro = Gyroscope::Init_Gyroscope();
+  Serial.println("| MAIN | ---------- Iniciando setup --------");
 
+  gyro = Gyroscope::Init_Gyroscope();
+ 
   control = Control::Init_Control();
 
   Init_ISR();
@@ -20,8 +22,7 @@ void setup() {
 }
 
 void loop() {
-
-  //gyro->loop();
+  gyro->loop();
   
   control->loop();
   
