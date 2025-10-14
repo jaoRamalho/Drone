@@ -3957,6 +3957,89 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "RF:NRF24L01_Breakout"
 			(pin_names
 				(offset 1.016)
@@ -4423,6 +4506,18 @@
 		)
 		(uuid c846e57a-f235-4d2b-b84b-5d5e7a37236e)
 	)
+	(rectangle
+		(start 213.614 117.5004)
+		(end 299.72 171.0944)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid faf7fb79-40ef-4aba-a0aa-759088652349)
+	)
 	(text "A trilhas de alimentação do motor serão conectadas por jumpers externos. (M_VCC e M_GND)"
 		(exclude_from_sim no)
 		(at 353.314 18.542 0)
@@ -4473,7 +4568,7 @@
 		)
 		(uuid "b2ccad56-de6b-47e4-80c2-8d3cb968d7fd")
 	)
-	(text "FALTANTE -> CIRCUITO DO MODULO DE RADIO PARA COMUNICAÇÃO COM O CONTROLE"
+	(text "CIRCUITO DO MODULO DE RADIO PARA COMUNICAÇÃO COM O CONTROLE"
 		(exclude_from_sim no)
 		(at 168.91 120.65 0)
 		(effects
@@ -4483,7 +4578,17 @@
 		)
 		(uuid "cdf3d162-4ea5-4d9b-bf2a-bb3dc74629d3")
 	)
-	(text "FALTA -> CIRCUITO DE ALIMENTAÇÃO -> BATERIA E STEP DOWN DE 7V4 PARA 3V3"
+	(text "FURO PLACA\n"
+		(exclude_from_sim no)
+		(at 221.8944 120.3452 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "d9017b98-1ade-47cb-8c5f-eefe6a5ceb22")
+	)
+	(text "CIRCUITO DE ALIMENTAÇÃO -> BATERIA E STEP DOWN DE 7V4 PARA 3V3"
 		(exclude_from_sim no)
 		(at 57.912 120.396 0)
 		(effects
@@ -10860,6 +10965,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 250.0884 130.0988 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bc5b2513-fee0-46ba-b0f7-f7a85a3de9f3")
+		(property "Reference" "H2"
+			(at 252.6284 128.8287 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 252.6284 131.3687 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.1mm"
+			(at 250.0884 130.0988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 250.0884 130.0988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 250.0884 130.0988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Drone-HW"
+				(path "/01131552-7157-4f63-8aad-f62f04ef3457"
+					(reference "H2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Local_symbols:BC846")
 		(at 166.37 31.75 0)
 		(unit 1)
@@ -10965,6 +11134,70 @@
 			(project "Drone-HW"
 				(path "/01131552-7157-4f63-8aad-f62f04ef3457"
 					(reference "Q5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 252.0188 139.7 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c16f91b9-7b9e-444e-a8b7-1a2823f0dd8d")
+		(property "Reference" "H4"
+			(at 254.5588 138.4299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 254.5588 140.9699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.1mm"
+			(at 252.0188 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 252.0188 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 252.0188 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Drone-HW"
+				(path "/01131552-7157-4f63-8aad-f62f04ef3457"
+					(reference "H4")
 					(unit 1)
 				)
 			)
@@ -11962,6 +12195,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 226.4156 140.2588 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f98bf45f-2170-4487-bc01-9126a86edb8a")
+		(property "Reference" "H3"
+			(at 228.9556 138.9887 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 228.9556 141.5287 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.1mm"
+			(at 226.4156 140.2588 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 226.4156 140.2588 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 226.4156 140.2588 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Drone-HW"
+				(path "/01131552-7157-4f63-8aad-f62f04ef3457"
+					(reference "H3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Local_capacitors:100n")
 		(at 31.75 43.18 0)
 		(unit 1)
@@ -12061,6 +12358,72 @@
 			(project "Drone-HW"
 				(path "/01131552-7157-4f63-8aad-f62f04ef3457"
 					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 226.06 130.2004 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fe4df29f-d76f-4d35-ba8c-6aa383e2b26c")
+		(property "Reference" "H1"
+			(at 228.6 128.9303 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 228.6 131.4703 0)
+			(show_name yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.1mm"
+			(at 226.06 130.2004 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 226.06 130.2004 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 226.06 130.2004 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project ""
+				(path "/01131552-7157-4f63-8aad-f62f04ef3457"
+					(reference "H1")
 					(unit 1)
 				)
 			)

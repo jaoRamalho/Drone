@@ -1,0 +1,30 @@
+# Enforce LF for KiCad project and related files
+*.kicad_pcb text eol=lf
+*.kicad_prl text eol=lf
+*.kicad_pro text eol=lf
+*.kicad_sch text eol=lf
+*.kicad_mod text eol=lf
+*.kicad_pcb.svg text eol=lf
+
+# Treat common text files as LF
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.c text eol=lf
+*.cpp text eol=lf
+*.h text eol=lf
+*.hpp text eol=lf
+*.py text eol=lf
+
+# Binary files
+*.zip binary
+*.gz binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+
+# Ensure PlatformIO build artifacts are binary
+.pio/** binary
