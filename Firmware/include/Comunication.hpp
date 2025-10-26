@@ -3,7 +3,6 @@
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
-#include "Timer.hpp"
 
 /*------------------------------------------ ARDUINO ------------------------------------------------------*/
 // #define CE_PIN 7
@@ -11,16 +10,9 @@
 /*------------------------------------------ ARDUINO ------------------------------------------------------*/
 
 /*------------------------------------------- ESP32 ------------------------------------------------------*/
+#include "Timer.hpp"
 #define CE_PIN 22
 #define CSN_PIN 21
-// #include "driver/timer.h"
-// extern hw_timer_t *timer2;
-
-// // Função de inicialização
-// void Init_Comunication();
-
-// // Função de callback do timer
-// void IRAM_ATTR onTimer();
 /*------------------------------------------- ESP32 ------------------------------------------------------*/
 
 extern RF24 radio;
@@ -45,12 +37,28 @@ private:
     int16_t altitude;     // altura em cm
 
     bool isControl;
+
+    // Sequência/protocolo confiável
+    uint16_t seqCounter;      // sequência do próximo comando a enviar
+    uint16_t lastAckedSeq;    // última sequência confirmada (no transmissor)
+    uint16_t lastReceivedSeq; // última sequência recebida (no receptor)
+
+    // Parâmetros do protocolo
+    uint8_t maxRetries;
+    unsigned long ackTimeoutMs;
     
     // Singleton - ponteiro estático para a instância única
     static Communication* instance;
     
     // Construtor privado para singleton
     Communication(bool isControl);
+
+    // Helper: checksum simples (xor)
+    uint8_t calcChecksum(const uint8_t* data, size_t len);
+    bool verifyChecksum(const uint8_t* data, size_t len);
+
+    // Helper: envia pacote com retries (usado no transmissor)
+    bool transmitWithRetries(const uint8_t* pkt, size_t pktLen);
     
 public:
     
@@ -75,6 +83,7 @@ public:
     // Controle: envia comando e lê telemetria do ACK
     void sendCommand();
 
+    // Controle: envia ping ou comando periodicamente
     void sendThing();
 
     // Drone: recebe comando e envia telemetria via ACK

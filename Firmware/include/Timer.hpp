@@ -2,7 +2,6 @@
 #define TIMER_HPP
 
 #include <Arduino.h>
-#include "driver/timer.h"
 
 extern hw_timer_t* mainTimer;
 extern hw_timer_t *timer2;
