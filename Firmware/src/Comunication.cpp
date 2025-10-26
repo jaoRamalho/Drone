@@ -2,42 +2,47 @@
 
 RF24 radio(CE_PIN, CSN_PIN);
 
-hw_timer_t *timer2 = nullptr;
-
 // Endereços (podem ser parametrizados depois)
 const uint8_t txAddress[6] = "00001"; // controle envia/drone envia telemetria
 const uint8_t rxAddress[6] = "00002"; // drone recebe/controle recebe telemetria
 
-void Init_Comunication(){
-    Serial.println("|Comunication| ---------- Iniciando configuração de interrupções ----------");
+volatile bool sendPingFlag = false;
 
-    // configura Timer 2
-    timer2 = timerBegin(2, 80, true); // timer 2, prescaler 80 (1 us por tick), count up
-    timerAttachInterrupt(timer2, &onTimer, true); 
-    timerAlarmWrite(timer2, 100000, true); // 100000 us = 100 ms
-    timerAlarmEnable(timer2);
+unsigned long lastCommandMillis = 0;
+const unsigned long COMMAND_INTERVAL = 5000UL; // 5 segundos
 
-    Serial.println("|Comunication| ---------- Configuração de interrupções finalizada ----------");
-}
+/*----------------------------------- ESP32 ------------------------------------------------------*/
+// hw_timer_t *timer2 = nullptr;
+
+// void Init_Comunication(){
+//     Serial.println("|Comunication| ---------- Iniciando configuração de interrupções ----------");
+
+//     // configura Timer 2
+//     timer2 = timerBegin(2, 80, true); // timer 2, prescaler 80 (1 us por tick), count up
+//     timerAttachInterrupt(timer2, &onTimer, true);
+//     timerAlarmWrite(timer2, 100000, true); // 100000 us = 100 ms
+//     timerAlarmEnable(timer2);
+
+//     Serial.println("|Comunication| ---------- Configuração de interrupções finalizada ----------");
+// }
+
+// void IRAM_ATTR onTimer() {
+//     // verifica se o ponteiro está definido
+//     if(!sendPingFlag) sendPingFlag = true;
+// }
+/*----------------------------------- ESP32 ------------------------------------------------------*/
+
 
 // Inicialização do ponteiro estático
 Communication* Communication::instance = nullptr;
 
-void IRAM_ATTR onTimer() {
-    // verifica se o ponteiro está definido
-    Communication* control =  Communication::getInstance();
-    if(control->getIsControl())
-        control->sendPing();
-}
-
 Communication::Communication(bool isControl) : 
     action(4), 
-    power(0), 
+    power(10), 
     battery(100),
     altitude(0),
     isControl(isControl)
 {
-    begin(isControl);
 }
 
 Communication::~Communication()
@@ -52,13 +57,14 @@ Communication* Communication::getInstance(bool isControl)
     return instance;
 }
 
-void Communication::begin(bool isControl)
+void Communication::begin()
 {
+    Serial.println("|Comunication| Iniciando rádio...");
     radio.begin();
-    radio.setPALevel(RF24_PA_LOW);
-    radio.setDataRate(RF24_250KBPS);
-    radio.enableAckPayload();
+    // radio.setDataRate(RF24_250KBPS);
     radio.enableDynamicPayloads();
+    radio.enableAckPayload();
+    radio.setPALevel(RF24_PA_MIN);
 
     if(isControl) {
         // controle: envia comando, recebe telemetria
@@ -71,6 +77,12 @@ void Communication::begin(bool isControl)
         radio.openReadingPipe(1, txAddress); // recebe comando
         radio.startListening(); // inicialmente receptor
     }
+
+    if (!radio.isChipConnected()) {
+        Serial.println("ERRO: RF24 não conectado!");
+        return;
+    }
+    Serial.println("|Comunication| Rádio iniciado.");
 }
 
 void Communication::setCommand(uint8_t newAction, uint8_t newPower)
@@ -110,10 +122,8 @@ const bool Communication::getIsControl()
     return isControl;
 }
 
-bool Communication::sendCommand()
+void Communication::sendCommand()
 {
-    radio.stopListening(); // modo transmissor
-
     // Cria array com os dados do comando (action + power)
     uint8_t commandData[2] = {action, power};
 
@@ -123,23 +133,67 @@ bool Communication::sendCommand()
             uint8_t telemetryData[3];
             radio.read(telemetryData, sizeof(telemetryData));
 
+            Serial.print("Bateria: ");
+            Serial.print(telemetryData[0]);
+            Serial.print("%, Altitude: ");
+            Serial.print((telemetryData[1] << 8) | telemetryData[2]);
+            Serial.println(" cm");
+
             battery = telemetryData[0];
             altitude = (telemetryData[1] << 8) | telemetryData[2]; // reconstrói int16_t
         }
-        return true;
     }
-    return false;
 }
 
-bool Communication::receiveCommand()
+
+void Communication::sendThing()
+{
+    unsigned long now = millis();
+
+    // Quando é hora de enviar o comando principal?
+    if (now - lastCommandMillis >= COMMAND_INTERVAL) {
+        sendCommand();
+        lastCommandMillis = now;
+        // NÃO usamos delay longo aqui — apenas registramos o envio
+    }
+
+    // Calcular quanto falta para o próximo comando
+    unsigned long timeSinceLast = now - lastCommandMillis;
+    unsigned long timeToNext = (timeSinceLast >= COMMAND_INTERVAL) ? 0 : (COMMAND_INTERVAL - timeSinceLast);
+
+    // Janela de silêncio antes do comando principal para evitar colisões
+    const unsigned long SILENCE_WINDOW_MS = 200UL; // ajuste conforme necessário
+
+    // Processa ping apenas se a flag estiver setada e estivermos fora da janela de silêncio
+    if (sendPingFlag && timeToNext > SILENCE_WINDOW_MS) {
+        sendPingFlag = false; // consome a flag
+        sendPing();
+    }
+
+    // Evita 100% CPU: libera o processador por um curto instante.
+    // Em ESP32/Arduino use `yield()` para entregar o tempo ao RTOS; se preferir, diminua para delay(1).
+    yield();
+}
+
+
+void Communication::receiveCommand()
 {
     if (radio.available()) {
         // Lê comando: [action, power]
-        uint8_t commandData[2];
-        radio.read(commandData, sizeof(commandData));
+        uint8_t cmd[2];
+        radio.read(cmd, sizeof(cmd));
 
-        action = commandData[0];
-        power = commandData[1];
+        if(cmd[0] != 255 && cmd[1] != 0) {
+            Serial.print("Ação = "); 
+            Serial.print(cmd[0]);
+            Serial.print(", Potência = "); 
+            Serial.println(cmd[1]);
+        } else {
+            Serial.println("|Comunication| Ping recebido.");
+        }
+
+        action = cmd[0];
+        power = cmd[1];
 
         // Prepara telemetria para envio: [battery, altitude_high_byte, altitude_low_byte]
         uint8_t telemetryData[3];
@@ -149,17 +203,16 @@ bool Communication::receiveCommand()
 
         // envia telemetria no ACK
         radio.writeAckPayload(1, telemetryData, sizeof(telemetryData));
-        return true;
     }
-    return false;
+
+    yield();
 }
 
-bool Communication::sendPing(uint8_t pingValue)
+void Communication::sendPing(uint8_t pingValue)
 {
-    radio.stopListening(); // modo transmissor
-
     // Cria array com valor de ping (1 byte)
-    uint8_t pingData[1] = { pingValue };
+    uint8_t zero = 0;
+    uint8_t pingData[2] = { pingValue, zero };
 
     if (radio.write(pingData, sizeof(pingData))) {
         if (radio.isAckPayloadAvailable()) {
@@ -167,11 +220,16 @@ bool Communication::sendPing(uint8_t pingValue)
             uint8_t telemetryData[3];
             radio.read(telemetryData, sizeof(telemetryData));
 
+            Serial.print("|Comunication| Ping ACK recebido. ");
+            Serial.print("Bateria: ");
+            Serial.print(telemetryData[0]);
+            Serial.print("%, Altitude: ");
+            Serial.print((telemetryData[1] << 8) | telemetryData[2]);
+            Serial.println(" cm");
+
             battery = telemetryData[0];
             altitude = (telemetryData[1] << 8) | telemetryData[2];
         }
-        return true;
     }
-    return false;
 }
 

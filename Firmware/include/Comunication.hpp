@@ -1,23 +1,38 @@
+#pragma once
+#include <Arduino.h>
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
+#include "Timer.hpp"
 
-#define CE_PIN 32
-#define CSN_PIN 33
+/*------------------------------------------ ARDUINO ------------------------------------------------------*/
+// #define CE_PIN 7
+// #define CSN_PIN 8
+/*------------------------------------------ ARDUINO ------------------------------------------------------*/
+
+/*------------------------------------------- ESP32 ------------------------------------------------------*/
+#define CE_PIN 22
+#define CSN_PIN 21
+// #include "driver/timer.h"
+// extern hw_timer_t *timer2;
+
+// // Função de inicialização
+// void Init_Comunication();
+
+// // Função de callback do timer
+// void IRAM_ATTR onTimer();
+/*------------------------------------------- ESP32 ------------------------------------------------------*/
 
 extern RF24 radio;
+
+extern volatile bool sendPingFlag;
+
+extern unsigned long lastCommandMillis;
+extern const unsigned long COMMAND_INTERVAL;
 
 // Endereços (podem ser parametrizados depois)
 extern const uint8_t txAddress[6]; // controle envia/drone envia telemetria
 extern const uint8_t rxAddress[6]; // drone recebe/controle recebe telemetria
-
-extern hw_timer_t *timer2;
-
-// Função de inicialização
-void Init_Comunication();
-
-// Função de callback do timer
-void IRAM_ATTR onTimer();
 
 class Communication {
 private:
@@ -30,21 +45,22 @@ private:
     int16_t altitude;     // altura em cm
 
     bool isControl;
-
+    
     // Singleton - ponteiro estático para a instância única
     static Communication* instance;
-
+    
     // Construtor privado para singleton
     Communication(bool isControl);
-
-    // inicializa o rádio
-    void begin(bool isControl);
-
+    
 public:
+    
     ~Communication();
-
+    
     // Método estático para obter a instância única
     static Communication* getInstance(bool isControl = false);
+
+    // inicializa o rádio
+    void begin();
 
     void setCommand(uint8_t newAction, uint8_t newPower);
     uint8_t getAction();
@@ -57,11 +73,13 @@ public:
     const bool getIsControl();
 
     // Controle: envia comando e lê telemetria do ACK
-    bool sendCommand();
+    void sendCommand();
+
+    void sendThing();
 
     // Drone: recebe comando e envia telemetria via ACK
-    bool receiveCommand();
+    void receiveCommand();
 
     // Envia ping para atualizar telemetria mesmo sem novo comando
-    bool sendPing(uint8_t pingValue = 0xFF);
+    void sendPing(uint8_t pingValue = 0xFF);
 };
