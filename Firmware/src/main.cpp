@@ -3,9 +3,11 @@
 #include "Gyroscope.hpp"
 // #include "PWM.hpp"
 #include "Control.hpp"
+#include "Gestos.hpp"
 
 Gyroscope* gyro;
 Control* control;
+Gestos* gestos;
 
 void setup() {
   Serial.begin(115200);
@@ -16,6 +18,8 @@ void setup() {
  
   control = Control::Init_Control();
 
+  gestos = Gestos::Init_Gestos();
+
   Init_ISR();
 
   vTaskDelay(10);
@@ -25,6 +29,8 @@ void loop() {
   gyro->loop();
   
   control->loop();
+
+  gestos->loop();
   
   vTaskDelay(1);
 }
