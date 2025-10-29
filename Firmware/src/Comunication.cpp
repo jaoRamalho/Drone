@@ -24,7 +24,8 @@ Communication::Communication(bool isControl) :
     lastAckedSeq(0),
     lastReceivedSeq(0xFFFF), // inválido inicialmente
     maxRetries(3),
-    ackTimeoutMs(200)
+    ackTimeoutMs(200),
+    newCommandAvailable(false)
 {
 }
 
@@ -103,6 +104,9 @@ void Communication::begin()
 
 void Communication::setCommand(uint8_t newAction, uint8_t newPower)
 {
+    if(action != newAction){
+        newCommandAvailable = true;
+    }
     action = newAction;
     power = newPower;
 }
@@ -190,9 +194,10 @@ void Communication::sendThing()
 {
     unsigned long now = millis();
 
-    if (now - lastCommandMillis >= COMMAND_INTERVAL) {
+    if (now - lastCommandMillis >= COMMAND_INTERVAL || newCommandAvailable) {
         sendCommand();
         lastCommandMillis = now;
+        newCommandAvailable = false;
     }
 
     // Calcular quanto falta para o próximo comando

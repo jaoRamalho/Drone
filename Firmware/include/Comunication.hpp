@@ -31,6 +31,8 @@ private:
     // Dados de cada comando
     uint8_t action;   // 0: frente, 1: trás, 2: esquerda, 3: direita, 4: subir, 5: descer
     uint8_t power;    // intensidade 0-255
+
+    bool newCommandAvailable;
     
     // Dados do Drone
     uint8_t battery;      // % de bateria

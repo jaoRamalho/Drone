@@ -10,7 +10,7 @@ private:
 
 public:
     static Gestos* Init_Gestos();
-    void loop();
+    int loop();
 };
 
 #endif // GESTOS_HPP

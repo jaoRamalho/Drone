@@ -12,10 +12,10 @@ Gestos* Gestos::Init_Gestos() {
     return instance;
 }
 
-void Gestos::loop() {
-    while (Serial.available() > 0) {
+int Gestos::loop() {
+    if (Serial.available()) {
         int id = Serial.read();
-        Serial.print("ID recebido: ");
-        Serial.println(id);
-    }
+        return id;
+    } 
+    return 0;
 }

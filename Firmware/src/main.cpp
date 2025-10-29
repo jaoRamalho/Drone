@@ -4,21 +4,28 @@
 // #include "PWM.hpp"
 #include "Control.hpp"
 #include "Gestos.hpp"
+#include "Comunication.hpp"
 
+Communication* controle;
 Gyroscope* gyro;
 Control* control;
 Gestos* gestos;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   Serial.println("| MAIN | ---------- Iniciando setup --------");
 
-  gyro = Gyroscope::Init_Gyroscope();
+  // gyro = Gyroscope::Init_Gyroscope();
  
-  control = Control::Init_Control();
+  // control = Control::Init_Control();
 
   gestos = Gestos::Init_Gestos();
+
+  controle = Communication::getInstance(true);
+
+  controle->begin();
+  Init_Comunication();
 
   Init_ISR();
 
@@ -26,13 +33,17 @@ void setup() {
 }
 
 void loop() {
-  gyro->loop();
+  // gyro->loop();
   
-  control->loop();
+  // control->loop();
 
-  gestos->loop();
-  
-  vTaskDelay(1);
+  int act = gestos->loop();
+
+  if (act != 0){
+    controle->setCommand(act, controle->getPower());
+  }
+  controle->sendThing();
+    vTaskDelay(1);
 }
 
 
