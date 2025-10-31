@@ -4,16 +4,9 @@
 #include <nRF24L01.h>
 #include <RF24.h>
 
-/*------------------------------------------ ARDUINO ------------------------------------------------------*/
-// #define CE_PIN 7
-// #define CSN_PIN 8
-/*------------------------------------------ ARDUINO ------------------------------------------------------*/
-
-/*------------------------------------------- ESP32 ------------------------------------------------------*/
 #include "Timer.hpp"
 #define CE_PIN 22
 #define CSN_PIN 21
-/*------------------------------------------- ESP32 ------------------------------------------------------*/
 
 extern RF24 radio;
 
@@ -33,12 +26,6 @@ private:
     uint8_t power;    // intensidade 0-255
 
     bool newCommandAvailable;
-    
-    // Dados do Drone
-    uint8_t battery;      // % de bateria
-    int16_t altitude;     // altura em cm
-
-    bool isControl;
 
     // Sequência/protocolo confiável
     uint16_t seqCounter;      // sequência do próximo comando a enviar
@@ -53,7 +40,7 @@ private:
     static Communication* instance;
     
     // Construtor privado para singleton
-    Communication(bool isControl);
+    Communication();
 
     // Helper: checksum simples (xor)
     uint8_t calcChecksum(const uint8_t* data, size_t len);
@@ -67,7 +54,7 @@ public:
     ~Communication();
     
     // Método estático para obter a instância única
-    static Communication* getInstance(bool isControl = false);
+    static Communication* getInstance();
 
     // inicializa o rádio
     void begin();
@@ -76,20 +63,11 @@ public:
     uint8_t getAction();
     uint8_t getPower();
 
-    void setTelemetry(uint8_t newBattery, int16_t newAltitude);
-    uint8_t getBattery();
-    int16_t getAltitude();
-
-    const bool getIsControl();
-
     // Controle: envia comando e lê telemetria do ACK
     void sendCommand();
 
     // Controle: envia ping ou comando periodicamente
     void sendThing();
-
-    // Drone: recebe comando e envia telemetria via ACK
-    void receiveCommand();
 
     // Envia ping para atualizar telemetria mesmo sem novo comando
     void sendPing(uint8_t pingValue = 0xFF);

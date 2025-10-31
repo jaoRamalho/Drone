@@ -4,5 +4,5 @@ fp-info-cache
 fp-lib-table
 ~Drone-HW.kicad_pcb.lck
 sym-lib-table
-.vscode/
+.vscode
 .venv/

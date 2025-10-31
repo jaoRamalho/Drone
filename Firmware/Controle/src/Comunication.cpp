@@ -14,12 +14,11 @@ const unsigned long COMMAND_INTERVAL = 5000UL; // 5 segundos
 // Inicialização do ponteiro estático
 Communication* Communication::instance = nullptr;
 
-Communication::Communication(bool isControl) :
+Communication::Communication() :
     action(4),
     power(10),
     battery(100),
     altitude(0),
-    isControl(isControl),
     seqCounter(1),
     lastAckedSeq(0),
     lastReceivedSeq(0xFFFF), // inválido inicialmente
@@ -66,10 +65,10 @@ Communication::~Communication()
 {
 }
 
-Communication* Communication::getInstance(bool isControl)
+Communication* Communication::getInstance()
 {
     if (instance == nullptr) {
-        instance = new Communication(isControl);
+        instance = new Communication();
     }
     return instance;
 }
@@ -83,17 +82,10 @@ void Communication::begin()
     radio.enableAckPayload();
     radio.setPALevel(RF24_PA_MIN);
 
-    if(isControl) {
-        // controle: envia comando, recebe telemetria
-        radio.openWritingPipe(txAddress);
-        radio.openReadingPipe(1, rxAddress);
-        radio.stopListening(); // inicialmente transmissor
-    } else {
-        // drone: recebe comando, envia telemetria via ACK
-        radio.openWritingPipe(rxAddress); // envia telemetria para controle
-        radio.openReadingPipe(1, txAddress); // recebe comando
-        radio.startListening(); // inicialmente receptor
-    }
+    // controle: envia comando, recebe telemetria
+    radio.openWritingPipe(txAddress);
+    radio.openReadingPipe(1, rxAddress);
+    radio.stopListening();
 
     if (!radio.isChipConnected()) {
         Serial.println("ERRO: RF24 não conectado!");
@@ -121,31 +113,8 @@ uint8_t Communication::getPower()
     return power;
 }
 
-void Communication::setTelemetry(uint8_t newBattery, int16_t newAltitude)
-{
-    battery = newBattery;
-    altitude = newAltitude;
-}
-
-uint8_t Communication::getBattery()
-{
-    return battery;
-}
-
-int16_t Communication::getAltitude()
-{
-    return altitude;
-}
-
-const bool Communication::getIsControl()
-{
-    return isControl;
-}
-
 void Communication::sendCommand()
 {
-    if (!isControl) return; // apenas transmissor usa isso
-
     // Monta pacote: seq_hi, seq_lo, action, power, checksum
     uint8_t pkt[5];
     pkt[0] = (uint8_t)((seqCounter >> 8) & 0xFF);
@@ -214,76 +183,6 @@ void Communication::sendThing()
     }
 
     // Evita 100% CPU: libera o processador por um curto instante.
-    yield();
-}
-
-
-void Communication::receiveCommand()
-{
-    if (isControl) return; // apenas receptor usa isso
-
-    if (radio.available()) {
-        // Lê pacote (5 bytes esperado). Use payloadSize se dinâmico.
-        uint8_t cmd[5];
-        radio.read(cmd, sizeof(cmd));
-
-        // Verifica checksum
-        if (random(0, 100) < 5) { // 5% de chance de introduzir erro para testes
-            uint8_t byteIdx = random(0, 5); // escolhe um dos 5 bytes
-            uint8_t bitIdx = random(0, 8);  // escolhe um bit entre 0 e 7
-            cmd[byteIdx] ^= (1 << bitIdx);  // inverte o bit escolhido
-            Serial.print("|Receptor| Bitflip introduzido em cmd[");
-            Serial.print(byteIdx);
-            Serial.print("] bit ");
-            Serial.println(bitIdx);
-        }
-
-        if (!verifyChecksum(cmd, sizeof(cmd))) {
-            Serial.println("|Receptor| Pacote corrompido (checksum inválido). Ignorando.");
-            yield();
-            return;
-        }
-
-        uint16_t seq = (uint16_t(cmd[0]) << 8) | cmd[1];
-        uint8_t receivedAction = cmd[2];
-        uint8_t receivedPower = cmd[3];
-
-        bool isDuplicate = (seq == lastReceivedSeq);
-
-        if (receivedAction == 255 && receivedPower == 0) {
-            Serial.println("|Receptor| Pacote de ping recebido.");
-        } else if (isDuplicate) {
-            Serial.print("|Receptor| Pacote duplicado seq ");
-            Serial.println(seq);
-        } else {
-            // novo pacote — atualiza ação e potência
-            action = receivedAction;
-            power = receivedPower;
-            lastReceivedSeq = seq;
-
-            Serial.print("Ação = ");
-            Serial.print(action);
-            Serial.print(", Potência = ");
-            Serial.print(power);
-            Serial.print(", Seq = ");
-            Serial.println(seq);
-            // Aqui você aplicaria o comando ao drone ou enfileiraria para processamento
-        }
-
-        // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum
-        uint8_t ackPayload[7];
-        ackPayload[0] = (uint8_t)((seq >> 8) & 0xFF);
-        ackPayload[1] = (uint8_t)(seq & 0xFF);
-        ackPayload[2] = battery;
-        ackPayload[3] = (uint8_t)((altitude >> 8) & 0xFF);
-        ackPayload[4] = (uint8_t)(altitude & 0xFF);
-        ackPayload[5] = 0x00; // statusFlags (reservado)
-        ackPayload[6] = calcChecksum(ackPayload, 6);
-
-        // envia telemetria no ACK (pipe 1)
-        radio.writeAckPayload(1, ackPayload, sizeof(ackPayload));
-    }
-
     yield();
 }
 
