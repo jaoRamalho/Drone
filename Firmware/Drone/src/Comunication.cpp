@@ -1,5 +1,8 @@
 #include "Comunication.hpp"
 
+#define MIN_SAFE_BATTERY 20     // % → inicia pouso automático
+#define CONNECTION_TIMEOUT 3000 // ms sem sinal
+
 RF24 radio(CE_PIN, CSN_PIN);
 
 // Endereços (podem ser parametrizados depois)
@@ -8,6 +11,8 @@ const uint8_t rxAddress[6] = "00002"; // drone recebe/controle recebe telemetria
 
 volatile bool sendPingFlag = false;
 
+unsigned long now = 0;
+unsigned long lastCommandReceivedMillis = 0;
 unsigned long lastCommandMillis = 0;
 const unsigned long COMMAND_INTERVAL = 5000UL; // 5 segundos
 
@@ -93,6 +98,14 @@ void Communication::receiveCommand()
         uint8_t cmd[5];
         radio.read(cmd, sizeof(cmd));
 
+        if (lastCommandReceivedMillis != 0) {
+            now = millis();
+            if (now - lastCommandReceivedMillis > CONNECTION_TIMEOUT) {
+                Serial.println("[EMERGÊNCIA] Sinal perdido - iniciando pouso seguro!");
+                // função para pouso seguro
+            }
+        }
+
         // Verifica checksum
         if (!verifyChecksum(cmd, sizeof(cmd))) {
             Serial.println("|Receptor| Pacote corrompido (checksum inválido). Ignorando.");
@@ -116,6 +129,7 @@ void Communication::receiveCommand()
             action = receivedAction;
             power = receivedPower;
             lastReceivedSeq = seq;
+            lastCommandReceivedMillis = millis(); // Atualiza o tempo da última comunicação
 
             Serial.print("Ação = ");
             Serial.print(action);
@@ -124,6 +138,11 @@ void Communication::receiveCommand()
             Serial.print(", Seq = ");
             Serial.println(seq);
             // Aqui você aplicaria o comando ao drone ou enfileiraria para processamento
+        }
+
+        if (battery <= MIN_SAFE_BATTERY) {
+            Serial.println("[AVISO] Bateria baixa - pouso automático!");
+            // função para pouso seguro
         }
 
         // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum
