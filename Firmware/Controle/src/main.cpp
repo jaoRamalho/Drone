@@ -22,7 +22,7 @@ void setup() {
 
   gestos = Gestos::Init_Gestos();
 
-  controle = Communication::getInstance(true);
+  controle = Communication::getInstance();
 
   controle->begin();
   Init_Comunication();

@@ -17,7 +17,7 @@ Communication* Communication::instance = nullptr;
 Communication::Communication() :
     action(4),
     power(10),
-    battery(100),
+    battery(0),
     altitude(0),
     seqCounter(1),
     lastAckedSeq(0),
@@ -103,12 +103,12 @@ void Communication::setCommand(uint8_t newAction, uint8_t newPower)
     power = newPower;
 }
 
-uint8_t Communication::getAction()
+const uint8_t Communication::getAction() const
 {
     return action;
 }
 
-uint8_t Communication::getPower()
+const uint8_t Communication::getPower() const
 {
     return power;
 }

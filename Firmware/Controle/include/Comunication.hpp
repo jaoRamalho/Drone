@@ -19,11 +19,16 @@ extern const unsigned long COMMAND_INTERVAL;
 extern const uint8_t txAddress[6]; // controle envia/drone envia telemetria
 extern const uint8_t rxAddress[6]; // drone recebe/controle recebe telemetria
 
-class Communication {
+class Communication
+{
 private:
     // Dados de cada comando
-    uint8_t action;   // 0: frente, 1: trás, 2: esquerda, 3: direita, 4: subir, 5: descer
-    uint8_t power;    // intensidade 0-255
+    uint8_t action; // 0: frente, 1: trás, 2: esquerda, 3: direita, 4: subir, 5: descer
+    uint8_t power;  // intensidade 0-255
+
+    // Dados de telemetria recebidos
+    uint8_t battery;  // nível da bateria 0-100%
+    uint8_t altitude; // altitude em metros
 
     bool newCommandAvailable;
 
@@ -35,33 +40,35 @@ private:
     // Parâmetros do protocolo
     uint8_t maxRetries;
     unsigned long ackTimeoutMs;
-    
+
     // Singleton - ponteiro estático para a instância única
-    static Communication* instance;
-    
+    static Communication *instance;
+
     // Construtor privado para singleton
     Communication();
 
     // Helper: checksum simples (xor)
-    uint8_t calcChecksum(const uint8_t* data, size_t len);
-    bool verifyChecksum(const uint8_t* data, size_t len);
+    uint8_t calcChecksum(const uint8_t *data, size_t len);
+    bool verifyChecksum(const uint8_t *data, size_t len);
 
     // Helper: envia pacote com retries (usado no transmissor)
-    bool transmitWithRetries(const uint8_t* pkt, size_t pktLen);
-    
+    bool transmitWithRetries(const uint8_t *pkt, size_t pktLen);
+
 public:
-    
     ~Communication();
-    
+
     // Método estático para obter a instância única
-    static Communication* getInstance();
+    static Communication *getInstance();
 
     // inicializa o rádio
     void begin();
 
     void setCommand(uint8_t newAction, uint8_t newPower);
-    uint8_t getAction();
-    uint8_t getPower();
+    const uint8_t getAction() const;
+    const uint8_t getPower() const;
+
+    const uint8_t getBattery() const { return battery; }
+    const uint8_t getAltitude() const { return altitude; }
 
     // Controle: envia comando e lê telemetria do ACK
     void sendCommand();

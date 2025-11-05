@@ -21,6 +21,10 @@ extern const uint8_t rxAddress[6]; // drone recebe/controle recebe telemetria
 
 class Communication {
 private:
+    // Dados do Controle
+    uint8_t action;       // ação do controle
+    uint8_t power;        // potência do controle
+
     // Dados do Drone
     uint8_t battery;      // % de bateria
     int16_t altitude;     // altura em cm

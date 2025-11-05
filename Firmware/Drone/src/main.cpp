@@ -6,7 +6,7 @@
 #include "Gestos.hpp"
 #include "Comunication.hpp"
 
-Communication* controle;
+Communication* drone;
 Gyroscope* gyro;
 Control* control;
 Gestos* gestos;
@@ -22,10 +22,9 @@ void setup() {
 
   gestos = Gestos::Init_Gestos();
 
-  controle = Communication::getInstance(true);
+  drone = Communication::getInstance();
 
-  controle->begin();
-  Init_Comunication();
+  drone->begin();
 
   Init_ISR();
 
@@ -39,11 +38,8 @@ void loop() {
 
   int act = gestos->loop();
 
-  if (act != 0){
-    controle->setCommand(act, controle->getPower());
-  }
-  controle->sendThing();
-    vTaskDelay(1);
+  drone->receiveCommand();
+  vTaskDelay(1);
 }
 
 

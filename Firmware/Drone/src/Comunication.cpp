@@ -17,7 +17,9 @@ Communication* Communication::instance = nullptr;
 Communication::Communication() :
     battery(100),
     altitude(0),
-    lastReceivedSeq(0xFFFF), // inválido inicialmente
+    action(0),
+    power(0),
+    lastReceivedSeq(0xFFFF) // inválido inicialmente
 {
 }
 
@@ -92,16 +94,6 @@ void Communication::receiveCommand()
         radio.read(cmd, sizeof(cmd));
 
         // Verifica checksum
-        if (random(0, 100) < 5) { // 5% de chance de introduzir erro para testes
-            uint8_t byteIdx = random(0, 5); // escolhe um dos 5 bytes
-            uint8_t bitIdx = random(0, 8);  // escolhe um bit entre 0 e 7
-            cmd[byteIdx] ^= (1 << bitIdx);  // inverte o bit escolhido
-            Serial.print("|Receptor| Bitflip introduzido em cmd[");
-            Serial.print(byteIdx);
-            Serial.print("] bit ");
-            Serial.println(bitIdx);
-        }
-
         if (!verifyChecksum(cmd, sizeof(cmd))) {
             Serial.println("|Receptor| Pacote corrompido (checksum inválido). Ignorando.");
             yield();
