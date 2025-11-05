@@ -1,78 +1,44 @@
 #include <Arduino.h>
 #include "ISR.hpp"
 #include "Gyroscope.hpp"
-// #include "PWM.hpp"
 #include "Control.hpp"
-#include "Gestos.hpp"
 #include "Comunication.hpp"
+#include "Timer.hpp"
 
-Communication* drone;
-Gyroscope* gyro;
-Control* control;
-Gestos* gestos;
+Communication *receiver;
+Gyroscope *gyro;
+Control *control;
 
-void setup() {
+void setup()
+{
   Serial.begin(9600);
 
   Serial.println("| MAIN | ---------- Iniciando setup --------");
 
-  // gyro = Gyroscope::Init_Gyroscope();
- 
-  // control = Control::Init_Control();
+  gyro = Gyroscope::Init_Gyroscope();
 
-  gestos = Gestos::Init_Gestos();
+  control = Control::Init_Control();
 
-  drone = Communication::getInstance();
+  receiver = Communication::getInstance();
 
-  drone->begin();
+  receiver->begin();
+
+  Init_Timer();
 
   Init_ISR();
+
+  Serial.println("| MAIN | ---------- Setup finalizado --------");
 
   vTaskDelay(10);
 }
 
-void loop() {
-  // gyro->loop();
-  
-  // control->loop();
+void loop()
+{
+  gyro->loop();
 
-  int act = gestos->loop();
+  control->loop();
 
-  drone->receiveCommand();
+  receiver->receiveCommand();
+
   vTaskDelay(1);
 }
-
-
-/*---------------------------------------------------------------- RECEPTOR(ARDUINO) -------------------------------------------------------------------*/
-// #include "Comunication.hpp"
-
-// Communication* drone = Communication::getInstance(false);
-
-// void setup() {
-//   Serial.begin(9600);
-//   drone->begin();
-// }
-
-// void loop() {
-//   drone->receiveCommand();
-//   delay(300);
-// }
-/*---------------------------------------------------------------- RECEPTOR(ARDUINO) -------------------------------------------------------------------*/
-
-
-/*--------------------------------------------------------------- TRANSMISSOR(ESP32) ------------------------------------------------------------------*/
-// #include "Comunication.hpp"
-
-// Communication* controle = Communication::getInstance(true);
-
-// void setup() {
-//   Serial.begin(9600);
-//   controle->begin();
-//   Init_Comunication();
-// }
-
-// void loop() {
-//   controle->sendThing();
-//   delay(300);
-// }
-/*--------------------------------------------------------------- TRANSMISSOR(ESP32) ------------------------------------------------------------------*/

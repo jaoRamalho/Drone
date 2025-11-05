@@ -142,6 +142,11 @@ void Communication::sendCommand()
                 Serial.print("%, Altitude = ");
                 Serial.print(altitude);
                 Serial.print(" cm");
+
+                if (battery <= MIN_SAFE_BATTERY) {
+                    Serial.println("[AVISO] Bateria baixa - pouso automático!");
+                }
+
                 return;
             } else {
                 Serial.print("|Transmissor| ACK seq mismatch (esperado ");

@@ -8,6 +8,8 @@
 #define CE_PIN 22
 #define CSN_PIN 21
 
+#define MIN_SAFE_BATTERY 20     // % → inicia pouso automático
+
 extern RF24 radio;
 
 extern volatile bool sendPingFlag;

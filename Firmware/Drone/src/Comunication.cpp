@@ -1,8 +1,5 @@
 #include "Comunication.hpp"
 
-#define MIN_SAFE_BATTERY 20     // % → inicia pouso automático
-#define CONNECTION_TIMEOUT 3000 // ms sem sinal
-
 RF24 radio(CE_PIN, CSN_PIN);
 
 // Endereços (podem ser parametrizados depois)
@@ -55,7 +52,7 @@ Communication* Communication::getInstance()
 
 void Communication::begin()
 {
-    Serial.println("|Comunication| Iniciando rádio no drone...");
+    Serial.println("|Receptor| Iniciando rádio no drone...");
     radio.begin();
     // radio.setDataRate(RF24_250KBPS);
     radio.enableDynamicPayloads();
@@ -68,10 +65,10 @@ void Communication::begin()
     radio.startListening();
 
     if (!radio.isChipConnected()) {
-        Serial.println("ERRO: RF24 não conectado!");
+        Serial.println("|Receptor| ERRO: RF24 não conectado!");
         return;
     }
-    Serial.println("|Comunication| Rádio iniciado no drone.");
+    Serial.println("|Receptor| Rádio iniciado no drone.");
 }
 
 void Communication::setTelemetry(uint8_t newBattery, int16_t newAltitude)
@@ -103,6 +100,7 @@ void Communication::receiveCommand()
             if (now - lastCommandReceivedMillis > CONNECTION_TIMEOUT) {
                 Serial.println("[EMERGÊNCIA] Sinal perdido - iniciando pouso seguro!");
                 // função para pouso seguro
+                return;
             }
         }
 
@@ -140,12 +138,7 @@ void Communication::receiveCommand()
             // Aqui você aplicaria o comando ao drone ou enfileiraria para processamento
         }
 
-        if (battery <= MIN_SAFE_BATTERY) {
-            Serial.println("[AVISO] Bateria baixa - pouso automático!");
-            // função para pouso seguro
-        }
-
-        // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum
+         // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum
         uint8_t ackPayload[7];
         ackPayload[0] = (uint8_t)((seq >> 8) & 0xFF);
         ackPayload[1] = (uint8_t)(seq & 0xFF);
@@ -154,6 +147,11 @@ void Communication::receiveCommand()
         ackPayload[4] = (uint8_t)(altitude & 0xFF);
         ackPayload[5] = 0x00; // statusFlags (reservado)
         ackPayload[6] = calcChecksum(ackPayload, 6);
+
+        if (battery <= MIN_SAFE_BATTERY) {
+            Serial.println("[AVISO] Bateria baixa - pouso automático!");
+            // função para pouso seguro
+        }
 
         // envia telemetria no ACK (pipe 1)
         radio.writeAckPayload(1, ackPayload, sizeof(ackPayload));
