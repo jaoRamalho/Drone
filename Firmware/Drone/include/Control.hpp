@@ -5,6 +5,10 @@
 #include <ESP32Servo.h>
 
 
+
+static const uint16_t OFFSET_MOTORS = 42;
+static const uint16_t MAX_MOTORS = 115;
+
 struct PID {
     float kp;
     float ki;
