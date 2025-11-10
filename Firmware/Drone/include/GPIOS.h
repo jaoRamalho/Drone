@@ -4,7 +4,7 @@
 #include "stdint.h"
 
 // LED de status
-static const uint8_t PIN_LED_STATUS = 2; 
+static const uint8_t LED = 17; 
 
 // Botão start
 static const uint8_t PIN_BUTTON = 27;

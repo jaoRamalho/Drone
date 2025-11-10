@@ -32,21 +32,29 @@ enum StateControl {
 class Control {
 private:
     StateControl state, previousState;
-    Servo m1, m2, m3, m4;
     uint8_t commonValueServants, valueM1, valueM2, valueM3, valueM4;
+    Servo m1, m2, m3, m4;
     
     Gyroscope* gyro;
 
-
+    uint32_t setupTimeLED;
+    
     static Control* instance;
     Control();
 public:
     ~Control();
+    
+    static uint32_t timeState;
+    static uint8_t ledState;
+    static uint32_t timeLed;
 
     static Control* Init_Control();
-    static uint32_t timeState;
     void resetMotorsValues();
+    void setupMotors();
 
+
+    void loopMotors();
+    void loopConfig();
     void loop();
 };
 

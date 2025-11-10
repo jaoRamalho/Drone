@@ -2,11 +2,35 @@
 
 Control *Control::instance = nullptr;
 uint32_t Control::timeState = 0;
-Control::Control() : commonValueServants(0), valueM1(0), valueM2(0), valueM3(0), valueM4(0)
+Control::Control() : commonValueServants(0), valueM1(0), valueM2(0), valueM3(0), valueM4(0), ledState(0), timeLed(500), setupTimeLED(500)
 {
     Serial.println("| CONTROL | ---------- Iniciando Control --------");
 
+    pinMode(LED, OUTPUT);
+    digitalWrite(LED, ledState);
+
+    pinMode(PIN_BUTTON, INPUT_PULLUP);
+
     gyro = Gyroscope::Init_Gyroscope();
+
+    setupMotors();
+
+    Serial.println("| CONTROL | ---------- Control Iniciado --------");
+}
+
+Control::~Control()
+{
+}
+
+void Control::resetMotorsValues()
+{
+    valueM1 = commonValueServants;
+    valueM2 = commonValueServants;
+    valueM3 = commonValueServants;
+    valueM4 = commonValueServants;
+}
+
+void Control::setupMotors(){
 
     pinMode(PIN_M1, OUTPUT);
     m1.attach(PIN_M1);
@@ -26,20 +50,6 @@ Control::Control() : commonValueServants(0), valueM1(0), valueM2(0), valueM3(0),
 
     state = WAKEUP_ALL;
     previousState = state;
-
-    Serial.println("| CONTROL | ---------- Control Iniciado --------");
-}
-
-Control::~Control()
-{
-}
-
-void Control::resetMotorsValues()
-{
-    valueM1 = commonValueServants;
-    valueM2 = commonValueServants;
-    valueM3 = commonValueServants;
-    valueM4 = commonValueServants;
 }
 
 Control *Control::Init_Control()
@@ -50,8 +60,7 @@ Control *Control::Init_Control()
     return instance;
 }
 
-void Control::loop()
-{
+void Control::loopMotors(){
     switch (state){
         case WAKEUP_ALL: {
             Serial.println("| CONTROL | - Estado WAKEUP");
@@ -199,4 +208,18 @@ void Control::loop()
             break;
         }
     }
+}
+
+void Control::loopConfig(){
+    if(!timeLed){
+        ledState = !ledState;
+        digitalWrite(LED, ledState);
+        timeLed = setupTimeLED;
+    }
+
+}
+
+void Control::loop(){
+    loopMotors();
+    loopConfig();
 }

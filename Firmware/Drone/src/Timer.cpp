@@ -18,6 +18,7 @@ void Init_Timer() {
 void IRAM_ATTR MainTimer() {
     // Esta função é chamada a cada 1 ms
     if (Control::timeState > 0) { Control::timeState--; }
+    if (Control::timeLed > 0) { Control::timeLed--; }
 }
 
 

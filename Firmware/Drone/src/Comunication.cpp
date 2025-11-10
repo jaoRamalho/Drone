@@ -138,7 +138,7 @@ void Communication::receiveCommand()
             // Aqui você aplicaria o comando ao drone ou enfileiraria para processamento
         }
 
-         // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum
+        // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum
         uint8_t ackPayload[7];
         ackPayload[0] = (uint8_t)((seq >> 8) & 0xFF);
         ackPayload[1] = (uint8_t)(seq & 0xFF);

@@ -5,13 +5,13 @@
 #include "Comunication.hpp"
 #include "Timer.hpp"
 
-Communication *receiver;
-Gyroscope *gyro;
-Control *control;
+Communication *receiver = nullptr;
+Gyroscope *gyro = nullptr;
+Control *control = nullptr;
 
-void setup()
-{
-  Serial.begin(9600);
+void setup(){
+
+  Serial.begin(115200);
 
   Serial.println("| MAIN | ---------- Iniciando setup --------");
 
@@ -20,7 +20,6 @@ void setup()
   control = Control::Init_Control();
 
   receiver = Communication::getInstance();
-
   receiver->begin();
 
   Init_Timer();
@@ -32,8 +31,7 @@ void setup()
   vTaskDelay(10);
 }
 
-void loop()
-{
+void loop(){
   gyro->loop();
 
   control->loop();
