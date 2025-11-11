@@ -5,7 +5,7 @@
 
 #include "GPIOS.h"
 
-#define MPU_ADDR 0x68 // Endereço I2C típico do MPU6050
+#define MPU_ADDR 0x69 // Endereço I2C típico do MPU6050
 
 // Fatores de conversão (datasheet do MPU6050)
 const float ACCEL_SCALE = 16384.0;

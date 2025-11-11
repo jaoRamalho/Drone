@@ -5,8 +5,8 @@
 #include <RF24.h>
 
 #include "Timer.hpp"
-#define CE_PIN 22
-#define CSN_PIN 21
+#define CE_PIN 32
+#define CSN_PIN 33
 
 #define MIN_SAFE_BATTERY 20     // % → inicia pouso automático
 #define CONNECTION_TIMEOUT 3000 // ms sem sinal

@@ -32,9 +32,8 @@ static const uint8_t PIN_RX_USB = 3;
 // Outros sinais (se usados para módulo RF ou sensores)
 static const uint8_t PIN_CE  = 32;
 static const uint8_t PIN_CSN = 33;
-static const uint8_t PIN_INT = 34;
 static const uint8_t PIN_IRQ = 35;
 
-static const uint8_t INT_GYRO_PIN = 10; // GPIO de interrupção do giroscópio
+static const uint8_t INT_GYRO_PIN = 34; // GPIO de interrupção do giroscópio
 
 #endif // GPIOS_H

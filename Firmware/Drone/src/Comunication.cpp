@@ -117,8 +117,10 @@ void Communication::receiveCommand()
 
         bool isDuplicate = (seq == lastReceivedSeq);
 
+        lastCommandReceivedMillis = millis(); // Atualiza o tempo da última comunicação
+
         if (receivedAction == 255 && receivedPower == 0) {
-            Serial.println("|Receptor| Pacote de ping recebido.");
+            //Serial.println("|Receptor| Pacote de ping recebido.");
         } else if (isDuplicate) {
             Serial.print("|Receptor| Pacote duplicado seq ");
             Serial.println(seq);
@@ -127,7 +129,6 @@ void Communication::receiveCommand()
             action = receivedAction;
             power = receivedPower;
             lastReceivedSeq = seq;
-            lastCommandReceivedMillis = millis(); // Atualiza o tempo da última comunicação
 
             Serial.print("Ação = ");
             Serial.print(action);

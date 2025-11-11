@@ -2,7 +2,9 @@
 
 Control *Control::instance = nullptr;
 uint32_t Control::timeState = 0;
-Control::Control() : commonValueServants(0), valueM1(0), valueM2(0), valueM3(0), valueM4(0), ledState(0), timeLed(500), setupTimeLED(500)
+uint8_t Control::ledState = 0;
+uint32_t Control::timeLed = 500;
+Control::Control() : commonValueServants(0), valueM1(0), valueM2(0), valueM3(0), valueM4(0), setupTimeLED(500)
 {
     Serial.println("| CONTROL | ---------- Iniciando Control --------");
 
