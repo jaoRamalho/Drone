@@ -124,6 +124,14 @@ def detectarMaoFechada(handLandmarks):
 
 cap = cv2.VideoCapture(0)
 
+LABELS = {
+    1: 'JOINHA (LEGADO)',
+    2: 'JOINHA_INV (LEGADO)',
+    3: 'PAZ (LEGADO)',
+    4: 'MÃO ABERTA (LEGADO)',
+    5: 'MÃO FECHADA (LEGADO)',
+}
+
 while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
@@ -140,27 +148,25 @@ while cap.isOpened():
 
             if detectarJoinha(handLandmarks):
                 gesto_id = 1
-                cv2.putText(frame,"JOINHA",(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
             elif detectarJoinhaInvertido(handLandmarks):
                 gesto_id = 2
-                cv2.putText(frame,"JOINHA_INV",(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,255),2)
             elif detectarPaz(handLandmarks):
                 gesto_id = 3
-                cv2.putText(frame,"PAZ",(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,0),2)
             elif detectarMaoAberta(handLandmarks):
                 gesto_id = 4
-                cv2.putText(frame,"MAO_ABERTA",(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(0,200,255),2)
             elif detectarMaoFechada(handLandmarks):
                 gesto_id = 5
-                cv2.putText(frame,"MAO_FECHADA",(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,255),2)
 
-    # ---- envio controlado ----
     if gesto_id is not None:
         now = time.time()
         if gesto_id != ultimo_gesto and (now - t_ultimo_envio) >= DELAY:
             ser.write(bytes([gesto_id]))
             ultimo_gesto = gesto_id
             t_ultimo_envio = now
+
+        # desenho do rótulo
+        txt = LABELS.get(gesto_id, f'GESTO {gesto_id}')
+        cv2.putText(frame, txt, (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,255), 2, cv2.LINE_AA)
 
     cv2.imshow("DeteccaoDeGestos1Mao", frame)
     if cv2.waitKey(1) & 0xFF == 27:
