@@ -53,17 +53,6 @@ void Gyroscope::readData()
     GyX = (int16_t) ((GyX / GYRO_SCALE) * 100);
     GyY = (int16_t) ((GyY / GYRO_SCALE) * 100);
     GyZ = (int16_t) ((GyZ / GYRO_SCALE) * 100);
-
-
-    Serial.print("|Gyroscope| - Dados lidos: ");
-    Serial.print("AcX: "); Serial.print(AcX); Serial.print(" ");
-    Serial.print("AcY: "); Serial.print(AcY); Serial.print(" ");    
-    Serial.print("AcZ: "); Serial.print(AcZ); Serial.print(" ");
-    Serial.print("Tmp: "); Serial.print(Tmp); Serial.print(" ");
-    Serial.print("GyX: "); Serial.print(GyX); Serial.print(" ");
-    Serial.print("GyY: "); Serial.print(GyY); Serial.print(" ");
-    Serial.print("GyZ: "); Serial.println(GyZ);
-
 }
 
 void Gyroscope::configMPU6050(){
