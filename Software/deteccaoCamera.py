@@ -69,15 +69,47 @@ def polegarEstendidoParaBaixo(handLandmarks):
     mcp = l[2]
     idx_mcp = l[5]
     min_len = tolEscalada(handLandmarks, 1.8)
-    long_enough = (distanciaRelativa(tip, ip)  > 0.9*min_len) or (distanciaRelativa(tip, mcp) > min_len)
+    long_enough = (distanciaRelativa(tip, ip) > 0.9*min_len) or (distanciaRelativa(tip, mcp) > min_len)
     dx, dy = (tip.x - ip.x), (tip.y - ip.y)
     ang = angulo_com_vertical(dx, dy)
-    verticalish_down = ang >= 120 
+    verticalish_down = ang >= 120
     m_y1 = tolEscalada(handLandmarks, 0.5)
     m_y2 = tolEscalada(handLandmarks, 0.3)
     below_joint = (tip.y > max(ip.y, mcp.y) + m_y1)
     below_index = (tip.y > idx_mcp.y + m_y2)
     return long_enough and (verticalish_down or (below_joint and below_index))
+
+def polegarDobradoOuTocado(handLandmarks):
+    """
+    Verifica se o polegar está dobrado ou 'tocado' na palma (ponta próxima ao índice MCP - landmark 5).
+    Usado para gestos onde o polegar não deve estar estendido.
+    """
+    ttip = handLandmarks.landmark[4] # Ponta do Polegar
+    imcp = handLandmarks.landmark[5] # Base do Dedo Indicador
+    # Se a ponta do polegar estiver perto da base do dedo indicador, ele está dobrado/tocado
+    return distanciaRelativa(ttip, imcp) < tolEscalada(handLandmarks, 1.2)
+
+# --- NOVO AUXILIAR PARA GESTOS LATERAIS (SHAKA E ROCK ON) ---
+def polegarEstendidoGenerico(handLandmarks):
+    """
+    Verifica se o polegar está estendido (longe da palma), sem ser restrito à vertical.
+    Mais tolerante para gestos como Shaka e Rock On.
+    """
+    tip = handLandmarks.landmark[4]
+    mcp = handLandmarks.landmark[2]
+    base = handLandmarks.landmark[0]
+
+    min_len = tolEscalada(handLandmarks, 2.0)
+    long_enough = distanciaRelativa(tip, mcp) > min_len
+
+    far_from_palm = distanciaRelativa(tip, base) > tolEscalada(handLandmarks, 3.0)
+
+    is_tucked = polegarDobradoOuTocado(handLandmarks)
+
+    return long_enough and far_from_palm and (not is_tucked)
+
+
+# --- DETECÇÕES DE GESTOS ESSENCIAIS ---
 
 def detectarJoinha(handLandmarks):
     return (polegarEstendidoParaCima(handLandmarks) and
@@ -95,14 +127,15 @@ def detectarJoinhaInvertido(handLandmarks):
 
 def detectarPaz(handLandmarks):
     m_sep = tolEscalada(handLandmarks, 1.5)
-    a = handLandmarks.landmark[8]
-    b = handLandmarks.landmark[12]
+    a = handLandmarks.landmark[8] # Ponta do Indicador
+    b = handLandmarks.landmark[12] # Ponta do Médio
     separado = distanciaRelativa(a, b) > m_sep
     return (dedoEstendidoY(handLandmarks,8,5) and
             dedoEstendidoY(handLandmarks,12,9) and
             separado and
             dedoDobrado(handLandmarks,16,13) and
-            dedoDobrado(handLandmarks,20,17))
+            dedoDobrado(handLandmarks,20,17) and
+            polegarDobradoOuTocado(handLandmarks))
 
 def detectarMaoAberta(handLandmarks):
     return (dedoEstendidoY(handLandmarks,8,5) and
@@ -113,29 +146,71 @@ def detectarMaoAberta(handLandmarks):
             not polegarEstendidoParaBaixo(handLandmarks))
 
 def detectarMaoFechada(handLandmarks):
-    ttip = handLandmarks.landmark[4]
-    imcp = handLandmarks.landmark[5]
-    perto = distanciaRelativa(ttip, imcp) < tolEscalada(handLandmarks, 1.2)
     return (dedoDobrado(handLandmarks,8,5) and
             dedoDobrado(handLandmarks,12,9) and
             dedoDobrado(handLandmarks,16,13) and
             dedoDobrado(handLandmarks,20,17) and
-            perto)
+            polegarDobradoOuTocado(handLandmarks))
+
+def detectarPonteiro(handLandmarks):
+    return (dedoEstendidoY(handLandmarks, 8, 5) and
+            dedoDobrado(handLandmarks, 12, 9) and
+            dedoDobrado(handLandmarks, 16, 13) and
+            dedoDobrado(handLandmarks, 20, 17) and
+            polegarDobradoOuTocado(handLandmarks))
+
+def detectarMedio(handLandmarks):
+    return (dedoDobrado(handLandmarks, 8, 5) and
+            dedoEstendidoY(handLandmarks, 12, 9) and
+            dedoDobrado(handLandmarks, 16, 13) and
+            dedoDobrado(handLandmarks, 20, 17) and
+            polegarDobradoOuTocado(handLandmarks))
+
+def detectarHL(handLandmarks):
+    polegar_ok = polegarEstendidoGenerico(handLandmarks)
+
+    # Indicador, Médio, Anelar: Dobrados
+    dedos_dobrados_ok = (dedoDobrado(handLandmarks, 8, 5) and
+                         dedoDobrado(handLandmarks, 12, 9) and
+                         dedoDobrado(handLandmarks, 16, 13))
+
+    minimo_ok = dedoEstendidoY(handLandmarks, 20, 17)
+
+    return polegar_ok and dedos_dobrados_ok and minimo_ok
+
+def detectarRockOn(handLandmarks):
+    polegar_ok = polegarEstendidoGenerico(handLandmarks)
+
+    indicador_minimo_ok = (dedoEstendidoY(handLandmarks, 8, 5) and
+                           dedoEstendidoY(handLandmarks, 20, 17))
+
+    medio_anelar_dobrados_ok = (dedoDobrado(handLandmarks, 12, 9) and
+                                dedoDobrado(handLandmarks, 16, 13))
+
+    return polegar_ok and indicador_minimo_ok and medio_anelar_dobrados_ok
+
 
 cap = cv2.VideoCapture(0)
 
 LABELS = {
-    1: 'JOINHA (LEGADO)',
-    2: 'JOINHA_INV (LEGADO)',
-    3: 'PAZ (LEGADO)',
-    4: 'MÃO ABERTA (LEGADO)',
-    5: 'MÃO FECHADA (LEGADO)',
+    1: 'INICIAR VOO (JOINHA)',
+    2: 'POUSAR (JOINHA_INV)',
+    3: 'CIMA (PAZ)',
+    4: 'LIGAR MOTORES (MÃO ABERTA)',
+    5: 'ENCERRAR VOO (MÃO FECHADA)',
+    6: 'FRENTE (PONTEIRO)',
+    7: 'ATRÁS (DEDO MÉDIO)',
+    8: 'ESQUERDA (SHAKA)',
+    9: 'DIREITA (ROCK ON)',
 }
 
 while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
         break
+
+    # Inverter a imagem para que o "lado" do gesto corresponda ao lado da câmera
+    frame = cv2.flip(frame, 1)
 
     rgbFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = hands.process(rgbFrame)
@@ -146,16 +221,25 @@ while cap.isOpened():
         for handLandmarks in results.multi_hand_landmarks:
             mpDrawing.draw_landmarks(frame, handLandmarks, mpHands.HAND_CONNECTIONS)
 
-            if detectarJoinha(handLandmarks):
+            if detectarRockOn(handLandmarks):
+                gesto_id = 9
+            elif detectarHL(handLandmarks):
+                gesto_id = 8
+            elif detectarPonteiro(handLandmarks):
+                gesto_id = 6
+            elif detectarMedio(handLandmarks):
+                gesto_id = 7
+            elif detectarJoinha(handLandmarks):
                 gesto_id = 1
             elif detectarJoinhaInvertido(handLandmarks):
                 gesto_id = 2
             elif detectarPaz(handLandmarks):
                 gesto_id = 3
-            elif detectarMaoAberta(handLandmarks):
-                gesto_id = 4
             elif detectarMaoFechada(handLandmarks):
                 gesto_id = 5
+            elif detectarMaoAberta(handLandmarks):
+                gesto_id = 4
+
 
     if gesto_id is not None:
         now = time.time()
@@ -164,13 +248,18 @@ while cap.isOpened():
             ultimo_gesto = gesto_id
             t_ultimo_envio = now
 
-        # desenho do rótulo
-        txt = LABELS.get(gesto_id, f'GESTO {gesto_id}')
+        txt = LABELS.get(gesto_id, f'COMANDO {gesto_id}')
         cv2.putText(frame, txt, (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,255), 2, cv2.LINE_AA)
+    else:
+        if ultimo_gesto is not None:
+             txt = LABELS.get(ultimo_gesto, f'COMANDO {ultimo_gesto}') + ' (Aguardando novo gesto)'
+             cv2.putText(frame, txt, (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,165,255), 2, cv2.LINE_AA)
 
-    cv2.imshow("DeteccaoDeGestos1Mao", frame)
-    if cv2.waitKey(1) & 0xFF == 27:
+
+    cv2.imshow("DeteccaoDeGestos_DroneControl", frame)
+    if cv2.waitKey(1) & 0xFF == 27: # ESC para sair
         break
 
 cap.release()
 cv2.destroyAllWindows()
+ser.close()
