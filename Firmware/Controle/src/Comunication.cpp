@@ -42,21 +42,37 @@ bool Communication::verifyChecksum(const uint8_t* data, size_t len) {
 }
 
 // Helper: transmite com retries e espera por ACK (o ack payload é lido por radio.read)
-bool Communication::transmitWithRetries(const uint8_t* pkt, size_t pktLen) {
+bool Communication::transmitWithRetries(const uint8_t* pkt, size_t pktLen, uint32_t* rttUsOut = nullptr) {    
+    if (rttUsOut) *rttUsOut = 0;
     unsigned long start = 0;
+    uint32_t startUs = 0;
     for (uint8_t attempt = 0; attempt < maxRetries; ++attempt) {
+        // marca o início imediatamente antes de escrever
+        startUs = micros();
+
         if (radio.write(pkt, pktLen)) {
             // aguarda ack payload ficar disponível até ackTimeoutMs
             start = millis();
             while ((millis() - start) < ackTimeoutMs) {
                 if (radio.isAckPayloadAvailable()) {
+                    // marca o tempo assim que o ACK payload fica disponível
+                    uint32_t endUs = micros();
+                    if (rttUsOut) {
+                        // micros() é unsigned long (wrap é tratado automaticamente)
+                        *rttUsOut = endUs - startUs;
+                    }
                     return true; // ack disponível — chamador lerá o payload
                 }
-                // pequena espera cooperativa
                 yield();
             }
             // se chegou aqui, ack não chegou dentro do timeout -> tentar novamente
         }
+        // pequena pausa entre tentativas pode ajudar (opcional)
+        // delay(1);
+    }
+    // nenhum ack recebido após retries
+    if (rttUsOut) {
+        *rttUsOut = 0; // ou use UINT32_MAX para sinalizar "sem resposta"
     }
     return false;
 }
@@ -123,7 +139,8 @@ void Communication::sendCommand()
     pkt[3] = power;
     pkt[4] = calcChecksum(pkt, 4);
 
-    bool ackAvailable = transmitWithRetries(pkt, sizeof(pkt));
+    uint32_t rttUs = 0;
+    bool ackAvailable = transmitWithRetries(pkt, sizeof(pkt), &rttUs);
     if (ackAvailable) {
         // Lê o ACK payload esperado (formato: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum)
         uint8_t ack[7];
@@ -141,6 +158,8 @@ void Communication::sendCommand()
                 Serial.print(battery);
                 Serial.print("%, Altitude = ");
                 Serial.print(altitude);
+                Serial.print(", RTT (us) = ");
+                Serial.print(rttUs);
                 Serial.print(" cm");
 
                 if (battery <= MIN_SAFE_BATTERY) {
@@ -205,7 +224,8 @@ void Communication::sendPing(uint8_t pingValue)
 
     radio.stopListening();
 
-    bool ackAvailable = transmitWithRetries(pkt, sizeof(pkt));
+    uint32_t rttUs = 0;
+    bool ackAvailable = transmitWithRetries(pkt, sizeof(pkt), &rttUs);
     if (ackAvailable) {
         uint8_t ack[7];
         radio.read(ack, sizeof(ack));
@@ -220,7 +240,9 @@ void Communication::sendPing(uint8_t pingValue)
             Serial.print(battery);
             Serial.print("% alt ");
             Serial.print(altitude);
-            Serial.println(" cm");
+            Serial.print(" cm");
+            Serial.print(", RTT (us) = ");
+            Serial.println(rttUs);
         } else {
             Serial.println("|Transmissor| Ping ACK corrompido.");
         }

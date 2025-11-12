@@ -24,6 +24,22 @@ extern const unsigned long COMMAND_INTERVAL;
 extern const uint8_t txAddress[6]; // controle envia/drone envia telemetria
 extern const uint8_t rxAddress[6]; // drone recebe/controle recebe telemetria
 
+enum Command : uint8_t
+{
+    NONE = 0,
+    TAKEOFF = 1,
+    LAND = 2,
+    EMERGENCY_STOP = 3,
+    MOVE_FORWARD = 4,
+    MOVE_BACKWARD = 5,
+    MOVE_LEFT = 6,
+    MOVE_RIGHT = 7,
+    ASCEND = 8,
+    DESCEND = 9,
+    ROTATE_CW = 10,
+    ROTATE_CCW = 11
+};
+
 class Communication
 {
 private:
@@ -60,6 +76,9 @@ public:
     void setTelemetry(uint8_t newBattery, int16_t newAltitude);
     uint8_t getBattery();
     int16_t getAltitude();
+
+    const uint8_t getAction() { return action; }
+    const uint8_t getPower() { return power; }
 
     // Drone: recebe comando e envia telemetria via ACK
     void receiveCommand();

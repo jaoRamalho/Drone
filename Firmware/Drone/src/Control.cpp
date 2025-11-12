@@ -54,26 +54,26 @@ void Control::setupMotors(){
     previousState = state;
 }
 
-void Control::setPercentVelocityMotor(uint8_t percent, uint8_t motorNumber){
+void Control::setPercentVelocityMotor(uint8_t percent, MotorNumber motorNumber){
     uint8_t valueToSet = OFFSET_MOTORS + ((MAX_MOTORS - OFFSET_MOTORS) * percent) / 100;
     switch (motorNumber){
-        case 1:
+        case MOTOR_1:
             valueM1 = valueToSet;
             m1.write(valueM1);
             break;
-        case 2:
+        case MOTOR_2:
             valueM2 = valueToSet;
             m2.write(valueM2);
             break;
-        case 3:
+        case MOTOR_3:
             valueM3 = valueToSet;
             m3.write(valueM3);
             break;
-        case 4:
+        case MOTOR_4:
             valueM4 = valueToSet;
             m4.write(valueM4);
             break;
-        case 0:
+        case MOTOR_ALL:
             valueM1 = valueToSet;
             m1.write(valueM1);
             valueM2 = valueToSet;
@@ -102,7 +102,7 @@ void Control::loopMotors(){
         case WAKEUP_ALL: {
             Serial.println("| CONTROL | - Estado WAKEUP");
             timeState = 5000;
-            setPercentVelocityMotor(0, 0);
+            setPercentVelocityMotor(0, MOTOR_ALL);
             previousState = state;
             state = PREVIOUS_ARMED_ALL;
             Serial.println("| CONTROL | - Set Estado ARMED");
@@ -110,7 +110,7 @@ void Control::loopMotors(){
         }
         case WAKEUP_M1: {
             Serial.println("| CONTROL | - Estado WAKEUP_M1");
-            setPercentVelocityMotor(0, 1);
+            setPercentVelocityMotor(0, MOTOR_1);
             timeState = 5000;
             previousState = state;
             state = ARMED_M1;
@@ -119,7 +119,7 @@ void Control::loopMotors(){
         }
         case WAKEUP_M2: {
             Serial.println("| CONTROL | - Estado WAKEUP_M2");
-            setPercentVelocityMotor(0, 2);
+            setPercentVelocityMotor(0, MOTOR_2);
             timeState = 5000;
             previousState = state;
             state = ARMED_M2;
@@ -128,7 +128,7 @@ void Control::loopMotors(){
         }
         case WAKEUP_M3: {
             Serial.println("| CONTROL | - Estado WAKEUP_M3");
-            setPercentVelocityMotor(0, 3);
+            setPercentVelocityMotor(0, MOTOR_3);
             timeState = 5000;
             previousState = state;
             state = ARMED_M3;
@@ -137,7 +137,7 @@ void Control::loopMotors(){
         }
         case WAKEUP_M4: {
             Serial.println("| CONTROL | - Estado WAKEUP_M4");
-            setPercentVelocityMotor(0, 4);
+            setPercentVelocityMotor(0, MOTOR_4);
             timeState = 5000;
             previousState = state;
             state = ARMED_M4;
@@ -153,7 +153,7 @@ void Control::loopMotors(){
                 }
                 else {
                     commonValueServants += 5;
-                    setPercentVelocityMotor(commonValueServants, 0);
+                    setPercentVelocityMotor(commonValueServants, MOTOR_ALL);
                     timeState = 1000;
                 }
                 previousState = state;
@@ -163,35 +163,35 @@ void Control::loopMotors(){
         }
         case ARMED_ALL: {
             Serial.println("| CONTROL | - Estado ARMED");
-            setPercentVelocityMotor(commonValueServants, 0);
+            setPercentVelocityMotor(commonValueServants, MOTOR_ALL);
             previousState = state;
             state = PREVIOUS_ARMED_ALL;
             break;
         }
         case ARMED_M1: {
             Serial.println("| CONTROL | - Estado ARMED_M1");
-            setPercentVelocityMotor(commonValueServants, 1);
+            setPercentVelocityMotor(commonValueServants, MOTOR_1);
             previousState = state;
             state = FLYING;
             break;
         }
         case ARMED_M2: {
             Serial.println("| CONTROL | - Estado ARMED_M2");
-            setPercentVelocityMotor(commonValueServants, 2);
+            setPercentVelocityMotor(commonValueServants, MOTOR_2);
             previousState = state;
             state = FLYING;
             break;
         }
         case ARMED_M3: {
             Serial.println("| CONTROL | - Estado ARMED_M3");
-            setPercentVelocityMotor(commonValueServants, 3);
+            setPercentVelocityMotor(commonValueServants, MOTOR_3);
             previousState = state;
             state = FLYING;
             break;
         }
         case ARMED_M4: {
             Serial.println("| CONTROL | - Estado ARMED_M4");
-            setPercentVelocityMotor(commonValueServants, 4);
+            setPercentVelocityMotor(commonValueServants, MOTOR_4);
             previousState = state;
             state = FLYING;
             break;
@@ -208,7 +208,7 @@ void Control::loopMotors(){
                 else{
                     timeState = 1000;
                 }
-                setPercentVelocityMotor(commonValueServants, 0);
+                setPercentVelocityMotor(commonValueServants, MOTOR_ALL);
             }
             break;
         }
