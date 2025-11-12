@@ -52,7 +52,7 @@ Communication* Communication::getInstance()
 
 void Communication::begin()
 {
-    Serial.println("|Receptor| Iniciando rádio no drone...");
+    Serial.println("|Comunication| Iniciando rádio no drone...");
     radio.begin();
     // radio.setDataRate(RF24_250KBPS);
     radio.enableDynamicPayloads();
@@ -65,10 +65,10 @@ void Communication::begin()
     radio.startListening();
 
     if (!radio.isChipConnected()) {
-        Serial.println("|Receptor| ERRO: RF24 não conectado!");
+        Serial.println("|Comunication| ERRO: RF24 não conectado!");
         return;
     }
-    Serial.println("|Receptor| Rádio iniciado no drone.");
+    Serial.println("|Comunication| Rádio iniciado no drone.");
 }
 
 void Communication::setTelemetry(uint8_t newBattery, int16_t newAltitude)
@@ -98,7 +98,7 @@ void Communication::receiveCommand()
         if (lastCommandReceivedMillis != 0) {
             now = millis();
             if (now - lastCommandReceivedMillis > CONNECTION_TIMEOUT) {
-                Serial.println("[EMERGÊNCIA] Sinal perdido - iniciando pouso seguro!");
+                Serial.println("|Comunication| - [EMERGÊNCIA] Sinal perdido - iniciando pouso seguro!");
                 // função para pouso seguro
                 return;
             }
@@ -106,7 +106,7 @@ void Communication::receiveCommand()
 
         // Verifica checksum
         if (!verifyChecksum(cmd, sizeof(cmd))) {
-            Serial.println("|Receptor| Pacote corrompido (checksum inválido). Ignorando.");
+            Serial.println("|Comunication| Pacote corrompido (checksum inválido). Ignorando.");
             yield();
             return;
         }
@@ -120,9 +120,9 @@ void Communication::receiveCommand()
         lastCommandReceivedMillis = millis(); // Atualiza o tempo da última comunicação
 
         if (receivedAction == 255 && receivedPower == 0) {
-            //Serial.println("|Receptor| Pacote de ping recebido.");
+            //Serial.println("|Comunication| Pacote de ping recebido.");
         } else if (isDuplicate) {
-            Serial.print("|Receptor| Pacote duplicado seq ");
+            Serial.print("|Comunication| Pacote duplicado seq ");
             Serial.println(seq);
         } else {
             // novo pacote — atualiza ação e potência
@@ -150,7 +150,7 @@ void Communication::receiveCommand()
         ackPayload[6] = calcChecksum(ackPayload, 6);
 
         if (battery <= MIN_SAFE_BATTERY) {
-            Serial.println("[AVISO] Bateria baixa - pouso automático!");
+            Serial.println("|Comunication| - [AVISO] Bateria baixa - pouso automático!");
             // função para pouso seguro
         }
 

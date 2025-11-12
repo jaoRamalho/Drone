@@ -56,6 +56,7 @@ public:
     void resetMotorsValues();
     void setupMotors();
 
+    void setPercentVelocityMotor(uint8_t percent, uint8_t motorNumber);
 
     void loopMotors();
     void loopConfig();
