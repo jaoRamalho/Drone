@@ -54,7 +54,7 @@ private:
     bool verifyChecksum(const uint8_t *data, size_t len);
 
     // Helper: envia pacote com retries (usado no transmissor)
-    bool transmitWithRetries(const uint8_t *pkt, size_t pktLen);
+    bool transmitWithRetries(const uint8_t *pkt, size_t pktLen, uint32_t* rttUsOut);
 
 public:
     ~Communication();

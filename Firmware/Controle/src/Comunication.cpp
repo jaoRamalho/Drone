@@ -42,7 +42,7 @@ bool Communication::verifyChecksum(const uint8_t* data, size_t len) {
 }
 
 // Helper: transmite com retries e espera por ACK (o ack payload é lido por radio.read)
-bool Communication::transmitWithRetries(const uint8_t* pkt, size_t pktLen, uint32_t* rttUsOut = nullptr) {    
+bool Communication::transmitWithRetries(const uint8_t *pkt, size_t pktLen, uint32_t* rttUsOut) {    
     if (rttUsOut) *rttUsOut = 0;
     unsigned long start = 0;
     uint32_t startUs = 0;
