@@ -17,6 +17,12 @@ struct PID {
     float integral;
 };
 
+enum StateSystem : uint8_t {
+    IDLE = 0,
+    START = 1,
+    STOP
+};
+
 enum StateControl : uint8_t {
     WAKEUP_ALL = 0,
     WAKEUP_M1 = 1,
@@ -44,6 +50,7 @@ enum MotorNumber : uint8_t {
 class Control {
 private:
     StateControl state, previousState;
+    static volatile StateSystem systemState;
     uint8_t commonValueServants, valueM1, valueM2, valueM3, valueM4;
     Servo m1, m2, m3, m4;
     
@@ -55,17 +62,21 @@ private:
     Control();
 public:
     ~Control();
-    
     static uint32_t timeState;
     static uint8_t ledState;
     static uint32_t timeLed;
 
+    static volatile bool buttonPressed;
+    static volatile uint32_t timeButton;
+    
     static Control* Init_Control();
     void resetMotorsValues();
     void setupMotors();
 
     void setPercentVelocityMotor(uint8_t percent, MotorNumber motorNumber);
+    void offMotors();
 
+    void checkTimeButton(uint32_t deltaTime);
     void loopMotors();
     void loopConfig();
     void loop();

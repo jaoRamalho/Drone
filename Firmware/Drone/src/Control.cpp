@@ -1,21 +1,20 @@
 #include "Control.hpp"
 
+volatile bool Control::buttonPressed = false;
+volatile StateSystem Control::systemState = IDLE;
+volatile uint32_t Control::timeButton = 0;
 Control *Control::instance = nullptr;
 uint32_t Control::timeState = 0;
 uint8_t Control::ledState = 0;
-uint32_t Control::timeLed = 500;
-Control::Control() : commonValueServants(0), valueM1(0), valueM2(0), valueM3(0), valueM4(0), setupTimeLED(500)
+uint32_t Control::timeLed = 250;
+Control::Control() : commonValueServants(0), valueM1(0), valueM2(0), valueM3(0), valueM4(0), setupTimeLED(250)
 {
     Serial.println("| CONTROL | ---------- Iniciando Control --------");
 
     pinMode(LED, OUTPUT);
     digitalWrite(LED, ledState);
 
-    pinMode(PIN_BUTTON, INPUT_PULLUP);
-
     gyro = Gyroscope::Init_Gyroscope();
-
-    setupMotors();
 
     Serial.println("| CONTROL | ---------- Control Iniciado --------");
 }
@@ -89,6 +88,30 @@ void Control::setPercentVelocityMotor(uint8_t percent, MotorNumber motorNumber){
     }
 }
 
+void Control::offMotors(){
+    m1.detach();
+    m2.detach();
+    m3.detach();
+    m4.detach();
+
+    // garante pinos em LOW (evita saída flutuante)
+    pinMode(PIN_M1, OUTPUT);
+    digitalWrite(PIN_M1, LOW);
+
+    pinMode(PIN_M2, OUTPUT);
+    digitalWrite(PIN_M2, LOW);
+
+    pinMode(PIN_M3, OUTPUT);
+    digitalWrite(PIN_M3, LOW);
+
+    pinMode(PIN_M4, OUTPUT);
+    digitalWrite(PIN_M4, LOW);
+
+    // zera valores internos
+    commonValueServants = 0;
+    valueM1 = valueM2 = valueM3 = valueM4 = 0;
+}
+
 Control *Control::Init_Control()
 {
     if (instance == nullptr){
@@ -97,7 +120,22 @@ Control *Control::Init_Control()
     return instance;
 }
 
-void Control::loopMotors(){
+void Control::checkTimeButton(uint32_t deltaTime){
+    if(deltaTime > 100) {
+        if (systemState == IDLE) {
+            Serial.println("| CONTROL | - Entrando em START");
+            systemState = START;
+            setupMotors();
+        } else if (systemState == START) {
+            Serial.println("| CONTROL | - Entrando em STOP");
+            systemState = IDLE;
+            offMotors();
+        } 
+    }
+}
+
+void Control::loopMotors()
+{
     switch (state){
         case WAKEUP_ALL: {
             Serial.println("| CONTROL | - Estado WAKEUP");
@@ -216,15 +254,28 @@ void Control::loopMotors(){
 }
 
 void Control::loopConfig(){
-    if(!timeLed){
+    if(buttonPressed){
+        digitalWrite(LED, LOW);
+    } else if(!timeLed){
         ledState = !ledState;
         digitalWrite(LED, ledState);
         timeLed = setupTimeLED;
     }
-
 }
 
 void Control::loop(){
-    loopMotors();
-    loopConfig();
+    switch (systemState){
+    case IDLE:
+        loopConfig();
+        break;
+    case START:
+        loopMotors();
+        loopConfig();
+        break;
+    case STOP:
+        offMotors();
+        break;
+    default:
+        break;
+    }
 }

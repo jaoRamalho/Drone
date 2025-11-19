@@ -2,9 +2,10 @@
 #define ISR_H
 
 #include "Gyroscope.hpp"
-#include "GPIOS.h"
+#include "Control.hpp"
 
 void Init_ISR();
 void IRAM_ATTR onMpuInterrupt();
+void IRAM_ATTR onButtonPress();
 
 #endif // ISR_H

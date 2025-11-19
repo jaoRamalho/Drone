@@ -3,8 +3,7 @@
 #include "Arduino.h"
 #include "GPIOS.h"
 
-volatile bool mpuInterrupt = false;
-
+volatile bool Gyroscope::mpuInterrupt = false;
 Gyroscope* Gyroscope::instance = nullptr;
 Gyroscope::Gyroscope() : initSuccess(0), AcX(0), AcY(0), AcZ(0), Tmp(0), GyX(0), GyY(0), GyZ(0)
 {

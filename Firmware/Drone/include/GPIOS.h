@@ -36,4 +36,6 @@ static const uint8_t PIN_IRQ = 35;
 
 static const uint8_t INT_GYRO_PIN = 34; // GPIO de interrupção do giroscópio
 
+static const uint8_t V_BAT_PIN = 26; // GPIO para leitura da tensão da bateria
+
 #endif // GPIOS_H

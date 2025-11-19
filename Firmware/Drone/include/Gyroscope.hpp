@@ -11,8 +11,6 @@
 const float ACCEL_SCALE = 16384.0;
 const float GYRO_SCALE  = 131.0;
 
-extern volatile bool mpuInterrupt;
-
 class Gyroscope {
 private:
     int16_t AcX, AcY, AcZ, Tmp, GyX, GyY, GyZ;
@@ -29,6 +27,8 @@ public:
 
     void getData(int16_t* ax, int16_t* ay, int16_t* az, int16_t* temp, int16_t* gx, int16_t* gy, int16_t* gz);
     void loop();
+
+    static volatile bool mpuInterrupt;
 };
 
 #endif // GYROSCOPE_HPP
