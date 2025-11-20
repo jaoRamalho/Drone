@@ -32,8 +32,6 @@ void setup(){
 }
 
 void loop(){
-  gyro->loop();
-
   control->loop();
 
   receiver->receiveCommand();

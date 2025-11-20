@@ -57,6 +57,7 @@ private:
     Gyroscope* gyro;
 
     uint32_t setupTimeLED;
+    uint8_t valueBattery;
     
     static Control* instance;
     Control();
@@ -68,6 +69,7 @@ public:
 
     static volatile bool buttonPressed;
     static volatile uint32_t timeButton;
+    static volatile uint32_t timeBattery;
     
     static Control* Init_Control();
     void resetMotorsValues();
@@ -75,6 +77,13 @@ public:
 
     void setPercentVelocityMotor(uint8_t percent, MotorNumber motorNumber);
     void offMotors();
+    void checkBattery();
+
+    uint8_t getBatteryLevel() { return valueBattery; }
+    uint8_t getValueM1() { return valueM1; }
+    uint8_t getValueM2() { return valueM2; }
+    uint8_t getValueM3() { return valueM3; }
+    uint8_t getValueM4() { return valueM4; }
 
     void checkTimeButton(uint32_t deltaTime);
     void loopMotors();

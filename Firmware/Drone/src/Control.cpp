@@ -7,7 +7,9 @@ Control *Control::instance = nullptr;
 uint32_t Control::timeState = 0;
 uint8_t Control::ledState = 0;
 uint32_t Control::timeLed = 250;
-Control::Control() : commonValueServants(0), valueM1(0), valueM2(0), valueM3(0), valueM4(0), setupTimeLED(250)
+volatile uint32_t Control::timeBattery = 0;
+Control::Control() : commonValueServants(0), valueM1(0), valueM2(0), valueM3(0), valueM4(0),
+setupTimeLED(250), valueBattery(0)
 {
     Serial.println("| CONTROL | ---------- Iniciando Control --------");
 
@@ -29,6 +31,14 @@ void Control::resetMotorsValues()
     valueM2 = commonValueServants;
     valueM3 = commonValueServants;
     valueM4 = commonValueServants;
+}
+
+void Control::checkBattery(){
+    if (timeBattery == 0){
+        timeBattery = 1000;
+        valueBattery = (uint8_t)(analogRead(V_BAT_PIN) / 10.53);
+        Serial.println("| CONTROL | - Nível da bateria: " + String(valueBattery) + "%");
+    }
 }
 
 void Control::setupMotors(){
@@ -267,10 +277,13 @@ void Control::loop(){
     switch (systemState){
     case IDLE:
         loopConfig();
+        checkBattery();
         break;
     case START:
+        gyro->loop();
         loopMotors();
         loopConfig();
+        checkBattery();
         break;
     case STOP:
         offMotors();
