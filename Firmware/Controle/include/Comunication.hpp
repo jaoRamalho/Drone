@@ -21,16 +21,32 @@ extern const unsigned long COMMAND_INTERVAL;
 extern const uint8_t txAddress[6]; // controle envia/drone envia telemetria
 extern const uint8_t rxAddress[6]; // drone recebe/controle recebe telemetria
 
+enum Command : uint8_t
+{
+    NONE = 0,
+    TAKEOFF = 1,
+    LAND = 2,
+    EMERGENCY_STOP = 3,
+    MOVE_FORWARD = 4,
+    MOVE_BACKWARD = 5,
+    MOVE_LEFT = 6,
+    MOVE_RIGHT = 7,
+    ASCEND = 8,
+    DESCEND = 9,
+    ROTATE_CW = 10,
+    ROTATE_CCW = 11
+};
+
 class Communication
 {
 private:
     // Dados de cada comando
-    uint8_t action; // 0: frente, 1: trás, 2: esquerda, 3: direita, 4: subir, 5: descer
-    uint8_t power;  // intensidade 0-255
+    Command action;
+    uint8_t power;  // 0-100%
 
     // Dados de telemetria recebidos
-    uint8_t battery;  // nível da bateria 0-100%
-    uint8_t altitude; // altitude em metros
+    uint8_t battery;
+    uint16_t altitude; // altitude em cm
 
     bool newCommandAvailable;
 
@@ -65,12 +81,14 @@ public:
     // inicializa o rádio
     void begin();
 
-    void setCommand(uint8_t newAction, uint8_t newPower);
-    const uint8_t getAction() const;
+    void setAction(const Command newAction);
+    const Command getAction() const;
+
+    void setPower(const uint8_t newPower);
     const uint8_t getPower() const;
 
     const uint8_t getBattery() const { return battery; }
-    const uint8_t getAltitude() const { return altitude; }
+    const uint16_t getAltitude() const { return altitude; }
 
     // Controle: envia comando e lê telemetria do ACK
     void sendCommand();

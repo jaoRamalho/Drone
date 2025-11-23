@@ -10,8 +10,9 @@ volatile bool sendPingFlag = false;
 
 unsigned long now = 0;
 unsigned long lastCommandReceivedMillis = 0;
-unsigned long lastCommandMillis = 0;
-const unsigned long COMMAND_INTERVAL = 5000UL; // 5 segundos
+
+static uint32_t _lastMillis = 0;
+uint32_t _now = 0;
 
 // Inicialização do ponteiro estático
 Communication* Communication::instance = nullptr;
@@ -19,7 +20,7 @@ Communication* Communication::instance = nullptr;
 Communication::Communication() :
     battery(100),
     altitude(0),
-    action(0),
+    action(Command::NONE),
     power(0),
     lastReceivedSeq(0xFFFF) // inválido inicialmente
 {
@@ -52,7 +53,7 @@ Communication* Communication::getInstance()
 
 void Communication::begin()
 {
-    Serial.println("|Comunication| Iniciando rádio no drone...");
+    Serial.println("| Receptor | ---------- Iniciando Rádio --------");
     radio.begin();
     // radio.setDataRate(RF24_250KBPS);
     radio.enableDynamicPayloads();
@@ -65,24 +66,28 @@ void Communication::begin()
     radio.startListening();
 
     if (!radio.isChipConnected()) {
-        Serial.println("|Comunication| ERRO: RF24 não conectado!");
+        Serial.println("| Receptor | ERRO: RF24 não conectado!");
         return;
     }
-    Serial.println("|Comunication| Rádio iniciado no drone.");
+    Serial.println("| Receptor | ---------- Rádio Iniciado ----------");
 }
 
-void Communication::setTelemetry(uint8_t newBattery, int16_t newAltitude)
+void Communication::setBattery(const uint8_t newBattery)
 {
     battery = newBattery;
-    altitude = newAltitude;
 }
 
-uint8_t Communication::getBattery()
+const uint8_t Communication::getBattery() const
 {
     return battery;
 }
 
-int16_t Communication::getAltitude()
+void Communication::setAltitude(const int16_t newAltitude)
+{
+    altitude = newAltitude;
+}
+
+const int16_t Communication::getAltitude() const
 {
     return altitude;
 }
@@ -98,21 +103,22 @@ void Communication::receiveCommand()
         if (lastCommandReceivedMillis != 0) {
             now = millis();
             if (now - lastCommandReceivedMillis > CONNECTION_TIMEOUT) {
-                Serial.println("|Comunication| - [EMERGÊNCIA] Sinal perdido - iniciando pouso seguro!");
+                Serial.println("| Receptor | - [EMERGÊNCIA] Sinal perdido - iniciando pouso seguro!");
                 // função para pouso seguro
+                
                 return;
             }
         }
 
         // Verifica checksum
         if (!verifyChecksum(cmd, sizeof(cmd))) {
-            Serial.println("|Comunication| Pacote corrompido (checksum inválido). Ignorando.");
+            Serial.println("| Receptor | Pacote corrompido (checksum inválido). Ignorando.");
             yield();
             return;
         }
 
         uint16_t seq = (uint16_t(cmd[0]) << 8) | cmd[1];
-        uint8_t receivedAction = cmd[2];
+        Command receivedAction = (Command) cmd[2];
         uint8_t receivedPower = cmd[3];
 
         bool isDuplicate = (seq == lastReceivedSeq);
@@ -120,9 +126,9 @@ void Communication::receiveCommand()
         lastCommandReceivedMillis = millis(); // Atualiza o tempo da última comunicação
 
         if (receivedAction == 255 && receivedPower == 0) {
-            //Serial.println("|Comunication| Pacote de ping recebido.");
+            //Serial.println("| Receptor | Pacote de ping recebido.");
         } else if (isDuplicate) {
-            Serial.print("|Comunication| Pacote duplicado seq ");
+            Serial.print("| Receptor | Pacote duplicado seq ");
             Serial.println(seq);
         } else {
             // novo pacote — atualiza ação e potência
@@ -130,13 +136,20 @@ void Communication::receiveCommand()
             power = receivedPower;
             lastReceivedSeq = seq;
 
-            Serial.print("Ação = ");
+            Serial.print("| Receptor | Ação = ");
             Serial.print(action);
             Serial.print(", Potência = ");
-            Serial.print(power);
-            Serial.print(", Seq = ");
-            Serial.println(seq);
+            Serial.println(power);
             // Aqui você aplicaria o comando ao drone ou enfileiraria para processamento
+
+        }
+
+        _lastMillis = 0;
+        _now = millis();
+        if (_now - _lastMillis >= 500) {
+            _lastMillis = _now;
+            battery--;
+            if (battery < 0) battery = 100; // evita underflow
         }
 
         // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum
@@ -150,8 +163,9 @@ void Communication::receiveCommand()
         ackPayload[6] = calcChecksum(ackPayload, 6);
 
         if (battery <= MIN_SAFE_BATTERY) {
-            Serial.println("|Comunication| - [AVISO] Bateria baixa - pouso automático!");
+            Serial.println("| Receptor | - [AVISO] Bateria baixa - pouso automático!");
             // função para pouso seguro
+
         }
 
         // envia telemetria no ACK (pipe 1)

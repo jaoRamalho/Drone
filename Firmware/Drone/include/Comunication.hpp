@@ -44,11 +44,11 @@ class Communication
 {
 private:
     // Dados do Controle
-    uint8_t action; // ação do controle
-    uint8_t power;  // potência do controle
+    Command action;
+    uint8_t power;  // 0-100 %
 
     // Dados do Drone
-    uint8_t battery;  // % de bateria
+    uint8_t battery;
     int16_t altitude; // altura em cm
 
     // Sequência/protocolo confiável
@@ -73,13 +73,16 @@ public:
     // inicializa o rádio
     void begin();
 
-    void setTelemetry(uint8_t newBattery, int16_t newAltitude);
-    uint8_t getBattery();
-    int16_t getAltitude();
+    // Dados do Drone
+    void setBattery(const uint8_t newBattery);
+    const uint8_t getBattery() const;
 
-    const uint8_t getAction() { return action; }
-    const uint8_t getPower() { return power; }
+    void setAltitude(const int16_t newAltitude);
+    const int16_t getAltitude() const;
+
+    Command getAction() const { return action; }
+    uint8_t getPower() const { return power; }
 
     // Drone: recebe comando e envia telemetria via ACK
-    void receiveCommand();
+    void receiveCommand(void);
 };

@@ -31,6 +31,5 @@ void IRAM_ATTR MainTimer() {
 }
 
 void IRAM_ATTR onTimer() {
-    // verifica se o ponteiro está definido
     if(!sendPingFlag) sendPingFlag = true;
 }

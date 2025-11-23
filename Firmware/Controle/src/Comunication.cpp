@@ -15,8 +15,8 @@ const unsigned long COMMAND_INTERVAL = 5000UL; // 5 segundos
 Communication* Communication::instance = nullptr;
 
 Communication::Communication() :
-    action(4),
-    power(10),
+    action(Command::NONE),
+    power(100),
     battery(0),
     altitude(0),
     seqCounter(1),
@@ -110,18 +110,26 @@ void Communication::begin()
     Serial.println("|Comunication| Rádio iniciado.");
 }
 
-void Communication::setCommand(uint8_t newAction, uint8_t newPower)
+void Communication::setAction(const Command newAction)
 {
     if(action != newAction){
         newCommandAvailable = true;
     }
     action = newAction;
-    power = newPower;
 }
 
-const uint8_t Communication::getAction() const
+const Command Communication::getAction() const
 {
     return action;
+}
+
+void Communication::setPower(const uint8_t newPower)
+{
+    uint8_t clampedPower = (newPower > 100) ? 100 : newPower;
+    if(power != clampedPower){
+        newCommandAvailable = true;
+    }
+    power = clampedPower;
 }
 
 const uint8_t Communication::getPower() const
@@ -154,13 +162,13 @@ void Communication::sendCommand()
                 lastAckedSeq = ackSeq;
                 // avançar sequência para próximo comando
                 seqCounter++;
-                Serial.print("|Transmissor| ACK válido recebido. Bateria = ");
+                Serial.print("|Transmissor| Bateria = ");
                 Serial.print(battery);
                 Serial.print("%, Altitude = ");
                 Serial.print(altitude);
-                Serial.print(", RTT (us) = ");
+                Serial.print(" cm, Latência = ");
                 Serial.print(rttUs);
-                Serial.print(" cm");
+                Serial.println(" us");
 
                 if (battery <= MIN_SAFE_BATTERY) {
                     Serial.println("[AVISO] Bateria baixa - pouso automático!");
@@ -185,24 +193,15 @@ void Communication::sendCommand()
 
 void Communication::sendThing()
 {
-    unsigned long now = millis();
+    // unsigned long now = millis();
 
-    if (now - lastCommandMillis >= COMMAND_INTERVAL || newCommandAvailable) {
+    if (newCommandAvailable) {
         sendCommand();
-        lastCommandMillis = now;
         newCommandAvailable = false;
     }
 
-    // Calcular quanto falta para o próximo comando
-    unsigned long timeSinceLast = now - lastCommandMillis;
-    unsigned long timeToNext = (timeSinceLast >= COMMAND_INTERVAL) ? 0 : (COMMAND_INTERVAL - timeSinceLast);
-
-    // Janela de silêncio antes do comando principal para evitar colisões
-    const unsigned long SILENCE_WINDOW_MS = 200UL; // 200 ms antes do comando
-
-    // Processa ping apenas se a flag estiver setada e estivermos fora da janela de silêncio
-    if (sendPingFlag && timeToNext > SILENCE_WINDOW_MS) {
-        sendPingFlag = false; // consome a flag
+    if (sendPingFlag) {
+        sendPingFlag = false;
         sendPing();
     }
 
@@ -234,15 +233,14 @@ void Communication::sendPing(uint8_t pingValue)
             battery = ack[2];
             altitude = (int16_t)((int16_t(ack[3]) << 8) | ack[4]);
             lastAckedSeq = ackSeq;
-            Serial.print("|Transmissor| Ping ACK seq ");
-            Serial.print(ackSeq);
-            Serial.print(" bateria ");
+            Serial.print("|Transmissor| Bateria = ");
             Serial.print(battery);
-            Serial.print("% alt ");
+            Serial.print("%, Altitude = ");
             Serial.print(altitude);
             Serial.print(" cm");
-            Serial.print(", RTT (us) = ");
-            Serial.println(rttUs);
+            Serial.print(", Latência = ");
+            Serial.print(rttUs);
+            Serial.println(" us");
         } else {
             Serial.println("|Transmissor| Ping ACK corrompido.");
         }
