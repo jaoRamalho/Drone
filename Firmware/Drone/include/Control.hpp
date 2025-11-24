@@ -3,6 +3,8 @@
 
 #include "Gyroscope.hpp"
 #include <ESP32Servo.h>
+#include "MovementController.hpp"
+
 
 
 
@@ -56,6 +58,9 @@ private:
     
     Gyroscope* gyro;
 
+    MovementController* movement;
+
+
     uint32_t setupTimeLED;
     uint8_t valueBattery;
     
@@ -89,6 +94,8 @@ public:
     void loopMotors();
     void loopConfig();
     void loop();
+
+    void setMovementCommand(MoveCommand cmd);
 };
 
 

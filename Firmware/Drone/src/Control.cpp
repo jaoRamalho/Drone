@@ -282,6 +282,8 @@ void Control::loop(){
     case START:
         gyro->loop();
         loopMotors();
+        uint8_t m1, m2, m3, m4;
+        movementController->computeMotors(m1, m2, m3, m4);
         loopConfig();
         checkBattery();
         break;
@@ -292,3 +294,9 @@ void Control::loop(){
         break;
     }
 }
+
+void Control::setMovementCommand(MoveCommand cmd)
+{
+    movement.setCommand(cmd);
+}
+

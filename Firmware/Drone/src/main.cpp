@@ -32,9 +32,11 @@ void setup(){
 }
 
 void loop(){
-  control->loop();
-
   receiver->receiveCommand();
 
+  control->setMovementCommand(receiver->getAction());
+
+  control->loop();
+  
   vTaskDelay(1);
 }

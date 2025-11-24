@@ -11,6 +11,9 @@ volatile bool sendPingFlag = false;
 unsigned long now = 0;
 unsigned long lastCommandReceivedMillis = 0;
 
+int potenciaMovemento = 50;
+int potenciaAscDesc = 80;
+
 static uint32_t _lastMillis = 0;
 uint32_t _now = 0;
 
@@ -20,7 +23,7 @@ Communication* Communication::instance = nullptr;
 Communication::Communication() :
     battery(100),
     altitude(0),
-    action(Command::NONE),
+    action(MoveCommand::NONE),
     power(0),
     lastReceivedSeq(0xFFFF) // inválido inicialmente
 {
@@ -118,7 +121,7 @@ void Communication::receiveCommand()
         }
 
         uint16_t seq = (uint16_t(cmd[0]) << 8) | cmd[1];
-        Command receivedAction = (Command) cmd[2];
+        MoveCommand receivedAction = (MoveCommand) cmd[2];
         uint8_t receivedPower = cmd[3];
 
         bool isDuplicate = (seq == lastReceivedSeq);
@@ -137,9 +140,11 @@ void Communication::receiveCommand()
             lastReceivedSeq = seq;
 
             Serial.print("| Receptor | Ação = ");
-            Serial.print(action);
+            Serial.print(static_cast<int>(action));
             Serial.print(", Potência = ");
             Serial.println(power);
+
+            
             // Aqui você aplicaria o comando ao drone ou enfileiraria para processamento
 
         }

@@ -5,6 +5,8 @@
 #include <RF24.h>
 
 #include "Timer.hpp"
+#include "MovementController.hpp"
+
 #define CE_PIN 32
 #define CSN_PIN 33
 
@@ -20,31 +22,18 @@ extern unsigned long lastCommandReceivedMillis;
 extern unsigned long lastCommandMillis;
 extern const unsigned long COMMAND_INTERVAL;
 
+extern int potenciaMovemento;
+extern int potenciaAscDesc;
+
 // Endereços (podem ser parametrizados depois)
 extern const uint8_t txAddress[6]; // controle envia/drone envia telemetria
 extern const uint8_t rxAddress[6]; // drone recebe/controle recebe telemetria
-
-enum Command : uint8_t
-{
-    NONE = 0,
-    TAKEOFF = 1,
-    LAND = 2,
-    EMERGENCY_STOP = 3,
-    MOVE_FORWARD = 4,
-    MOVE_BACKWARD = 5,
-    MOVE_LEFT = 6,
-    MOVE_RIGHT = 7,
-    ASCEND = 8,
-    DESCEND = 9,
-    ROTATE_CW = 10,
-    ROTATE_CCW = 11
-};
 
 class Communication
 {
 private:
     // Dados do Controle
-    Command action;
+    MoveCommand action;
     uint8_t power;  // 0-100 %
 
     // Dados do Drone
@@ -80,7 +69,7 @@ public:
     void setAltitude(const int16_t newAltitude);
     const int16_t getAltitude() const;
 
-    Command getAction() const { return action; }
+    MoveCommand getAction() const { return action; }
     uint8_t getPower() const { return power; }
 
     // Drone: recebe comando e envia telemetria via ACK
