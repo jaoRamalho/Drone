@@ -6,6 +6,7 @@
 
 #include "Timer.hpp"
 #include "MovementController.hpp"
+#include "Control.hpp"
 
 #define CE_PIN 32
 #define CSN_PIN 33
@@ -34,11 +35,11 @@ class Communication
 private:
     // Dados do Controle
     MoveCommand action;
-    uint8_t power;  // 0-100 %
-
+    
     // Dados do Drone
     uint8_t battery;
-    int16_t altitude; // altura em cm
+    int16_t altitude;
+    uint8_t state;
 
     // Sequência/protocolo confiável
     uint16_t lastReceivedSeq; // última sequência recebida (no receptor)
@@ -69,8 +70,10 @@ public:
     void setAltitude(const int16_t newAltitude);
     const int16_t getAltitude() const;
 
+    void setState(const uint8_t newState);
+    const uint8_t getState() const;
+
     MoveCommand getAction() const { return action; }
-    uint8_t getPower() const { return power; }
 
     // Drone: recebe comando e envia telemetria via ACK
     void receiveCommand(void);

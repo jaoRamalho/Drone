@@ -58,7 +58,7 @@ private:
     
     Gyroscope* gyro;
 
-    MovementController* movement;
+    MovementController movement;
 
 
     uint32_t setupTimeLED;
@@ -89,6 +89,10 @@ public:
     uint8_t getValueM2() { return valueM2; }
     uint8_t getValueM3() { return valueM3; }
     uint8_t getValueM4() { return valueM4; }
+
+    uint8_t getState() { return state; }
+
+    static uint8_t convertPercentForPeriod(uint8_t percent);
 
     void checkTimeButton(uint32_t deltaTime);
     void loopMotors();

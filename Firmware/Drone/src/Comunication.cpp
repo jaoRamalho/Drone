@@ -24,7 +24,7 @@ Communication::Communication() :
     battery(100),
     altitude(0),
     action(MoveCommand::NONE),
-    power(0),
+    state(0),
     lastReceivedSeq(0xFFFF) // inválido inicialmente
 {
 }
@@ -95,12 +95,21 @@ const int16_t Communication::getAltitude() const
     return altitude;
 }
 
+void Communication::setState(const uint8_t newState)
+{
+    state = newState;
+}
+
+const uint8_t Communication::getState() const
+{
+    return state;
+}
 
 void Communication::receiveCommand()
 {
     if (radio.available()) {
-        // Lê pacote (5 bytes esperado). Use payloadSize se dinâmico.
-        uint8_t cmd[5];
+        // Lê pacote (4 bytes esperado). Use payloadSize se dinâmico.
+        uint8_t cmd[4];
         radio.read(cmd, sizeof(cmd));
 
         if (lastCommandReceivedMillis != 0) {
@@ -122,13 +131,12 @@ void Communication::receiveCommand()
 
         uint16_t seq = (uint16_t(cmd[0]) << 8) | cmd[1];
         MoveCommand receivedAction = (MoveCommand) cmd[2];
-        uint8_t receivedPower = cmd[3];
-
+        
         bool isDuplicate = (seq == lastReceivedSeq);
 
         lastCommandReceivedMillis = millis(); // Atualiza o tempo da última comunicação
 
-        if (receivedAction == 255 && receivedPower == 0) {
+        if (receivedAction == MoveCommand::NONE) {
             //Serial.println("| Receptor | Pacote de ping recebido.");
         } else if (isDuplicate) {
             Serial.print("| Receptor | Pacote duplicado seq ");
@@ -136,14 +144,10 @@ void Communication::receiveCommand()
         } else {
             // novo pacote — atualiza ação e potência
             action = receivedAction;
-            power = receivedPower;
             lastReceivedSeq = seq;
 
             Serial.print("| Receptor | Ação = ");
-            Serial.print(static_cast<int>(action));
-            Serial.print(", Potência = ");
-            Serial.println(power);
-
+            Serial.println(static_cast<int>(action));
             
             // Aqui você aplicaria o comando ao drone ou enfileiraria para processamento
 
@@ -157,20 +161,22 @@ void Communication::receiveCommand()
             if (battery < 0) battery = 100; // evita underflow
         }
 
+        setState(Control::Init_Control()->getState());
+
         // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum
-        uint8_t ackPayload[7];
+        uint8_t ackPayload[8];
         ackPayload[0] = (uint8_t)((seq >> 8) & 0xFF);
         ackPayload[1] = (uint8_t)(seq & 0xFF);
         ackPayload[2] = battery;
         ackPayload[3] = (uint8_t)((altitude >> 8) & 0xFF);
         ackPayload[4] = (uint8_t)(altitude & 0xFF);
-        ackPayload[5] = 0x00; // statusFlags (reservado)
-        ackPayload[6] = calcChecksum(ackPayload, 6);
+        ackPayload[5] = state;
+        ackPayload[6] = 0x00; // statusFlags (reservado)
+        ackPayload[7] = calcChecksum(ackPayload, sizeof(ackPayload) - 1);
 
         if (battery <= MIN_SAFE_BATTERY) {
             Serial.println("| Receptor | - [AVISO] Bateria baixa - pouso automático!");
             // função para pouso seguro
-
         }
 
         // envia telemetria no ACK (pipe 1)

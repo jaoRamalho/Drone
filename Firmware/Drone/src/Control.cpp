@@ -63,8 +63,12 @@ void Control::setupMotors(){
     previousState = state;
 }
 
+uint8_t Control::convertPercentForPeriod(uint8_t percent){
+    return OFFSET_MOTORS + ((MAX_MOTORS - OFFSET_MOTORS) * percent) / 100;;
+}
+
 void Control::setPercentVelocityMotor(uint8_t percent, MotorNumber motorNumber){
-    uint8_t valueToSet = OFFSET_MOTORS + ((MAX_MOTORS - OFFSET_MOTORS) * percent) / 100;
+    uint8_t valueToSet = Control::convertPercentForPeriod(percent);
     switch (motorNumber){
         case MOTOR_1:
             valueM1 = valueToSet;
@@ -283,7 +287,7 @@ void Control::loop(){
         gyro->loop();
         loopMotors();
         uint8_t m1, m2, m3, m4;
-        movementController->computeMotors(m1, m2, m3, m4);
+        movement.computeMotors(m1, m2, m3, m4);
         loopConfig();
         checkBattery();
         break;
