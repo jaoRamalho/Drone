@@ -19,7 +19,7 @@ void IRAM_ATTR onMpuInterrupt() {
 }
 
 void IRAM_ATTR onButtonPress() {
-    Serial.println("|ISR| - Interrupção do botão detectada");
+    //Serial.println("|ISR| - Interrupção do botão detectada");
     uint8_t level = digitalRead(PIN_BUTTON);
 
     if(level == 0) {
