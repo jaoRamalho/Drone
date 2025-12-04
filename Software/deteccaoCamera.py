@@ -125,25 +125,25 @@ def detectarJoinhaInvertido(handLandmarks):
             dedoDobrado(handLandmarks,16,13) and
             dedoDobrado(handLandmarks,20,17))
 
-def detectarPaz(handLandmarks):
-    m_sep = tolEscalada(handLandmarks, 1.5)
-    a = handLandmarks.landmark[8] # Ponta do Indicador
-    b = handLandmarks.landmark[12] # Ponta do Médio
-    separado = distanciaRelativa(a, b) > m_sep
-    return (dedoEstendidoY(handLandmarks,8,5) and
-            dedoEstendidoY(handLandmarks,12,9) and
-            separado and
-            dedoDobrado(handLandmarks,16,13) and
-            dedoDobrado(handLandmarks,20,17) and
-            polegarDobradoOuTocado(handLandmarks))
+# def detectarPaz(handLandmarks):
+#     m_sep = tolEscalada(handLandmarks, 1.5)
+#     a = handLandmarks.landmark[8] # Ponta do Indicador
+#     b = handLandmarks.landmark[12] # Ponta do Médio
+#     separado = distanciaRelativa(a, b) > m_sep
+#     return (dedoEstendidoY(handLandmarks,8,5) and
+#             dedoEstendidoY(handLandmarks,12,9) and
+#             separado and
+#             dedoDobrado(handLandmarks,16,13) and
+#             dedoDobrado(handLandmarks,20,17) and
+#             polegarDobradoOuTocado(handLandmarks))
 
-def detectarMaoAberta(handLandmarks):
-    return (dedoEstendidoY(handLandmarks,8,5) and
-            dedoEstendidoY(handLandmarks,12,9) and
-            dedoEstendidoY(handLandmarks,16,13) and
-            dedoEstendidoY(handLandmarks,20,17) and
-            not polegarEstendidoParaCima(handLandmarks) and
-            not polegarEstendidoParaBaixo(handLandmarks))
+# def detectarMaoAberta(handLandmarks):
+#     return (dedoEstendidoY(handLandmarks,8,5) and
+#             dedoEstendidoY(handLandmarks,12,9) and
+#             dedoEstendidoY(handLandmarks,16,13) and
+#             dedoEstendidoY(handLandmarks,20,17) and
+#             not polegarEstendidoParaCima(handLandmarks) and
+#             not polegarEstendidoParaBaixo(handLandmarks))
 
 def detectarMaoFechada(handLandmarks):
     return (dedoDobrado(handLandmarks,8,5) and
@@ -193,15 +193,13 @@ def detectarRockOn(handLandmarks):
 cap = cv2.VideoCapture(0)
 
 LABELS = {
-    1: 'INICIAR VOO (JOINHA)',
-    2: 'POUSAR (JOINHA_INV)',
-    3: 'CIMA (PAZ)',
-    4: 'LIGAR MOTORES (MÃO ABERTA)',
-    5: 'ENCERRAR VOO (MÃO FECHADA)',
-    6: 'FRENTE (PONTEIRO)',
-    7: 'ATRÁS (DEDO MÉDIO)',
-    8: 'ESQUERDA (SHAKA)',
-    9: 'DIREITA (ROCK ON)',
+    1: 'CIMA (JOINHA PARA CIMA)',
+    2: 'BAIXO (JOINHA PARA BAIXO)',
+    3: 'FRENTE (PONTEIRO)',
+    4: 'ATRÁS (DEDO MÉDIO)',
+    5: 'ESQUERDA (SHAKA)',
+    6: 'DIREITA (ROCK ON)',
+    7: 'PARAR (MÃO FECHADA)',
 }
 
 while cap.isOpened():
@@ -222,23 +220,23 @@ while cap.isOpened():
             mpDrawing.draw_landmarks(frame, handLandmarks, mpHands.HAND_CONNECTIONS)
 
             if detectarRockOn(handLandmarks):
-                gesto_id = 9
-            elif detectarHL(handLandmarks):
-                gesto_id = 8
-            elif detectarPonteiro(handLandmarks):
                 gesto_id = 6
+            elif detectarHL(handLandmarks):
+                gesto_id = 5
+            elif detectarPonteiro(handLandmarks):
+                gesto_id = 3
             elif detectarMedio(handLandmarks):
-                gesto_id = 7
+                gesto_id = 4
             elif detectarJoinha(handLandmarks):
                 gesto_id = 1
             elif detectarJoinhaInvertido(handLandmarks):
                 gesto_id = 2
-            elif detectarPaz(handLandmarks):
-                gesto_id = 3
+            # elif detectarPaz(handLandmarks):
+            #     gesto_id = 3
             elif detectarMaoFechada(handLandmarks):
-                gesto_id = 5
-            elif detectarMaoAberta(handLandmarks):
-                gesto_id = 4
+                gesto_id = 7
+            # elif detectarMaoAberta(handLandmarks):
+            #     gesto_id = 4
 
 
     if gesto_id is not None:
