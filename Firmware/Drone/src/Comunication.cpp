@@ -124,7 +124,7 @@ void Communication::receiveCommand()
 
         // Verifica checksum
         if (!verifyChecksum(cmd, sizeof(cmd))) {
-            Serial.println("| Receptor | Pacote corrompido (checksum inválido). Ignorando.");
+            Serial.println("| Receptor | - Pacote corrompido (checksum inválido). Ignorando.");
             yield();
             return;
         }
@@ -139,7 +139,7 @@ void Communication::receiveCommand()
         if (receivedAction == MoveCommand::NONE) {
             //Serial.println("| Receptor | Pacote de ping recebido.");
         } else if (isDuplicate) {
-            Serial.print("| Receptor | Pacote duplicado seq ");
+            Serial.print("| Receptor | - Pacote duplicado seq ");
             Serial.println(seq);
         } else {
             // novo pacote — atualiza ação e potência

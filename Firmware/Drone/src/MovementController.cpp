@@ -1,14 +1,53 @@
 #include "MovementController.hpp"
 #include "GPIOS.h"
+#include "Gyroscope.hpp"
 
-MovementController::MovementController() : command(MoveCommand::NONE),
-M1(OFFSET_M1), M2(OFFSET_M2), M3(OFFSET_M3), M4(OFFSET_M4) {
 
+static const uint16_t OFFSET_MOTORS = 42;
+static const uint16_t MAX_MOTORS = 171;
+
+static const float KP_pitch = 1.5;    // Ganho Proporcional do Pitch
+static const float KI_pitch = 0.0;    // Ganho Integral do Pitch
+static const float KD_pitch = 0.5; // Ganho Derivativo do Pitch
+
+static const float KP_roll = 1.5;     // Ganho Proporcional do Roll
+static const float KI_roll = 0.0;     // Ganho Integral do Roll
+static const float KD_roll = 0.5;  // Ganho Derivativo do
+
+static const float KP_yaw = 1.5;      // Ganho Proporcional do Yaw
+static const float KI_yaw = 0.0;      // Ganho Integral do Y
+static const float KD_yaw = 0.5;   // Ganho Derivativo do Yaw
+
+MovementController::MovementController() : command(MoveCommand::NONE), AcX(0), AcY(0), AcZ(0), M1(0), M2(0), M3(0), M4(0),
+    pitch(0), pitchSetpoint(0), pitchError(0), pitchPrevError(0), outputPitch(0),
+    roll(0), rollSetpoint(0), rollError(0), rollPrevError(0), outputRoll(0),
+    yaw(0), yawSetpoint(0), yawError(0), yawPrevError(0), outputYaw(0), GyX(0), GyY(0), GyZ(0), Tmp(0)
+{
+    setupMotors();
 }
 
 void MovementController::setCommand(MoveCommand cmd){
     command = cmd;
 }
+
+void MovementController::resetPIDValues(){
+    pitchI = 0;
+    rollI = 0;
+    yawI = 0;
+    pitchPrevError = 0;
+    rollPrevError = 0;
+    yawPrevError = 0;
+    pitchP = 0;
+    rollP = 0;
+    yawP = 0;
+    pitchD = 0;
+    rollD = 0;
+    yawD = 0;
+    outputPitch = 0;
+    outputRoll = 0;
+    outputYaw = 0;
+}
+
 
 void MovementController::offMotors(){
     m1.detach();
@@ -41,19 +80,17 @@ void MovementController::setupMotors() {
 
     pinMode(PIN_M1, OUTPUT);
     m1.attach(PIN_M1);
-    m1.write(OFFSET_M1);
-
+    
     pinMode(PIN_M2, OUTPUT);
     m2.attach(PIN_M2);
-    m2.write(OFFSET_M2);
-
+    
     pinMode(PIN_M3, OUTPUT);
     m3.attach(PIN_M3);
-    m3.write(OFFSET_M3);
-
+    
     pinMode(PIN_M4, OUTPUT);
     m4.attach(PIN_M4);
-    m4.write(OFFSET_M4);
+    
+    setPercentVelocityMotor(0, MOTOR_ALL); 
 }
 
 void MovementController::setPercentVelocityMotor(uint8_t percent, MotorNumber motorNumber){
@@ -90,67 +127,87 @@ void MovementController::setPercentVelocityMotor(uint8_t percent, MotorNumber mo
     }
 }
 
+
+/*
+    dt -> tempo em segundos desde a última chamada
+*/
+void MovementController::PID_Pitch(float dt){
+    float accPitch = atan2(AcY / 100.0, AcZ / 100.0) * 180 / PI;
+    pitch += GyX * dt;
+
+    //filtro complementar
+    pitch = 0.98 * pitch + 0.02 * accPitch;
+
+    //PID
+    pitchError = pitchSetpoint - pitch;
+    pitchP = KP_pitch * pitchError;
+    pitchI += KI_pitch * pitchError * dt;
+    pitchD = KD_pitch * (pitchError - pitchPrevError) / dt;
+    pitchPrevError = pitchError;
+    outputPitch = pitchP + pitchI + pitchD;
+}   
+
+/*
+    dt -> tempo em segundos desde a última chamada
+*/
+void MovementController::PID_Roll(float dt){
+    float accRoll = atan2(-AcX / 100.0, AcZ / 100.0) * 180 / PI;
+    roll += GyY * dt;
+
+    //filtro complementar
+    roll = 0.98 * roll + 0.02 * accRoll;
+    
+    //PID
+    rollError = rollSetpoint - roll;
+    rollP = KP_roll * rollError;
+    rollI += KI_roll * rollError * dt;
+    rollD = KD_roll * (rollError - rollPrevError) / dt;
+    rollPrevError = rollError;
+    outputRoll = rollP + rollI + rollD;
+}
+
+void MovementController::PID_Yaw(float dt){
+    yaw += GyZ * dt;
+
+}
+
+void MovementController::ApllyEffectsMotors(){
+    // Ainda não vou aplicar, apenas logar os valores para plotagem
+    
+}
+
 void MovementController::computeInclination()
-{
+{   
+
+    Gyroscope* gyro = Gyroscope::Init_Gyroscope();
+    gyro->getData(&AcX, &AcY, &AcZ, &Tmp, &GyX, &GyY, &GyZ);
+
     switch (command) {
-    case MoveCommand::UP :
-        AcX = 0;
-        AcY = 0;
-        AcZ = 0;
+        case MoveCommand::UP :
+            break;
 
-        M1 += delta;
-        M2 += delta;
-        M3 += delta;
-        M4 += delta;
-        break;
+        case MoveCommand::DOWN : 
+            break;
 
-    case MoveCommand::DOWN : 
-        AcX = 0;
-        AcY = 0;
-        AcZ = 0;
+        case MoveCommand::FORWARD : 
+            break;
 
-        M1 -= delta;
-        M2 -= delta;
-        M3 -= delta;
-        M4 -= delta;
-        break;
+        case MoveCommand::BACKWARD :
+            break;
 
-    case MoveCommand::FORWARD : 
-        AcX = 0;
-        AcY = 0;
-        AcZ = 0;
-        
-        break;
+        case MoveCommand::LEFT :
+            break;
 
-    case MoveCommand::BACKWARD :
-        AcX = 0;
-        AcY = 0;
-        AcZ = 0;
-        
-        break;
+        case MoveCommand::RIGHT :
+            break;
 
-    case MoveCommand::LEFT :
-        AcX = 0;
-        AcY = 0;
-        AcZ = 0;
+        case MoveCommand::STOP : 
+            break;
 
-        break;
-
-    case MoveCommand::RIGHT :
-        AcX = 0;
-        AcY = 0;
-        AcZ = 0;
-        
-        break;
-
-    case MoveCommand::STOP : 
-        AcX = 0;
-        AcY = 0;
-        AcZ = 0;
-        break;
-
-    case MoveCommand::NONE :
-    default:
-        break;
+        case MoveCommand::NONE :
+        default:
+            break;
     }
+
+    command = MoveCommand::NONE;
 }

@@ -4,13 +4,7 @@
 #include <stdint.h>
 #include <ESP32Servo.h>
 
-static const uint16_t OFFSET_MOTORS = 42;
-static const uint16_t MAX_MOTORS = 115;
-
-static const uint8_t OFFSET_M1 = 60;
-static const uint8_t OFFSET_M2 = 60;
-static const uint8_t OFFSET_M3 = 60;
-static const uint8_t OFFSET_M4 = 60;
+static const uint16_t freq = 250; // Frequencia de amostragem do controle PID em Hz
 
 static const uint8_t delta = 10;
 
@@ -51,13 +45,25 @@ public:
     void setupMotors();
     uint8_t convertPercentForPeriod(uint8_t percent);
     void setPercentVelocityMotor(uint8_t percent, MotorNumber motorNumber);
+    void PID_Pitch(float dt);
+    void PID_Roll(float dt);
+    void PID_Yaw(float dt);
+    void ApllyEffectsMotors();
+    void resetPIDValues();
+
+
 
 private:
     Servo m1, m2, m3, m4;
     MoveCommand command;
 
-    uint8_t AcX, AcY, AcZ;
+    int16_t AcX, AcY, AcZ, GyX, GyY, GyZ, Tmp;    
     uint8_t M1, M2, M3, M4;
+
+
+    float pitchP, pitchI, pitchD, pitch, pitchSetpoint, pitchError, pitchPrevError, outputPitch;
+    float rollP, rollI, rollD, roll, rollSetpoint, rollError, rollPrevError, outputRoll;
+    float yawP, yawI, yawD, yaw, yawSetpoint, yawError, yawPrevError, outputYaw;
 };
 
 #endif

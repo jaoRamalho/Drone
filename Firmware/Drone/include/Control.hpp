@@ -4,6 +4,9 @@
 #include "Gyroscope.hpp"
 #include "MovementController.hpp"
 
+
+static const uint32_t TIME_LOOP_FLYING = 50; // em ms
+
 enum StateSystem : uint8_t {
     IDLE = 0,
     START = 1,
@@ -55,8 +58,6 @@ public:
 
     uint8_t getBatteryLevel() { return valueBattery; }
     uint8_t getState() { return state; }
-
-    static uint8_t convertPercentForPeriod(uint8_t percent);
 
     void checkTimeButton(uint32_t deltaTime);
     void loopMotors();

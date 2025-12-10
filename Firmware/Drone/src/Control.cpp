@@ -8,6 +8,10 @@ uint32_t Control::timeState = 0;
 uint8_t Control::ledState = 0;
 uint32_t Control::timeLed = 250;
 volatile uint32_t Control::timeBattery = 0;
+
+
+float dt = (float)TIME_LOOP_FLYING / 1000.0f; // em segundos
+
 Control::Control() : setupTimeLED(250), valueBattery(0) {
     Serial.println("| CONTROL | ---------- Iniciando Control --------");
 
@@ -22,20 +26,16 @@ Control::Control() : setupTimeLED(250), valueBattery(0) {
     previousState = state;
 }
 
-Control::~Control()
-{
+Control::~Control(){
+
 }
 
 void Control::checkBattery(){
     if (timeBattery == 0){
         timeBattery = 1000;
         valueBattery = (uint8_t)(analogRead(V_BAT_PIN) / 10.53);
-        Serial.println("| CONTROL | - Nível da bateria: " + String(valueBattery) + "%");
+       // Serial.println("| CONTROL | - Nível da bateria: " + String(valueBattery) + "%");
     }
-}
-
-uint8_t Control::convertPercentForPeriod(uint8_t percent){
-    return OFFSET_MOTORS + ((MAX_MOTORS - OFFSET_MOTORS) * percent) / 100;;
 }
 
 Control *Control::Init_Control()
@@ -51,7 +51,6 @@ void Control::checkTimeButton(uint32_t deltaTime){
         if (systemState == IDLE) {
             Serial.println("| CONTROL | - Entrando em START");
             systemState = START;
-            movement.setupMotors();
         } else if (systemState == START) {
             Serial.println("| CONTROL | - Entrando em STOP");
             systemState = IDLE;
@@ -62,33 +61,32 @@ void Control::checkTimeButton(uint32_t deltaTime){
 
 
 uint8_t commonValueServants = 0;
-void Control::loopMotors()
-{
+void Control::loopMotors(){
+
     switch (state){
         case WAKEUP_ALL: {
             Serial.println("| CONTROL | - Estado WAKEUP");
-            timeState = 5000;
-            movement.setPercentVelocityMotor(0, MOTOR_ALL);
+            timeState = 0;
+            movement.setPercentVelocityMotor(1, MOTOR_ALL);
             previousState = state;
-            state = PREVIOUS_ARMED_ALL;
+            state = FLYING;
             Serial.println("| CONTROL | - Set Estado ARMED");
             break;
         }
         case PREVIOUS_ARMED_ALL: {
             if (!timeState) {
-                if (commonValueServants >= 45) {
+                if (commonValueServants >= 15) {
                     Serial.println("| CONTROL | - Set Estado FLYING");
                     state = FLYING;
-                    timeState = 10000;
+                    timeState = 0;
                     commonValueServants = 0;
+                    return;
                 }
                 else {
-                    commonValueServants += 5;
-                    movement.setPercentVelocityMotor(commonValueServants, MOTOR_ALL);
-                    timeState = 1000;
+                    commonValueServants += 1;
+                   // movement.setPercentVelocityMotor(commonValueServants, MOTOR_ALL);
+                    timeState = 800;
                 }
-                previousState = state;
-                state = ARMED_ALL;
             }
             break;
         }
@@ -99,7 +97,17 @@ void Control::loopMotors()
             break;
         }
         case FLYING: {
-            movement.computeInclination();
+            if(timeState == 0) {
+                timeState = TIME_LOOP_FLYING;
+            
+                movement.computeInclination();
+                
+                movement.PID_Pitch(dt);
+                movement.PID_Roll(dt);
+                movement.PID_Yaw(dt);
+
+                movement.ApllyEffectsMotors();
+            }
             break;
         }
     }

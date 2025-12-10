@@ -36,22 +36,32 @@ void Gyroscope::readData()
     Wire.endTransmission(false);
     Wire.requestFrom(MPU_ADDR, 14, 1);  // pede 14 bytes de uma vez
 
-    AcX = Wire.read() << 8 | Wire.read();
-    AcY = Wire.read() << 8 | Wire.read();
-    AcZ = Wire.read() << 8 | Wire.read();
-    Tmp = Wire.read() << 8 | Wire.read();
-    GyX = Wire.read() << 8 | Wire.read();
-    GyY = Wire.read() << 8 | Wire.read();
-    GyZ = Wire.read() << 8 | Wire.read();
+    int16_t tempAcX = Wire.read() << 8 | Wire.read();
+    int16_t tempAcY = Wire.read() << 8 | Wire.read();
+    int16_t tempAcZ = Wire.read() << 8 | Wire.read();
+    int16_t tempTmp = Wire.read() << 8 | Wire.read();
+    int16_t tempGyX = Wire.read() << 8 | Wire.read();
+    int16_t tempGyY = Wire.read() << 8 | Wire.read();
+    int16_t tempGyZ = Wire.read() << 8 | Wire.read();
 
     // Atualiza valores com valores fisicos
-    AcX = (int16_t) ((AcX / ACCEL_SCALE) * 100);
-    AcY = (int16_t) ((AcY / ACCEL_SCALE) * 100);
-    AcZ = (int16_t) ((AcZ / ACCEL_SCALE) * 100);
-    Tmp = (int16_t) ((Tmp / 340.0 + 36.53) * 100);
-    GyX = (int16_t) ((GyX / GYRO_SCALE) * 100);
-    GyY = (int16_t) ((GyY / GYRO_SCALE) * 100);
-    GyZ = (int16_t) ((GyZ / GYRO_SCALE) * 100);
+    AcX = (int16_t)((tempAcX / ACCEL_SCALE) * 100);
+    AcY = (int16_t)((tempAcY / ACCEL_SCALE) * 100);
+    AcZ = (int16_t)((tempAcZ / ACCEL_SCALE) * 100);
+    Tmp = (int16_t)((tempTmp / 340.0 + 36.53) * 100); // em graus Celsius
+    GyX = (int16_t)((tempGyX / GYRO_SCALE) * 100);
+    GyY = (int16_t)((tempGyY / GYRO_SCALE) * 100);
+    GyZ = (int16_t)((tempGyZ / GYRO_SCALE) * 100);
+
+
+    Serial.print("|Gyroscope| - AcX: "); Serial.print(AcX / 100.0);
+    Serial.print(" AcY: "); Serial.print(AcY / 100.0);
+    Serial.print(" AcZ: "); Serial.print(AcZ / 100.0);
+    Serial.print(" Tmp: "); Serial.print(Tmp / 100.0);
+    Serial.print(" GyX: "); Serial.print(GyX / 100.0);
+    Serial.print(" GyY: "); Serial.print(GyY / 100.0);
+    Serial.print(" GyZ: "); Serial.println(GyZ / 100.0);
+
 }
 
 void Gyroscope::configMPU6050(){
@@ -87,12 +97,27 @@ void Gyroscope::configMPU6050(){
         Serial.println("|Gyroscope| - Interrupção do MPU6050 configurada!");
     }
 
-    // Configura taxa de trasmisao de dados para 80Hz
-    Serial.println("|Gyroscope| - Configurando taxa de transmissão do MPU6050 para 80Hz...");
+    // Configura taxa de trasmisao de dados para 250Hz
+    Serial.println("|Gyroscope| - Configurando taxa de transmissão do MPU6050 para 1kHz...");
+    // configurar DLPF para usar output rate 1 kHz
     Wire.beginTransmission(MPU_ADDR);
-    Wire.write(0x19);    // SMPLRT_DIV
-    Wire.write(0x63);    // 80Hz
-    resultDebug = Wire.endTransmission(true);
+    Wire.write(0x1A);      // CONFIG (DLPF_CFG)
+    Wire.write(0x03);      // DLPF_CFG = 3 (exemplo)
+    Wire.endTransmission(true);
+    vTaskDelay(5);
+    if (resultDebug != 0) {
+        Serial.print("|Gyroscope| - Erro ao configurar taxa de transmissão do MPU6050! Código: ");
+        Serial.println(resultDebug);
+        initSuccess = 0;
+    } else {
+        Serial.println("|Gyroscope| - Taxa de transmissão do MPU6050 configurada!");
+    }
+
+    // sample rate = 1kHz / (1 + SMPLRT_DIV)
+    Wire.beginTransmission(MPU_ADDR);
+    Wire.write(0x19);      // SMPLRT_DIV
+    Wire.write(0x0C);      // SMPLRT_DIV = 0 -> 1kHz
+    Wire.endTransmission(true);
     vTaskDelay(5);
     if (resultDebug != 0) {
         Serial.print("|Gyroscope| - Erro ao configurar taxa de transmissão do MPU6050! Código: ");
