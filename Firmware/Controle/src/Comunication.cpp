@@ -15,7 +15,7 @@ const unsigned long COMMAND_INTERVAL = 5000UL; // 5 segundos
 Communication* Communication::instance = nullptr;
 
 Communication::Communication() :
-    action(Command::NONE),
+    action(MoveCommand::NONE),
     power(100),
     battery(0),
     altitude(0),
@@ -110,7 +110,7 @@ void Communication::begin()
     Serial.println("|Comunication| Rádio iniciado.");
 }
 
-void Communication::setAction(const Command newAction)
+void Communication::setAction(const MoveCommand newAction)
 {
     if(action != newAction){
         newCommandAvailable = true;
@@ -118,40 +118,25 @@ void Communication::setAction(const Command newAction)
     action = newAction;
 }
 
-const Command Communication::getAction() const
+const MoveCommand Communication::getAction() const
 {
     return action;
 }
 
-void Communication::setPower(const uint8_t newPower)
-{
-    uint8_t clampedPower = (newPower > 100) ? 100 : newPower;
-    if(power != clampedPower){
-        newCommandAvailable = true;
-    }
-    power = clampedPower;
-}
-
-const uint8_t Communication::getPower() const
-{
-    return power;
-}
-
 void Communication::sendCommand()
 {
-    // Monta pacote: seq_hi, seq_lo, action, power, checksum
-    uint8_t pkt[5];
+    // Monta pacote: seq_hi, seq_lo, action, checksum
+    uint8_t pkt[4];
     pkt[0] = (uint8_t)((seqCounter >> 8) & 0xFF);
     pkt[1] = (uint8_t)(seqCounter & 0xFF);
-    pkt[2] = action;
-    pkt[3] = power;
-    pkt[4] = calcChecksum(pkt, 4);
+    pkt[2] = (uint8_t)action;
+    pkt[3] = calcChecksum(pkt, sizeof(pkt) - 1);
 
     uint32_t rttUs = 0;
     bool ackAvailable = transmitWithRetries(pkt, sizeof(pkt), &rttUs);
     if (ackAvailable) {
-        // Lê o ACK payload esperado (formato: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum)
-        uint8_t ack[7];
+        // Lê o ACK payload esperado (formato: seq_hi, seq_lo, battery, alt_hi, alt_lo, state, statusFlags, checksum)
+        uint8_t ack[8];
         radio.read(ack, sizeof(ack));
         if (verifyChecksum(ack, sizeof(ack))) {
             uint16_t ackSeq = (uint16_t(ack[0]) << 8) | ack[1];
@@ -160,21 +145,23 @@ void Communication::sendCommand()
                 battery = ack[2];
                 altitude = (int16_t)((int16_t(ack[3]) << 8) | ack[4]);
                 lastAckedSeq = ackSeq;
+                state = ack[5];
                 // avançar sequência para próximo comando
                 seqCounter++;
                 Serial.print("|Transmissor| Bateria = ");
                 Serial.print(battery);
                 Serial.print("%, Altitude = ");
                 Serial.print(altitude);
-                Serial.print(" cm, Latência = ");
+                Serial.print("cm, Estado = ");
+                Serial.print(state);
+                Serial.print(", Latência = ");
                 Serial.print(rttUs);
                 Serial.println(" us");
 
                 if (battery <= MIN_SAFE_BATTERY) {
                     Serial.println("[AVISO] Bateria baixa - pouso automático!");
+                    // Função para pouso seguro (a ser implementada)
                 }
-
-                return;
             } else {
                 Serial.print("|Transmissor| ACK seq mismatch (esperado ");
                 Serial.print(seqCounter);
@@ -209,38 +196,50 @@ void Communication::sendThing()
     yield();
 }
 
-void Communication::sendPing(uint8_t pingValue)
+void Communication::sendPing(MoveCommand pingValue)
 {
     if (!isControl) return;
 
     // Usamos seqCounter mas não incrementamos; ping usa action=pingValue e power=0
-    uint8_t pkt[5];
+    uint8_t pkt[4];
     pkt[0] = (uint8_t)((seqCounter >> 8) & 0xFF);
     pkt[1] = (uint8_t)(seqCounter & 0xFF);
-    pkt[2] = pingValue;
-    pkt[3] = 0;
-    pkt[4] = calcChecksum(pkt, 4);
-
-    radio.stopListening();
+    pkt[2] = (uint8_t)pingValue;
+    pkt[3] = calcChecksum(pkt, sizeof(pkt) - 1);
 
     uint32_t rttUs = 0;
     bool ackAvailable = transmitWithRetries(pkt, sizeof(pkt), &rttUs);
     if (ackAvailable) {
-        uint8_t ack[7];
+        uint8_t ack[8];
         radio.read(ack, sizeof(ack));
         if (verifyChecksum(ack, sizeof(ack))) {
             uint16_t ackSeq = (uint16_t(ack[0]) << 8) | ack[1];
-            battery = ack[2];
-            altitude = (int16_t)((int16_t(ack[3]) << 8) | ack[4]);
-            lastAckedSeq = ackSeq;
-            Serial.print("|Transmissor| Bateria = ");
-            Serial.print(battery);
-            Serial.print("%, Altitude = ");
-            Serial.print(altitude);
-            Serial.print(" cm");
-            Serial.print(", Latência = ");
-            Serial.print(rttUs);
-            Serial.println(" us");
+            if (ackSeq == seqCounter) {
+                battery = ack[2];
+                altitude = (int16_t)((int16_t(ack[3]) << 8) | ack[4]);
+                lastAckedSeq = ackSeq;
+                state = ack[5];
+                Serial.print("|Transmissor| Bateria = ");
+                Serial.print(battery);
+                Serial.print("%, Altitude = ");
+                Serial.print(altitude);
+                Serial.print(" cm, Estado = ");
+                Serial.print(state);
+                Serial.print(", Latência = ");
+                Serial.print(rttUs);
+                Serial.println(" us");
+
+                if (battery <= MIN_SAFE_BATTERY) {
+                    Serial.println("[AVISO] Bateria baixa - pouso automático!");
+                    // Função para pouso seguro (a ser implementada)
+                }
+            } else {
+                Serial.print("|Transmissor| Ping ACK seq mismatch (esperado ");
+                Serial.print(seqCounter);
+                Serial.print(", recebido ");
+                Serial.print(ackSeq);
+                Serial.println(")");
+            }
         } else {
             Serial.println("|Transmissor| Ping ACK corrompido.");
         }

@@ -21,32 +21,27 @@ extern const unsigned long COMMAND_INTERVAL;
 extern const uint8_t txAddress[6]; // controle envia/drone envia telemetria
 extern const uint8_t rxAddress[6]; // drone recebe/controle recebe telemetria
 
-enum Command : uint8_t
-{
+enum class MoveCommand : uint8_t {
     NONE = 0,
-    TAKEOFF = 1,
-    LAND = 2,
-    EMERGENCY_STOP = 3,
-    MOVE_FORWARD = 4,
-    MOVE_BACKWARD = 5,
-    MOVE_LEFT = 6,
-    MOVE_RIGHT = 7,
-    ASCEND = 8,
-    DESCEND = 9,
-    ROTATE_CW = 10,
-    ROTATE_CCW = 11
+    UP = 1, 
+    DOWN = 2,
+    FORWARD = 3,
+    BACKWARD = 4,
+    LEFT = 5,
+    RIGHT = 6,
+    STOP = 7
 };
 
 class Communication
 {
 private:
     // Dados de cada comando
-    Command action;
-    uint8_t power;  // 0-100%
+    MoveCommand action;
 
     // Dados de telemetria recebidos
     uint8_t battery;
     uint16_t altitude; // altitude em cm
+    uint8_t state;
 
     bool newCommandAvailable;
 
@@ -81,14 +76,12 @@ public:
     // inicializa o rádio
     void begin();
 
-    void setAction(const Command newAction);
-    const Command getAction() const;
-
-    void setPower(const uint8_t newPower);
-    const uint8_t getPower() const;
+    void setAction(const MoveCommand newAction);
+    const MoveCommand getAction() const;
 
     const uint8_t getBattery() const { return battery; }
     const uint16_t getAltitude() const { return altitude; }
+    const uint8_t getState() const { return state; }
 
     // Controle: envia comando e lê telemetria do ACK
     void sendCommand();
@@ -97,5 +90,5 @@ public:
     void sendThing();
 
     // Envia ping para atualizar telemetria mesmo sem novo comando
-    void sendPing(uint8_t pingValue = 0xFF);
+    void sendPing(MoveCommand pingValue = MoveCommand::NONE);
 };

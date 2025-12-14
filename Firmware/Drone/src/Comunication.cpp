@@ -14,9 +14,6 @@ unsigned long lastCommandReceivedMillis = 0;
 int potenciaMovemento = 50;
 int potenciaAscDesc = 80;
 
-static uint32_t _lastMillis = 0;
-uint32_t _now = 0;
-
 // Inicialização do ponteiro estático
 Communication* Communication::instance = nullptr;
 
@@ -108,7 +105,7 @@ const uint8_t Communication::getState() const
 void Communication::receiveCommand()
 {
     if (radio.available()) {
-        // Lê pacote (4 bytes esperado). Use payloadSize se dinâmico.
+        // Lê pacote (4 bytes esperado).
         uint8_t cmd[4];
         radio.read(cmd, sizeof(cmd));
 
@@ -116,8 +113,7 @@ void Communication::receiveCommand()
             now = millis();
             if (now - lastCommandReceivedMillis > CONNECTION_TIMEOUT) {
                 Serial.println("| Receptor | - [EMERGÊNCIA] Sinal perdido - iniciando pouso seguro!");
-                // função para pouso seguro
-                
+                // função para pouso seguro (a ser implementada)
                 return;
             }
         }
@@ -136,34 +132,28 @@ void Communication::receiveCommand()
 
         lastCommandReceivedMillis = millis(); // Atualiza o tempo da última comunicação
 
-        if (receivedAction == MoveCommand::NONE) {
-            //Serial.println("| Receptor | Pacote de ping recebido.");
-        } else if (isDuplicate) {
-            Serial.print("| Receptor | - Pacote duplicado seq ");
-            Serial.println(seq);
+        if (receivedAction != MoveCommand::NONE) {
+            if (isDuplicate) {
+                Serial.print("| Receptor | - Pacote duplicado seq ");
+                Serial.println(seq);
+            } else {
+                // novo pacote — atualiza ação e potência
+                action = receivedAction;
+                lastReceivedSeq = seq;
+
+                Serial.print("| Receptor | Ação = ");
+                Serial.println(static_cast<int>(action));
+                
+                // Aqui você aplicaria o comando ao drone ou enfileiraria para processamento
+
+            }
         } else {
-            // novo pacote — atualiza ação e potência
-            action = receivedAction;
-            lastReceivedSeq = seq;
-
-            Serial.print("| Receptor | Ação = ");
-            Serial.println(static_cast<int>(action));
-            
-            // Aqui você aplicaria o comando ao drone ou enfileiraria para processamento
-
-        }
-
-        _lastMillis = 0;
-        _now = millis();
-        if (_now - _lastMillis >= 500) {
-            _lastMillis = _now;
-            battery--;
-            if (battery < 0) battery = 100; // evita underflow
+            //Serial.println("| Receptor | Pacote de ping recebido.");
         }
 
         setState(Control::Init_Control()->getState());
 
-        // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, statusFlags, checksum
+        // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, state, statusFlags, checksum
         uint8_t ackPayload[8];
         ackPayload[0] = (uint8_t)((seq >> 8) & 0xFF);
         ackPayload[1] = (uint8_t)(seq & 0xFF);
@@ -176,7 +166,7 @@ void Communication::receiveCommand()
 
         if (battery <= MIN_SAFE_BATTERY) {
             Serial.println("| Receptor | - [AVISO] Bateria baixa - pouso automático!");
-            // função para pouso seguro
+            // função para pouso seguro (a ser implementada)
         }
 
         // envia telemetria no ACK (pipe 1)
