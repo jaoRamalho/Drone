@@ -37,6 +37,5 @@ void loop(){
   control->setMovementCommand(receiver->getAction());
 
   control->loop();
-  
-  vTaskDelay(1);
+
 }

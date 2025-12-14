@@ -5,7 +5,7 @@
 #include "MovementController.hpp"
 
 
-static const uint32_t TIME_LOOP_FLYING = 50; // em ms
+static const uint32_t TIME_LOOP_FLYING = 10; // em ms
 
 enum StateSystem : uint8_t {
     IDLE = 0,

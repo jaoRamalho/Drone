@@ -45,9 +45,9 @@ public:
     void setupMotors();
     uint8_t convertPercentForPeriod(uint8_t percent);
     void setPercentVelocityMotor(uint8_t percent, MotorNumber motorNumber);
-    void PID_Pitch(float dt);
-    void PID_Roll(float dt);
-    void PID_Yaw(float dt);
+    void PID_Pitch(double dt);
+    void PID_Roll(double dt);
+    void PID_Yaw(double dt);
     void ApllyEffectsMotors();
     void resetPIDValues();
 
@@ -61,9 +61,9 @@ private:
     uint8_t M1, M2, M3, M4;
 
 
-    float pitchP, pitchI, pitchD, pitch, pitchSetpoint, pitchError, pitchPrevError, outputPitch;
-    float rollP, rollI, rollD, roll, rollSetpoint, rollError, rollPrevError, outputRoll;
-    float yawP, yawI, yawD, yaw, yawSetpoint, yawError, yawPrevError, outputYaw;
+    double pitchP, pitchI, pitchD, pitch, pitchSetpoint, pitchError, pitchPrevError, outputPitch;
+    double rollP, rollI, rollD, roll, rollSetpoint, rollError, rollPrevError, outputRoll;
+    double yawP, yawI, yawD, yaw, yawSetpoint, yawError, yawPrevError, outputYaw;
 };
 
 #endif

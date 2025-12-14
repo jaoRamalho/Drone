@@ -53,14 +53,14 @@ void Gyroscope::readData()
     GyY = (int16_t)((tempGyY / GYRO_SCALE) * 100);
     GyZ = (int16_t)((tempGyZ / GYRO_SCALE) * 100);
 
-
-    Serial.print("|Gyroscope| - AcX: "); Serial.print(AcX / 100.0);
-    Serial.print(" AcY: "); Serial.print(AcY / 100.0);
-    Serial.print(" AcZ: "); Serial.print(AcZ / 100.0);
-    Serial.print(" Tmp: "); Serial.print(Tmp / 100.0);
-    Serial.print(" GyX: "); Serial.print(GyX / 100.0);
-    Serial.print(" GyY: "); Serial.print(GyY / 100.0);
-    Serial.print(" GyZ: "); Serial.println(GyZ / 100.0);
+    // Serial.print("|Gyroscope| - AcX: "); Serial.print(AcX / 100.0);
+    // Serial.print(" | AcY: "); Serial.print(AcY / 100.0);
+    // Serial.print(" | AcZ: "); Serial.print(AcZ / 100.0);
+    // Serial.print(" | Tmp: "); Serial.print(Tmp / 100.0);
+    // Serial.print(" | GyX: "); Serial.print(GyX / 100.0);
+    // Serial.print(" | GyY: "); Serial.print(GyY / 100.0);
+    // Serial.print(" | GyZ: "); Serial.print(GyZ / 100.0);
+    // Serial.println();
 
 }
 
@@ -116,7 +116,7 @@ void Gyroscope::configMPU6050(){
     // sample rate = 1kHz / (1 + SMPLRT_DIV)
     Wire.beginTransmission(MPU_ADDR);
     Wire.write(0x19);      // SMPLRT_DIV
-    Wire.write(0x0C);      // SMPLRT_DIV = 0 -> 1kHz
+    Wire.write(0x01);      // SMPLRT_DIV = 0 -> 1kHz
     Wire.endTransmission(true);
     vTaskDelay(5);
     if (resultDebug != 0) {

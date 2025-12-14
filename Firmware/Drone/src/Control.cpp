@@ -49,10 +49,8 @@ Control *Control::Init_Control()
 void Control::checkTimeButton(uint32_t deltaTime){
     if(deltaTime > 100) {
         if (systemState == IDLE) {
-            Serial.println("| CONTROL | - Entrando em START");
             systemState = START;
         } else if (systemState == START) {
-            Serial.println("| CONTROL | - Entrando em STOP");
             systemState = IDLE;
             movement.offMotors();
         } 
@@ -60,7 +58,7 @@ void Control::checkTimeButton(uint32_t deltaTime){
 }
 
 
-uint8_t commonValueServants = 0;
+uint8_t commonValueServants = 1;
 void Control::loopMotors(){
 
     switch (state){
@@ -75,17 +73,17 @@ void Control::loopMotors(){
         }
         case PREVIOUS_ARMED_ALL: {
             if (!timeState) {
-                if (commonValueServants >= 15) {
+                if (commonValueServants >= 30) {
                     Serial.println("| CONTROL | - Set Estado FLYING");
                     state = FLYING;
-                    timeState = 0;
+                    timeState = 1000000;
                     commonValueServants = 0;
                     return;
                 }
                 else {
                     commonValueServants += 1;
                    // movement.setPercentVelocityMotor(commonValueServants, MOTOR_ALL);
-                    timeState = 800;
+                    timeState = 500;
                 }
             }
             break;

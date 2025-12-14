@@ -6,23 +6,28 @@
 static const uint16_t OFFSET_MOTORS = 42;
 static const uint16_t MAX_MOTORS = 171;
 
-static const float KP_pitch = 1.5;    // Ganho Proporcional do Pitch
-static const float KI_pitch = 0.0;    // Ganho Integral do Pitch
-static const float KD_pitch = 0.5; // Ganho Derivativo do Pitch
+static const double KP_pitch = 0.0008;    // Ganho Proporcional do Pitch
+static const double KI_pitch = 0.000134;    // Ganho Integral do Pitch
+static const double KD_pitch = 0.000166; // Ganho Derivativo do Pitch
 
-static const float KP_roll = 1.5;     // Ganho Proporcional do Roll
-static const float KI_roll = 0.0;     // Ganho Integral do Roll
-static const float KD_roll = 0.5;  // Ganho Derivativo do
+static const double KP_roll = 0.0008;     // Ganho Proporcional do Roll
+static const double KI_roll = 0.000134;     // Ganho Integral do Roll
+static const double KD_roll = 0.000166;  // Ganho Derivativo do Roll
 
-static const float KP_yaw = 1.5;      // Ganho Proporcional do Yaw
-static const float KI_yaw = 0.0;      // Ganho Integral do Y
-static const float KD_yaw = 0.5;   // Ganho Derivativo do Yaw
+static const double KP_yaw = 1;      // Ganho Proporcional do Yaw
+static const double KI_yaw = 1;      // Ganho Integral do Y
+static const double KD_yaw = 1;   // Ganho Derivativo do Yaw
+
+
+static const double I_MAX = 100.0;
+static const double I_MIN = -100.0;
 
 MovementController::MovementController() : command(MoveCommand::NONE), AcX(0), AcY(0), AcZ(0), M1(0), M2(0), M3(0), M4(0),
     pitch(0), pitchSetpoint(0), pitchError(0), pitchPrevError(0), outputPitch(0),
     roll(0), rollSetpoint(0), rollError(0), rollPrevError(0), outputRoll(0),
     yaw(0), yawSetpoint(0), yawError(0), yawPrevError(0), outputYaw(0), GyX(0), GyY(0), GyZ(0), Tmp(0)
-{
+{   
+    resetPIDValues();
     setupMotors();
 }
 
@@ -50,29 +55,13 @@ void MovementController::resetPIDValues(){
 
 
 void MovementController::offMotors(){
-    m1.detach();
-    m2.detach();
-    m3.detach();
-    m4.detach();
-
-    // garante pinos em LOW (evita saída flutuante)
-    pinMode(PIN_M1, OUTPUT);
-    digitalWrite(PIN_M1, LOW);
-
-    pinMode(PIN_M2, OUTPUT);
-    digitalWrite(PIN_M2, LOW);
-
-    pinMode(PIN_M3, OUTPUT);
-    digitalWrite(PIN_M3, LOW);
-
-    pinMode(PIN_M4, OUTPUT);
-    digitalWrite(PIN_M4, LOW);
-
-    // zera valores internos
-    M4 = M3 = M2 = M1 = 0;
+    MovementController::setPercentVelocityMotor(0, MOTOR_ALL);
 }
 
 uint8_t MovementController::convertPercentForPeriod(uint8_t percent){
+    if (percent > 50) percent = 50;
+    if (percent < 0) percent = 0;
+
     return OFFSET_MOTORS + ((MAX_MOTORS - OFFSET_MOTORS) * percent) / 100;;
 }
 
@@ -131,8 +120,8 @@ void MovementController::setPercentVelocityMotor(uint8_t percent, MotorNumber mo
 /*
     dt -> tempo em segundos desde a última chamada
 */
-void MovementController::PID_Pitch(float dt){
-    float accPitch = atan2(AcY / 100.0, AcZ / 100.0) * 180 / PI;
+void MovementController::PID_Pitch(double dt){
+    double accPitch = atan2((double)AcY / 100.0, (double)AcZ / 100.0) * 180 / PI;
     pitch += GyX * dt;
 
     //filtro complementar
@@ -141,7 +130,10 @@ void MovementController::PID_Pitch(float dt){
     //PID
     pitchError = pitchSetpoint - pitch;
     pitchP = KP_pitch * pitchError;
+
     pitchI += KI_pitch * pitchError * dt;
+
+
     pitchD = KD_pitch * (pitchError - pitchPrevError) / dt;
     pitchPrevError = pitchError;
     outputPitch = pitchP + pitchI + pitchD;
@@ -150,8 +142,9 @@ void MovementController::PID_Pitch(float dt){
 /*
     dt -> tempo em segundos desde a última chamada
 */
-void MovementController::PID_Roll(float dt){
-    float accRoll = atan2(-AcX / 100.0, AcZ / 100.0) * 180 / PI;
+void MovementController::PID_Roll(double dt){
+    double accRoll = atan2(-(double)AcX / 100.0, (double)AcZ / 100.0) * 180 / PI;
+
     roll += GyY * dt;
 
     //filtro complementar
@@ -160,20 +153,40 @@ void MovementController::PID_Roll(float dt){
     //PID
     rollError = rollSetpoint - roll;
     rollP = KP_roll * rollError;
+
+    
     rollI += KI_roll * rollError * dt;
+
+
     rollD = KD_roll * (rollError - rollPrevError) / dt;
     rollPrevError = rollError;
     outputRoll = rollP + rollI + rollD;
 }
 
-void MovementController::PID_Yaw(float dt){
+void MovementController::PID_Yaw(double dt){
     yaw += GyZ * dt;
 
 }
 
+float limitPID(float value, float min, float max){
+    if (value > max) return max;
+    if (value < min) return min;
+    return value;
+}
+
 void MovementController::ApllyEffectsMotors(){
     // Ainda não vou aplicar, apenas logar os valores para plotagem
-    
+
+    int16_t m1 = M1 + outputPitch - outputRoll;
+    int16_t m2 = M2 + outputPitch + outputRoll;
+    int16_t m3 = M3 - outputPitch + outputRoll;
+    int16_t m4 = M4 - outputPitch - outputRoll;
+
+    Serial.print("| MOVEMENT | - Motors after PID effects: ");
+    Serial.print("M1: "); Serial.print(m1);
+    Serial.print(" | M2: "); Serial.print(m2);
+    Serial.print(" | M3: "); Serial.print(m3);
+    Serial.print(" | M4: "); Serial.println(m4);
 }
 
 void MovementController::computeInclination()
