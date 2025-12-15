@@ -45,9 +45,10 @@ private:
     Control();
 public:
     ~Control();
-    static uint32_t timeState;
+    static volatile uint32_t timeState;
     static uint8_t ledState;
-    static uint32_t timeLed;
+    static volatile uint32_t timeLed;
+    static volatile uint32_t accelerationTime;   
 
     static volatile bool buttonPressed;
     static volatile uint32_t timeButton;

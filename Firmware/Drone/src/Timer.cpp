@@ -20,6 +20,7 @@ void IRAM_ATTR MainTimer() {
     if (Control::timeState) { Control::timeState--; }
     if (Control::timeLed) { Control::timeLed--; }
     if(Control::timeBattery) { Control::timeBattery--; }
+    if(Control::accelerationTime) { Control::accelerationTime--; }
 }
 
 

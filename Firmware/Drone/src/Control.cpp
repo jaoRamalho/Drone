@@ -4,10 +4,11 @@ volatile bool Control::buttonPressed = false;
 volatile StateSystem Control::systemState = IDLE;
 volatile uint32_t Control::timeButton = 0;
 Control *Control::instance = nullptr;
-uint32_t Control::timeState = 0;
+volatile uint32_t Control::timeState = 0;
 uint8_t Control::ledState = 0;
-uint32_t Control::timeLed = 250;
+volatile uint32_t Control::timeLed = 250;
 volatile uint32_t Control::timeBattery = 0;
+volatile uint32_t Control::accelerationTime = 0;
 
 
 float dt = (float)TIME_LOOP_FLYING / 1000.0f; // em segundos
@@ -34,7 +35,6 @@ void Control::checkBattery(){
     if (timeBattery == 0){
         timeBattery = 1000;
         valueBattery = (uint8_t)(analogRead(V_BAT_PIN) / 10.53);
-       // Serial.println("| CONTROL | - Nível da bateria: " + String(valueBattery) + "%");
     }
 }
 
@@ -46,6 +46,7 @@ Control *Control::Init_Control()
     return instance;
 }
 
+uint8_t commonValueServants = 1;
 void Control::checkTimeButton(uint32_t deltaTime){
     if(deltaTime > 100) {
         if (systemState == IDLE) {
@@ -53,37 +54,43 @@ void Control::checkTimeButton(uint32_t deltaTime){
         } else if (systemState == START) {
             systemState = IDLE;
             movement.offMotors();
+            timeState = 0;
+            state = WAKEUP_ALL;
+            previousState = state;
+            movement.resetPIDValues();
+            commonValueServants = 0;
         } 
     }
 }
 
 
-uint8_t commonValueServants = 1;
 void Control::loopMotors(){
 
     switch (state){
         case WAKEUP_ALL: {
             Serial.println("| CONTROL | - Estado WAKEUP");
-            timeState = 0;
+            timeState = 10;
             movement.setPercentVelocityMotor(1, MOTOR_ALL);
             previousState = state;
-            state = FLYING;
+            state = PREVIOUS_ARMED_ALL;
             Serial.println("| CONTROL | - Set Estado ARMED");
+            setupTimeLED = 100;
             break;
         }
         case PREVIOUS_ARMED_ALL: {
             if (!timeState) {
-                if (commonValueServants >= 30) {
+                if (commonValueServants >= 25) {
                     Serial.println("| CONTROL | - Set Estado FLYING");
                     state = FLYING;
+                    setupTimeLED = 600;
                     timeState = 1000000;
                     commonValueServants = 0;
                     return;
                 }
                 else {
                     commonValueServants += 1;
-                   // movement.setPercentVelocityMotor(commonValueServants, MOTOR_ALL);
-                    timeState = 500;
+                    movement.setPercentVelocityMotor(commonValueServants, MOTOR_ALL);
+                    timeState = 600;
                 }
             }
             break;
@@ -106,8 +113,15 @@ void Control::loopMotors(){
 
                 movement.ApllyEffectsMotors();
             }
+
+            if (!accelerationTime) {
+                movement.loopAcceleration();
+                accelerationTime = 1; // atualiza a cada 1 ms
+            }
             break;
         }
+        default:
+            break;
     }
 }
 
@@ -144,5 +158,25 @@ void Control::loop(){
 void Control::setMovementCommand(MoveCommand cmd)
 {
     movement.setCommand(cmd);
+
+     switch (cmd) {
+        case MoveCommand::UP :
+            systemState = START; 
+            break;
+
+        case MoveCommand::STOP : 
+            systemState = IDLE;
+            movement.offMotors();
+            timeState = 10;
+            state = WAKEUP_ALL;
+            previousState = state;
+            movement.resetPIDValues();
+            commonValueServants = 0;    
+            break;
+
+        case MoveCommand::NONE :
+        default:
+            break;
+    }
 }
 

@@ -50,6 +50,7 @@ public:
     void PID_Yaw(double dt);
     void ApllyEffectsMotors();
     void resetPIDValues();
+    void loopAcceleration();
 
 
 
@@ -59,6 +60,7 @@ private:
 
     int16_t AcX, AcY, AcZ, GyX, GyY, GyZ, Tmp;    
     uint8_t M1, M2, M3, M4;
+    uint8_t setPointM1, setPointM2, setPointM3, setPointM4;
 
 
     double pitchP, pitchI, pitchD, pitch, pitchSetpoint, pitchError, pitchPrevError, outputPitch;

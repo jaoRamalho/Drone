@@ -6,13 +6,13 @@
 static const uint16_t OFFSET_MOTORS = 42;
 static const uint16_t MAX_MOTORS = 171;
 
-static const double KP_pitch = 0.0008;    // Ganho Proporcional do Pitch
-static const double KI_pitch = 0.000134;    // Ganho Integral do Pitch
-static const double KD_pitch = 0.000166; // Ganho Derivativo do Pitch
+static const double KP_pitch = 0.008;    // Ganho Proporcional do Pitch
+static const double KI_pitch = 0.00134;    // Ganho Integral do Pitch
+static const double KD_pitch = 0.00166; // Ganho Derivativo do Pitch
 
-static const double KP_roll = 0.0008;     // Ganho Proporcional do Roll
-static const double KI_roll = 0.000134;     // Ganho Integral do Roll
-static const double KD_roll = 0.000166;  // Ganho Derivativo do Roll
+static const double KP_roll = 0.008;     // Ganho Proporcional do Roll
+static const double KI_roll = 0.00134;     // Ganho Integral do Roll
+static const double KD_roll = 0.00166;  // Ganho Derivativo do Roll
 
 static const double KP_yaw = 1;      // Ganho Proporcional do Yaw
 static const double KI_yaw = 1;      // Ganho Integral do Y
@@ -53,6 +53,29 @@ void MovementController::resetPIDValues(){
     outputYaw = 0;
 }
 
+void MovementController::loopAcceleration(){
+    uint8_t m1 = M1;
+    uint8_t m2 = M2;
+    uint8_t m3 = M3;
+    uint8_t m4 = M4;
+
+    if(setPointM1 > m1) m1++;
+    else if(setPointM1 < m1) m1--;
+
+    if(setPointM2 > m2) m2++;
+    else if(setPointM2 < m2) m2--;
+
+    if(setPointM3 > m3) m3++;
+    else if(setPointM3 < m3) m3--;
+
+    if(setPointM4 > m4) m4++;
+    else if(setPointM4 < m4) m4--;
+
+    setPercentVelocityMotor(m1, MOTOR_1);
+    setPercentVelocityMotor(m2, MOTOR_2);
+    setPercentVelocityMotor(m3, MOTOR_3);
+    setPercentVelocityMotor(m4, MOTOR_4);
+}
 
 void MovementController::offMotors(){
     MovementController::setPercentVelocityMotor(0, MOTOR_ALL);
@@ -177,16 +200,10 @@ float limitPID(float value, float min, float max){
 void MovementController::ApllyEffectsMotors(){
     // Ainda não vou aplicar, apenas logar os valores para plotagem
 
-    int16_t m1 = M1 + outputPitch - outputRoll;
-    int16_t m2 = M2 + outputPitch + outputRoll;
-    int16_t m3 = M3 - outputPitch + outputRoll;
-    int16_t m4 = M4 - outputPitch - outputRoll;
-
-    Serial.print("| MOVEMENT | - Motors after PID effects: ");
-    Serial.print("M1: "); Serial.print(m1);
-    Serial.print(" | M2: "); Serial.print(m2);
-    Serial.print(" | M3: "); Serial.print(m3);
-    Serial.print(" | M4: "); Serial.println(m4);
+    setPointM1 = limitPID(20 + outputPitch + outputRoll, 20, 80);
+    setPointM2 = limitPID(20 + outputPitch - outputRoll, 20, 80);
+    setPointM3 = limitPID(20 - outputPitch - outputRoll, 20, 80);
+    setPointM4 = limitPID(20 - outputPitch + outputRoll, 20, 80);
 }
 
 void MovementController::computeInclination()
