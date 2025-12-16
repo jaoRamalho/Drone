@@ -4,7 +4,7 @@ import math
 import serial, time
 
 # --- serial ---
-ser = serial.Serial('COM8', 9600)
+ser = serial.Serial('COM11', 9600)
 ultimo_gesto = None
 t_ultimo_envio = 0
 DELAY = 0.5
