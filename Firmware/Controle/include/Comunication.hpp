@@ -30,13 +30,6 @@ enum class MoveCommand : uint8_t {
     LEFT = 5,
     RIGHT = 6,
     STOP = 7
-    UP = 1, 
-    DOWN = 2,
-    FORWARD = 3,
-    BACKWARD = 4,
-    LEFT = 5,
-    RIGHT = 6,
-    STOP = 7
 };
 
 class Communication
@@ -48,7 +41,6 @@ private:
     // Dados de telemetria recebidos
     uint8_t battery;
     uint16_t altitude; // altitude em cm
-    uint8_t state;
     uint8_t state;
 
     bool newCommandAvailable;
@@ -89,7 +81,6 @@ public:
 
     const uint8_t getBattery() const { return battery; }
     const uint16_t getAltitude() const { return altitude; }
-    const uint8_t getState() const { return state; }
     const uint8_t getState() const { return state; }
 
     // Controle: envia comando e lê telemetria do ACK

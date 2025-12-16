@@ -16,7 +16,6 @@ Communication* Communication::instance = nullptr;
 
 Communication::Communication() :
     action(MoveCommand::NONE),
-    power(100),
     battery(0),
     altitude(0),
     state(0),
@@ -129,11 +128,8 @@ void Communication::sendCommand()
     // Monta pacote: seq_hi, seq_lo, action, checksum
     uint8_t pkt[4];
     // Monta pacote: seq_hi, seq_lo, action, checksum
-    uint8_t pkt[4];
     pkt[0] = (uint8_t)((seqCounter >> 8) & 0xFF);
     pkt[1] = (uint8_t)(seqCounter & 0xFF);
-    pkt[2] = (uint8_t)action;
-    pkt[3] = calcChecksum(pkt, sizeof(pkt) - 1);
     pkt[2] = (uint8_t)action;
     pkt[3] = calcChecksum(pkt, sizeof(pkt) - 1);
 
@@ -150,7 +146,6 @@ void Communication::sendCommand()
                 battery = ack[2];
                 altitude = (int16_t)((int16_t(ack[3]) << 8) | ack[4]);
                 lastAckedSeq = ackSeq;
-                state = ack[5];
                 state = ack[5];
                 // avançar sequência para próximo comando
                 seqCounter++;
@@ -208,7 +203,6 @@ void Communication::sendPing(MoveCommand pingValue)
 
     // Usamos seqCounter mas não incrementamos; ping usa action=pingValue e power=0
     uint8_t pkt[4];
-    uint8_t pkt[4];
     pkt[0] = (uint8_t)((seqCounter >> 8) & 0xFF);
     pkt[1] = (uint8_t)(seqCounter & 0xFF);
     pkt[2] = (uint8_t)pingValue;
@@ -217,7 +211,6 @@ void Communication::sendPing(MoveCommand pingValue)
     uint32_t rttUs = 0;
     bool ackAvailable = transmitWithRetries(pkt, sizeof(pkt), &rttUs);
     if (ackAvailable) {
-        uint8_t ack[8];
         uint8_t ack[8];
         radio.read(ack, sizeof(ack));
         if (verifyChecksum(ack, sizeof(ack))) {
