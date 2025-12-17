@@ -214,28 +214,36 @@ void MovementController::computeInclination()
 
     switch (command) {
         case MoveCommand::UP :
+            Serial.println("SUBINDO");
             break;
 
         case MoveCommand::DOWN : 
+            Serial.println("DESCENDO");
             break;
 
         case MoveCommand::FORWARD : 
+            Serial.println("AVANÇANDO");
             break;
 
         case MoveCommand::BACKWARD :
+            Serial.println("RETROCEDENDO");
             break;
 
         case MoveCommand::LEFT :
+            Serial.println("ESQUERDA");
             break;
 
         case MoveCommand::RIGHT :
+            Serial.println("DIREITA");
             break;
 
         case MoveCommand::STOP : 
+            Serial.println("PARANDO");
             break;
 
         case MoveCommand::NONE :
         default:
+            Serial.println("NONE");
             break;
     }
 

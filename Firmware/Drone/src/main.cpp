@@ -38,4 +38,5 @@ void loop(){
 
   control->loop();
 
+  vTaskDelay(1);
 }

@@ -35,6 +35,8 @@ void Control::checkBattery(){
     if (timeBattery == 0){
         timeBattery = 1000;
         valueBattery = (uint8_t)(analogRead(V_BAT_PIN) / 10.53);
+        Serial.print("| CONTROL | - Nível da bateria: ");
+        Serial.print(valueBattery);
     }
 }
 
@@ -158,10 +160,13 @@ void Control::loop(){
 void Control::setMovementCommand(MoveCommand cmd)
 {
     movement.setCommand(cmd);
+    // Serial.print("| CONTROL | - Comando recebido: ");
+    // Serial.println(static_cast<int>(cmd));
 
      switch (cmd) {
         case MoveCommand::UP :
             systemState = START; 
+            Serial.println("SUBINDO");
             break;
 
         case MoveCommand::STOP : 
@@ -171,7 +176,8 @@ void Control::setMovementCommand(MoveCommand cmd)
             state = WAKEUP_ALL;
             previousState = state;
             movement.resetPIDValues();
-            commonValueServants = 0;    
+            commonValueServants = 0; 
+            Serial.println("PARANDO");   
             break;
 
         case MoveCommand::NONE :

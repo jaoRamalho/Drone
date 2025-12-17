@@ -119,7 +119,7 @@ void Communication::receiveCommand()
         }
 
         // Verifica checksum
-        if (!verifyChecksum(cmd, sizeof(cmd))) {
+        if (!verifyChecksum(cmd, 4)) {
             Serial.println("| Receptor | - Pacote corrompido (checksum inválido). Ignorando.");
             yield();
             return;
@@ -153,21 +153,29 @@ void Communication::receiveCommand()
 
         setState(Control::Init_Control()->getState());
 
+
+
         // Prepara telemetria para envio: seq_hi, seq_lo, battery, alt_hi, alt_lo, state, statusFlags, checksum
         uint8_t ackPayload[8];
         ackPayload[0] = (uint8_t)((seq >> 8) & 0xFF);
         ackPayload[1] = (uint8_t)(seq & 0xFF);
-        ackPayload[2] = battery;
+        ackPayload[2] = Control::Init_Control()->getBatteryLevel();
         ackPayload[3] = (uint8_t)((altitude >> 8) & 0xFF);
         ackPayload[4] = (uint8_t)(altitude & 0xFF);
         ackPayload[5] = state;
         ackPayload[6] = 0x00; // statusFlags (reservado)
-        ackPayload[7] = calcChecksum(ackPayload, sizeof(ackPayload) - 1);
+        ackPayload[7] = calcChecksum(ackPayload, 7);
 
         if (battery <= MIN_SAFE_BATTERY) {
             Serial.println("| Receptor | - [AVISO] Bateria baixa - pouso automático!");
             // função para pouso seguro (a ser implementada)
         }
+
+        // Serial.print("| Receptor | - Enviado: ");
+        // for (size_t i = 0; i < sizeof(ackPayload); ++i) {
+        //     Serial.print(ackPayload[i]);
+        //     Serial.print(" ");
+        // }
 
         // envia telemetria no ACK (pipe 1)
         radio.writeAckPayload(1, ackPayload, sizeof(ackPayload));
