@@ -19,7 +19,7 @@ Communication::Communication() :
     battery(0),
     altitude(0),
     state(0),
-    seqCounter(1),
+    seqCounter(0),
     lastAckedSeq(0),
     lastReceivedSeq(0xFFFF), // inválido inicialmente
     maxRetries(3),
@@ -131,7 +131,7 @@ void Communication::sendCommand()
     pkt[0] = (uint8_t)((seqCounter >> 8) & 0xFF);
     pkt[1] = (uint8_t)(seqCounter & 0xFF);
     pkt[2] = (uint8_t)action;
-    pkt[3] = calcChecksum(pkt, sizeof(pkt) - 1);
+    pkt[3] = calcChecksum(pkt, 3);
 
     uint32_t rttUs = 0;
     bool ackAvailable = transmitWithRetries(pkt, sizeof(pkt), &rttUs);
@@ -139,7 +139,7 @@ void Communication::sendCommand()
         // Lê o ACK payload esperado (formato: seq_hi, seq_lo, battery, alt_hi, alt_lo, state, statusFlags, checksum)
         uint8_t ack[8];
         radio.read(ack, sizeof(ack));
-        if (verifyChecksum(ack, sizeof(ack))) {
+        if (verifyChecksum(ack, 8)) {
             uint16_t ackSeq = (uint16_t(ack[0]) << 8) | ack[1];
             if (ackSeq == seqCounter) {
                 // Confirma telemetria
@@ -147,8 +147,6 @@ void Communication::sendCommand()
                 altitude = (int16_t)((int16_t(ack[3]) << 8) | ack[4]);
                 lastAckedSeq = ackSeq;
                 state = ack[5];
-                // avançar sequência para próximo comando
-                seqCounter++;
                 Serial.print("|Transmissor| Bateria = ");
                 Serial.print(battery);
                 Serial.print("%, Altitude = ");
@@ -186,6 +184,8 @@ void Communication::sendThing()
     if (newCommandAvailable) {
         sendCommand();
         newCommandAvailable = false;
+        Serial.print("|Transmissor| Comando enviado: ");
+        Serial.println(static_cast<uint8_t>(action));
     }
 
     if (sendPingFlag) {
@@ -206,14 +206,14 @@ void Communication::sendPing(MoveCommand pingValue)
     pkt[0] = (uint8_t)((seqCounter >> 8) & 0xFF);
     pkt[1] = (uint8_t)(seqCounter & 0xFF);
     pkt[2] = (uint8_t)pingValue;
-    pkt[3] = calcChecksum(pkt, sizeof(pkt) - 1);
+    pkt[3] = calcChecksum(pkt, 3);
 
     uint32_t rttUs = 0;
     bool ackAvailable = transmitWithRetries(pkt, sizeof(pkt), &rttUs);
     if (ackAvailable) {
         uint8_t ack[8];
         radio.read(ack, sizeof(ack));
-        if (verifyChecksum(ack, sizeof(ack))) {
+        if (verifyChecksum(ack, 8)) {
             uint16_t ackSeq = (uint16_t(ack[0]) << 8) | ack[1];
             if (ackSeq == seqCounter) {
                 battery = ack[2];
